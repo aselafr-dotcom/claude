@@ -20,6 +20,7 @@
         <a href="#experience">Experience</a>
         <a href="#freelance">Freelance</a>
         <a href="#evidence">Reports</a>
+        <a href="#skills">Skills</a>
         <a href="#behance">Behance</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -38,7 +39,7 @@
     <section class="slide reveal" id="home">
       <div class="hero-panel">
         <div>
-          <span class="pill outline" style="color:#fff">Digital marketing portfolio</span>
+          <div id="heroTags" style="display:flex;gap:6px;flex-wrap:wrap"></div>
           <h1 class="display" id="heroTitle">Digital Marketing Portfolio</h1>
           <p class="lead" id="heroSummary"></p>
         </div>
@@ -57,19 +58,19 @@
     <!-- 02 Contents -->
     <section class="slide reveal" id="toc">
       <div class="slide-head">
-        <span class="slide-num">02 / 08</span>
+        <span class="slide-num"></span>
         <span class="star" aria-hidden="true">✳</span>
       </div>
       <div class="toc" id="tocGrid"></div>
       <div class="slide-head" style="margin:34px 0 0;align-items:flex-end">
         <h2 class="display">Portfolio<br>Table of Content</h2>
-        <p class="kicker">Every number on this page links to the report, dashboard or live post it came from.</p>
+        <p class="kicker">Headline numbers point to the report, profile or live post behind them. Pending sources are marked as such.</p>
       </div>
     </section>
 
     <!-- 03 Achievements -->
     <section class="slide reveal" id="achievements">
-      <div class="slide-head"><span class="slide-num">03 / 08</span><span class="pill">Insights</span></div>
+      <div class="slide-head"><span class="slide-num"></span><span class="pill">Insights</span></div>
       <div class="achieve">
         <div class="phone">
           <div class="art art-wave"></div>
@@ -88,11 +89,11 @@
     <section class="slide reveal" id="experience">
       <div class="slide-head">
         <div style="display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap">
-          <span class="slide-num" style="width:100%">04 / 08</span>
+          <span class="slide-num" style="width:100%"></span>
           <span class="pill mint" style="padding:8px 14px">● Work Experience</span>
           <p class="kicker">Roles, responsibilities and the measurable outcome of each, with links to the supporting report.</p>
         </div>
-        <h2 class="title" style="text-align:right">Experience<br>&amp; Impact</h2>
+        <h2 class="title align-end">Experience<br>&amp; Impact</h2>
       </div>
       <div class="exp-list" id="expList"></div>
     </section>
@@ -101,7 +102,7 @@
     <section class="slide reveal" id="freelance">
       <div class="slide-head">
         <div>
-          <span class="slide-num">05 / 08</span>
+          <span class="slide-num"></span>
           <h2 class="title" style="margin-top:10px">Freelance<br>Projects</h2>
         </div>
         <p class="kicker">Independent client work. Each case study runs challenge, approach, results, then the proof behind the results.</p>
@@ -113,7 +114,7 @@
     <section class="slide reveal" id="evidence">
       <div class="slide-head">
         <div>
-          <span class="slide-num">06 / 08</span>
+          <span class="slide-num"></span>
           <h2 class="title" style="margin-top:10px">Reports &amp;<br>Evidence Library</h2>
         </div>
         <p class="kicker">All supporting material in one place: performance reports, dashboards, live campaigns and case studies.</p>
@@ -128,7 +129,7 @@
 
     <!-- 07 Behance -->
     <section class="slide reveal" id="behance">
-      <div class="slide-head"><span class="slide-num">07 / 08</span><span class="pill">Behance</span></div>
+      <div class="slide-head"><span class="slide-num"></span><span class="pill">Behance</span></div>
       <div class="behance">
         <div style="display:flex;flex-direction:column;gap:18px;justify-content:space-between">
           <h2 class="display" id="behanceTitle">Work Showcased on Behance</h2>
@@ -143,13 +144,30 @@
 
     <!-- 08 Skills -->
     <section class="slide reveal" id="skills">
-      <div class="slide-head"><span class="slide-num">08 / 08</span></div>
+      <div class="slide-head">
+        <div>
+          <span class="slide-num"></span>
+          <h2 class="title" style="margin-top:10px">Core Competencies<br>&amp; Tech Stack</h2>
+        </div>
+        <p class="kicker">Nine capability areas, from strategy and paid media through analytics, AI automation and in-house creative production.</p>
+      </div>
+      <div class="grid cols-3" id="skillGroups"></div>
+    </section>
+
+    <!-- 09 Education & certifications -->
+    <section class="slide reveal" id="education">
+      <div class="slide-head"><span class="slide-num"></span><span class="star" aria-hidden="true">✳</span></div>
       <div class="skills-layout">
         <div>
-          <div id="skillGroups"></div>
-          <h2 class="title" style="margin-top:34px">Skills, Tools &amp;<br>Certifications</h2>
+          <p class="small" style="margin-bottom:10px">Education</p>
+          <div class="grid" id="eduList"></div>
+          <h2 class="title" style="margin-top:34px">Education &amp;<br>Certifications</h2>
         </div>
-        <div id="certList" class="grid"></div>
+        <div>
+          <p class="small" style="margin-bottom:10px">Licenses &amp; certifications</p>
+          <div class="grid" id="certList"></div>
+          <div id="walletCta" style="margin-top:14px"></div>
+        </div>
         <div class="phone"><div class="art art-dark"></div></div>
       </div>
     </section>
@@ -158,6 +176,7 @@
     <section class="slide contact reveal" id="contact">
       <div class="contact-side">
         <span class="pill mint" style="align-self:flex-start">Open to work</span>
+        <div id="contactFacts" style="display:flex;gap:6px;flex-wrap:wrap"></div>
         <div class="art art-ribs" aria-hidden="true"></div>
       </div>
       <div class="contact-main">

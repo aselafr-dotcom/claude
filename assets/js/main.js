@@ -14,8 +14,14 @@
 
   const safeUrl = (u) => (typeof u === "string" && /^(https?:|mailto:|tel:|\.?\/|assets\/)/i.test(u.trim()) ? u.trim() : "");
 
-  const EV_ICON = { report: "R", live: "L", behance: "Be", dashboard: "D", doc: "D", video: "V" };
-  const EV_NAME = { report: "Report", live: "Live link", behance: "Behance", dashboard: "Dashboard", doc: "Document", video: "Video" };
+  const EV_ICON = { report: "R", live: "L", behance: "Be", dashboard: "D", doc: "D", video: "V", press: "P", profile: "in", credential: "C" };
+  const EV_NAME = { report: "Report", live: "Live link", behance: "Behance", dashboard: "Dashboard", doc: "Document", video: "Video", press: "Press", profile: "Profile", credential: "Credential" };
+
+  // "Label: detail" bullets get a bold label.
+  const bullet = (b) => {
+    const m = /^([^:]{3,48}):\s(.+)$/.exec(b);
+    return m && !isTbc(b) ? `<b>${esc(m[1])}:</b> ${esc(m[2])}` : t(b);
+  };
 
   function evLink(ev) {
     const url = safeUrl(ev.url);
@@ -39,12 +45,15 @@
     document.querySelectorAll('[data-bind="owner.brand"]').forEach((el) => (el.textContent = o.brand));
     document.querySelectorAll('[data-bind="owner.year"]').forEach((el) => (el.textContent = o.year));
     $("#heroTitle").innerHTML = `${esc(o.name)}<br>${esc(o.title)}`;
+    $("#heroTags").innerHTML = (o.tagline || [])
+      .map((x, i) => `<span class="pill ${i === 0 ? "mint" : "outline"}" style="${i ? "color:#fff" : ""}">${esc(x)}</span>`)
+      .join("");
     $("#heroSummary").innerHTML = t(o.summary);
 
     const h = D.highlights;
     $("#heroRow").innerHTML = `
       <div class="card mint">
-        <h3>Strategy, content and paid media, measured end to end</h3>
+        <h3>Performance marketing, lead generation, SEO and AI automation for B2B and B2C brands</h3>
         <p class="small" style="color:#1b1b1b">${t(o.location)}</p>
       </div>
       <div class="card">
@@ -65,7 +74,7 @@
       ...D.freelance.map((f) => ({ href: `#${f.id}`, title: f.client, text: "Freelance case study" })),
       { href: "#evidence", title: "Reports & Evidence", text: "Every report in one table" },
       { href: "#behance", title: "Behance", text: "Published project work" },
-      { href: "#contact", title: "Get in Touch", text: "Contact and CV" },
+      { href: "#skills", title: "Skills & Education", text: `${D.skills.length} competency areas, ${D.certifications.length} certifications` },
     ];
     $("#tocGrid").innerHTML = items
       .map((it, i) => {
@@ -97,27 +106,35 @@
   /* ---------- Experience ---------- */
   function renderExperience() {
     $("#expList").innerHTML = D.experience
-      .map(
-        (e, i) => `<article class="exp">
+      .map((e, i) => {
+        const metrics = e.metrics?.length
+          ? `<p class="small">Measured impact</p>
+             <div class="metrics">${e.metrics
+               .map((m) => `<div class="metric"><b>${t(m.value)}</b><span class="small">${t(m.label)}</span></div>`)
+               .join("")}</div>`
+          : "";
+        const focus = e.focus?.length
+          ? `<p class="small">Key focus</p>
+             <div class="chips">${e.focus.map((f) => `<span class="chip" style="background:rgba(255,255,255,.12)">${t(f)}</span>`).join("")}</div>`
+          : "";
+        const evidence = e.evidence?.length ? `<div class="evidence">${e.evidence.map(evLink).join("")}</div>` : "";
+        return `<article class="exp">
           <div class="card ${i === 0 ? "mint" : ""}">
             <span class="small" style="color:inherit;opacity:.7">${String(i + 1).padStart(2, "0")} · ${t(e.period)}</span>
             <h3 class="role">${t(e.role)}</h3>
             <p style="font-weight:600">${t(e.company)}</p>
             <p class="small" style="color:inherit;opacity:.7">${t(e.location)}</p>
+            ${e.brands?.length ? `<div class="chips">${e.brands.map((x) => `<span class="chip" style="background:rgba(255,255,255,.55)">${esc(x)}</span>`).join("")}</div>` : ""}
           </div>
           <div class="card">
-            <p>${t(e.summary)}</p>
-            <ul>${e.bullets.map((b) => `<li>${t(b)}</li>`).join("")}</ul>
+            <p style="font-weight:600">${t(e.summary)}</p>
+            <ul>${e.bullets.map((x) => `<li>${bullet(x)}</li>`).join("")}</ul>
           </div>
           <div class="card forest">
-            <p class="small">Measured impact</p>
-            <div class="metrics">${e.metrics
-              .map((m) => `<div class="metric"><b>${t(m.value)}</b><span class="small">${t(m.label)}</span></div>`)
-              .join("")}</div>
-            <div class="evidence">${e.evidence.map(evLink).join("")}</div>
+            ${metrics}${focus}${evidence}
           </div>
-        </article>`
-      )
+        </article>`;
+      })
       .join("");
   }
 
@@ -195,15 +212,21 @@
   /* ---------- Evidence library ---------- */
   function renderEvidence() {
     const rows = [];
-    D.experience.forEach((e) => e.evidence.forEach((ev) => rows.push({ project: `${e.company}`, sub: e.role, ev })));
+    rows.push({ project: D.owner.name, sub: "Career history and recommendations", ev: { type: "profile", label: "LinkedIn profile", url: D.owner.linkedin } });
+    if (D.credentialWallet) rows.push({ project: "Certifications", sub: `${D.certifications.length} verified credentials`, ev: { type: "credential", label: "Credential wallet", url: D.credentialWallet } });
+    D.experience.forEach((e) => (e.evidence || []).forEach((ev) => rows.push({ project: e.company, sub: e.role, ev })));
     D.freelance.forEach((f) => f.evidence.forEach((ev) => rows.push({ project: f.client, sub: "Freelance", ev })));
-    D.highlights.forEach((h) => h.source && rows.push({ project: "Key achievements", sub: h.label, ev: { type: "report", ...h.source } }));
+    const seen = new Set(rows.map((r) => safeUrl(r.ev.url)).filter(Boolean));
+    D.highlights.forEach((h) => {
+      if (!h.source || seen.has(safeUrl(h.source.url))) return;
+      rows.push({ project: "Key achievements", sub: `${h.value} ${h.label}`, ev: { type: "report", ...h.source } });
+    });
     rows.push({ project: "Behance", sub: D.behance.projectTitle, ev: { type: "behance", label: D.behance.projectTitle, url: D.behance.url } });
 
     $("#evidenceRows").innerHTML = rows
       .map(({ project, sub, ev }) => {
         const url = safeUrl(ev.url);
-        const tone = ev.type === "report" ? "mint" : ev.type === "behance" ? "dark" : "";
+        const tone = ev.type === "report" ? "mint" : ev.type === "behance" || ev.type === "profile" ? "dark" : ev.type === "credential" ? "forest" : "";
         return `<tr>
           <td class="type"><span class="pill ${tone}">${esc(EV_NAME[ev.type] || ev.type)}</span></td>
           <td><b>${t(project)}</b><br><span class="small">${t(sub)}</span></td>
@@ -235,25 +258,49 @@
 
   /* ---------- Skills ---------- */
   function renderSkills() {
+    const tones = ["mint", "", "", "", "forest", "", "", "", "ink"];
     $("#skillGroups").innerHTML = D.skills
-      .map((g) => `<div class="skill-group"><p style="font-weight:600">${esc(g.group)}</p><div class="chips">${g.items.map((x) => `<span class="chip">${t(x)}</span>`).join("")}</div></div>`)
-      .join("");
-    $("#certList").innerHTML = D.certifications
-      .map((c, i) => {
-        const url = safeUrl(c.url);
-        return `<div class="card ${i % 2 ? "" : "mint"}">
-          <span class="small" style="color:inherit;opacity:.7">${t(c.issuer)} · ${t(c.year)}</span>
-          <h3>${t(c.title)}</h3>
-          ${url ? `<a class="small" href="${esc(url)}" target="_blank" rel="noopener" style="color:inherit">Verify credential ↗</a>` : '<span class="small" style="color:inherit;opacity:.7">Credential link pending</span>'}
+      .map((g, i) => {
+        const tone = tones[i % tones.length];
+        const chipBg = tone ? "rgba(255,255,255,.18)" : "#fff";
+        return `<div class="card ${tone}">
+          <span class="small" style="color:inherit;opacity:.65">${String(i + 1).padStart(2, "0")}</span>
+          <h3>${esc(g.group)}</h3>
+          <div class="chips">${g.items.map((x) => `<span class="chip" style="background:${tone === "mint" ? "rgba(255,255,255,.5)" : chipBg}">${t(x)}</span>`).join("")}</div>
         </div>`;
       })
       .join("");
   }
 
+  function renderEducation() {
+    $("#eduList").innerHTML = (D.education || [])
+      .map((e, i) => `<div class="card ${i === 0 ? "forest" : "line"}">
+          ${e.status ? `<span class="small" style="color:inherit;opacity:.7">${esc(e.status)}</span>` : ""}
+          <h3 style="font-size:17px">${esc(e.title)}</h3>
+          <span class="small" style="color:inherit;opacity:.7">${esc(e.institution)}</span>
+        </div>`)
+      .join("");
+    $("#certList").innerHTML = D.certifications
+      .map((c, i) => {
+        const url = safeUrl(c.url);
+        return `<div class="card ${i === 0 ? "mint" : ""}" style="padding:14px 18px;gap:4px">
+          <h3 style="font-size:16px">${t(c.title)}</h3>
+          <span class="small" style="color:inherit;opacity:.7">${t(c.issuer)}${c.year ? ` · ${t(c.year)}` : ""}</span>
+          ${url ? `<a class="small" href="${esc(url)}" target="_blank" rel="noopener" style="color:inherit">Verify credential ↗</a>` : ""}
+        </div>`;
+      })
+      .join("");
+    const wallet = safeUrl(D.credentialWallet);
+    $("#walletCta").innerHTML = wallet
+      ? `<a class="behance-cta" href="${esc(wallet)}" target="_blank" rel="noopener">Verify credentials in wallet ↗</a>`
+      : "";
+  }
+
   /* ---------- Contact ---------- */
   function renderContact() {
     const o = D.owner;
-    $("#contactLead").innerHTML = `Available for full-time roles and freelance projects. ${t(o.location)}`;
+    $("#contactLead").innerHTML = `Available for full-time roles and freelance projects. Based in ${t(o.location)}.`;
+    $("#contactFacts").innerHTML = (o.facts || []).map((f) => `<span class="pill outline" style="color:#fff">${esc(f)}</span>`).join("");
     const links = [
       { label: "Email", value: o.email, url: o.email ? `mailto:${o.email}` : "" },
       { label: "Phone", value: o.phone, url: o.phone ? `tel:${o.phone.replace(/\s+/g, "")}` : "" },
@@ -291,6 +338,15 @@
   }
 
   /* ---------- Behaviour ---------- */
+  function numberSlides() {
+    const slides = [...document.querySelectorAll("main > section.slide:not(.contact)")];
+    const total = String(slides.length).padStart(2, "0");
+    slides.forEach((sec, i) => {
+      const el = sec.querySelector(".slide-num");
+      if (el) el.textContent = `${String(i + 1).padStart(2, "0")} / ${total}`;
+    });
+  }
+
   function wireUi() {
     const bar = $("#topbar"), btn = $("#menuBtn");
     btn.addEventListener("click", () => {
@@ -326,7 +382,9 @@
   renderEvidence();
   renderBehance();
   renderSkills();
+  renderEducation();
   renderContact();
+  numberSlides();
   renderDataNote();
   wireUi();
 })();
