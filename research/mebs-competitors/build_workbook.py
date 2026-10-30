@@ -19,7 +19,7 @@ COLS = ["#", "Company", "Core services", "Owner / parent group", "Owner national
         "Ownership type", "Founded", "Head office", "Coverage",
         "Employees (reported)", "Company capacity / scale", "Revenue (published or third-party)",
         "Indicative revenue (our estimate*)", "Licences / certifications", "Notable clients / contracts",
-        "Why they compete with MEBS", "Data confidence", "Main sources"]
+        "Why they compete with MEBS", "Government ownership check", "Data confidence", "Main sources"]
 
 FM = [
  dict(name="Farnek Services LLC", svc="Integrated FM: MEP/hard services, cleaning, security (Farnek Security), hospitality staffing, smart/green FM",
@@ -37,16 +37,8 @@ FM = [
       cap="50M+ sqm under management; US$1bn international order book milestone",
       rev="Approx. US$270M in 2021 (Forbes ME). A separate Forbes ME profile cites US$900M for 2021, so figures conflict",
       lic="SIRA (security subsidiaries)", cli="Large government-related and corporate portfolios across GCC",
-      why="Full IFM incl. in-house security, Dubai HQ, competes for the same commercial and community contracts", conf="Medium",
+      gov="Private shareholders (names not published); bought out EMCOR in 2009. No government stake found", why="Full IFM incl. in-house security, Dubai HQ, competes for the same commercial and community contracts", conf="Medium",
       src="forbesmiddleeast.com (Tariq Chauhan); gulfbusiness.com (EMCOR buyout); zawya.com (SecurePlus, Guardian acquisitions); newsroom.efsme.com"),
- dict(name="Enova by Veolia", svc="Facility & energy management: MEP, soft services, energy performance contracts (Hubgrade monitoring centre)",
-      owner="JV: Majid Al Futtaim (private Emirati family conglomerate) + Veolia (French, listed)",
-      nat="Emirati / French", own="Private JV", year="2002", hq="Deira City Centre complex, Dubai", cov="UAE, KSA, Egypt, Oman, Qatar, Türkiye",
-      emp="3,000+ (company)", e=(3000,3000),
-      cap="Malls and retail portfolios; Hubgrade remote energy monitoring centre",
-      rev="Not published (third-party estimates unreliable)", lic="ISO-certified (per company)", cli="MAF malls (City Centre, Mall of the Emirates), Dubai Airports Emiratisation partnership, Saudi malls",
-      why="Strong in retail, mall and commercial FM where MEBS sells security and cleaning", conf="Medium",
-      src="enova-me.com; Enova corporate brochure (emiratesgbc.org); zawya.com (Saudi malls contract)"),
  dict(name="Al Shirawi Facilities Management LLC", svc="Integrated FM: MEP, civil, cleaning, landscaping, pest control",
       owner="Al Shirawi Group. Chairman Mohamed Al Shirawi; co-founders Abdulla Al Shirawi and Mohan Valrani",
       nat="Emirati / Indian", own="Private family group", year="Group 1971 (FM operations from 1974 per MEFMA listing)", hq="Dubai", cov="UAE",
@@ -69,40 +61,40 @@ FM = [
       cap="Started as a cleaning company and grew into IFM", rev="Not published", lic="ISO certified (per company)", cli="Not published",
       why="Size peer that also grew from one service line into IFM, as MEBS did", conf="Low",
       src="delightifm.com/about; devex.com; enggpro.com"),
- dict(name="Dulsco Group", svc="Manpower outsourcing (People Solutions), waste management (Environmental Solutions), FM services, recruitment",
-      owner="Private shareholders incl. Sheikh Mana bin Khalifa Al Maktoum (founder WAFI Group, private capacity) and Abdul Rahman Sharif Al Baidhaei (ARMS Group). Group CEO David Stockton",
-      nat="Emirati", own="Private (note: one shareholder is a royal family member in a private capacity, not a government entity)", year="1935", hq="Dubai", cov="UAE, GCC, UK (acquired Advance Global Recruitment)",
-      emp="14,000+ (company)", e=(14000,14000),
-      cap="Workers deployed across 75 job categories; 90-year history", rev="Not published (aggregator estimates range from US$400M to US$6.7B, unreliable)",
-      lic="Not published", cli="Large corporate and real estate clients",
-      why="Supplies cleaning and FM manpower in the same Dubai market", conf="Medium",
-      src="zawya.com (90 years release); khaleejtimes.com (AGR acquisition); gulftalent.com"),
- dict(name="ServeU LLC", svc="Integrated FM: MEP, cleaning, housekeeping, disinfection, logistics; domestic workers unit",
-      owner="Union Properties PJSC (Dubai Financial Market listed; approx. 90% held by the general public)",
-      nat="Emirati (listed parent)", own="Subsidiary of a listed private-sector company", year="1985", hq="Dubai", cov="UAE + 4 other countries",
-      emp="8,900+ (Gulf News)", e=(8900,8900),
-      cap="Expo 2020 pavilions FM contracts (AED 18M); acquired House Keeping LLC for AED 100M", rev="Not published separately (Union Properties H1 2025 revenue AED 316M, group level)",
-      lic="Not published", cli="Expo 2020 pavilions, Dubai towers, Ayedh Hussein Bin Dejem Real Estate",
-      why="Dubai IFM with large cleaning and housekeeping workforce", conf="Medium",
-      src="gulfnews.com (House Keeping deal); khaleejtimes.com; simplywall.st (UPP ownership)"),
+ dict(name="Al-Futtaim Engineering & Technologies (Facilities Management division)", svc="Facilities maintenance (MEP, civil), property strategy, infrastructure and golf course maintenance, outsourced technical manpower",
+      owner="Al-Futtaim Group (Al-Futtaim family). Chairman Omar Al-Futtaim",
+      nat="Emirati", own="Private family group", year="Group 1930s; FM division part of Al-Futtaim Engineering", hq="Dubai", cov="UAE, Qatar",
+      emp="Not published for FM division (Al-Futtaim Group approx. 42,000)", e=None,
+      cap="Part of a 200+ company private group", rev="Not published",
+      lic="Not published", cli="Ministry of Education, Government of Sharjah, Dubai Municipality, dnata",
+      why="Private Emirati engineering-led FM competitor for MEP and maintenance contracts", conf="Medium",
+      src="meconstructionnews.com (AFET MEFMA partner); zawya.com (AFET maintenance contracts); khaleejtimes.com"),
+ dict(name="Al Naboodah Facilities Management", svc="Integrated hard and soft FM: security, concierge, energy and waste management, pest control, water tank cleaning, landscaping, fire systems",
+      owner="Al Naboodah Group Enterprises (Al Naboodah family). Sits under Al Naboodah Construction Group (CEO Senan Al Naboodah)",
+      nat="Emirati", own="Private family group", year="Group 1958; FM unit launched as diversification (date not confirmed)", hq="Dubai", cov="UAE",
+      emp="Not published for FM unit (group approx. 32,000)", e=None,
+      cap="Fire and statutory services self-delivered within group", rev="Not published",
+      lic="Not published", cli="Group and third-party property portfolios",
+      why="Offers security + cleaning-type soft services alongside MEP, same model as MEBS", conf="Low to medium",
+      src="gulfnews.com (Al Naboodah launches FM unit); technicalreviewmiddleeast.com; gulftalent.com"),
+ dict(name="AJAD Facilities Management", svc="Total FM: MEP maintenance, cleaning, soft services",
+      owner="100% Emirati-owned private company. Owner name not published",
+      nat="Emirati", own="Private", year="2002", hq="Abu Dhabi", cov="UAE",
+      emp="Not reliably published (directory shows 30+)", e=None,
+      cap="Residential, hospitality, healthcare, education and industrial clients", rev="Not published",
+      lic="Not published", cli="Not published",
+      why="Emirati-owned IFM competitor in Abu Dhabi", conf="Low",
+      src="village.ai (AJAD FM); bayut.com (FM companies Abu Dhabi)"),
 ]
 
 SEC = [
- dict(name="G4S Secure Solutions UAE", svc="Manned guarding, event security, cash services, electronic security, risk consulting",
-      owner="Allied Universal (USA, private; backed by Warburg Pincus and Canada's CDPQ). UAE local shareholding not published",
-      nat="American (parent)", own="Private (foreign multinational)", year="Operating in UAE for decades (G4S acquired 2021 by Allied Universal)", hq="Dubai", cov="UAE (5 branches), wider region approx. 30,000 staff",
-      emp="9,000 (2021 report) to 12,000+ (G4S case study)", e=(9000,12000),
-      cap="6,000+ SIRA/ASSD certified guards; 35 nationalities", rev="Not published for UAE",
-      lic="SIRA (Dubai), ASSD (Abu Dhabi)", cli="Real estate developers, government-related venues, events",
-      why="Largest private guarding competitor for MEBS security division", conf="Medium",
-      src="g4s.com (UAE case study); securitymagazine.com (Allied deal); propertyfinder.ae"),
  dict(name="First Security Group (FSG)", svc="Manned guarding, security & H&S training (FSG Training Centre), investigations, due diligence",
       owner="Private; founded by 10 retired Dubai Police major generals. CEO Ret. Maj. Gen. Abdul Aziz Al Bannai",
       nat="Emirati", own="Private (100% local)", year="2004 (start-up capital AED 20M)", hq="Dubai", cov="UAE",
       emp="1,001 to 5,000 (GulfTalent/Naukri)", e=(1000,5000),
       cap="Dubai Police-registered training centre", rev="Not published",
       lic="SIRA; training registered with Dubai Police and Dubai Ambulance", cli="Corporate and government-related clients",
-      why="Emirati-owned Dubai guarding firm, direct overlap with MEBS's origin business", conf="Medium",
+      gov="Private, 100% local. Founders are retired Dubai Police officers investing as private individuals; no government shareholder found", why="Emirati-owned Dubai guarding firm, direct overlap with MEBS's origin business", conf="Medium",
       src="gulfnews.com (ex-police officers launch FSG; 'We know the meaning of security'); gulftalent.com"),
  dict(name="Securitas UAE LLC", svc="Specialised guarding, mobile patrol, security receptionists, electronic security, monitoring",
       owner="Securitas AB (Sweden; Nasdaq Stockholm listed)",
@@ -110,7 +102,7 @@ SEC = [
       emp="1,400+ (company); 201 to 1,000 (directories)", e=(1000,1400),
       cap="400+ clients; 37% growth in 2014", rev="Not published for UAE",
       lic="SIRA", cli="Corporate offices, community sponsorship (Dubai Exiles RFC)",
-      why="Competes on premium corporate guarding in Dubai", conf="Medium",
+      gov="Parent listed in Stockholm; main shareholders are private Swedish investment companies. No state owner", why="Competes on premium corporate guarding in Dubai", conf="Medium",
       src="tradearabia.com (37% growth 2014); zawya.com; dubaiexiles.com"),
  dict(name="Magnum Security", svc="Security guards, consulting, VIP/close protection, security chauffeurs, CCTV monitoring",
       owner="Private. Managing Director Jimmy Singh (owner not published)",
@@ -134,6 +126,14 @@ SEC = [
       cap="Multi-sector guarding", rev="Not published", lic="SIRA", cli="Retail, schools, hotels",
       why="Smaller Dubai guarding competitor in the same segments", conf="Low",
       src="guardforce.ae; ae.indeed.com; prospeo.io"),
+ dict(name="Al Manal Security LLC", svc="Private security guarding and investigations, community-focused contracts",
+      owner="Juma Ahmad Majid Al Ghurair and Marwan Ahmad Majid Al Ghurair (per business directory, unverified)",
+      nat="Emirati", own="Private family", year="2005", hq="Dubai Silicon Oasis, Dubai", cov="UAE",
+      emp="80+ (directory)", e=(80,150),
+      cap="Small and community contracts", rev="Not published",
+      lic="SIRA", cli="Residential communities",
+      why="Emirati family-owned Dubai guarding firm", conf="Low",
+      src="village.ai (Al Manal Security); contactout.com; propertyfinder.ae"),
 ]
 
 CLN = [
@@ -151,7 +151,7 @@ CLN = [
       emp="approx. 8,000 (2020 company release)", e=(8000,8000),
       cap="Named one of top 3 FM providers in UAE by Klüh; 'Cleaning Company of the Year' Dubai 2018", rev="Not published for UAE",
       lic="Not published", cli="Burj Khalifa (contract renewed 4 times), Cayan Tower",
-      why="Premium tower cleaning competitor in Dubai", conf="Medium",
+      gov="Owned by the Klüh family company (Germany). No state owner", why="Premium tower cleaning competitor in Dubai", conf="Medium",
       src="klueh.de (Burj Khalifa extension 2020; Cleaning Company of the Year 2018; UAE page)"),
  dict(name="Dussmann Gulf LLC", svc="Cleaning & housekeeping, disinfection, healthcare facility cleaning, pest control (plus some FM)",
       owner="Dussmann Group (Germany, family/foundation-owned)",
@@ -159,7 +159,7 @@ CLN = [
       emp="534 to 3,000+ (sources conflict)", e=(900,3000),
       cap="Healthcare cleaning specialist", rev="Not published",
       lic="Not published", cli="Hospitals and healthcare facilities",
-      why="Competes for healthcare and institutional cleaning contracts", conf="Low to medium",
+      gov="Owned by Dussmann Group (German private family/foundation). No state owner", why="Competes for healthcare and institutional cleaning contracts", conf="Low to medium",
       src="dussmann.ae; reveliolabs.com; mefma.org"),
  dict(name="White Spot Facilities Management Services LLC (Whitespot)", svc="Commercial & residential cleaning, housekeeping, maintenance",
       owner="Private. Owner not published",
@@ -197,6 +197,12 @@ EXCL = [
  ("Deyaar Facilities Management", "Deyaar Development, linked to Dubai Islamic Bank (government shareholding)"),
  ("Musanada / Tadweer / Bee'ah", "Government entities (Abu Dhabi / Sharjah)"),
  ("ENGIE Cofely UAE", "ENGIE is partially owned by the French State"),
+ ("Enova by Veolia", "JV partner Veolia has the French state-owned Caisse des Dépôts as a shareholder (approx. 4.6%)"),
+ ("G4S UAE", "Parent Allied Universal is co-owned by CDPQ, the Quebec government's pension fund"),
+ ("ServeU", "Parent Union Properties has had Emirates NBD (government-owned bank) as a major shareholder"),
+ ("Dulsco Group", "Shareholder is a member of the Dubai ruling family; excluded to stay on the safe side"),
+ ("Mace Macro Technical Services", "Acquired by Khidmah (Aldar group) in 2022"),
+ ("Al Tanmyah Services", "Subsidiary of Dubai Islamic Bank (government shareholding)"),
 ]
 
 MEBS = ["MEBS Facility Services (Middle East Building Security)",
@@ -209,68 +215,75 @@ border = Border(left=thin, right=thin, top=thin, bottom=thin)
 HEAD = PatternFill("solid", fgColor="1F3864")
 FILLS = {"FM": "DDEBF7", "Security": "FCE4D6", "Cleaning": "E2EFDA"}
 wrap = Alignment(wrap_text=True, vertical="top")
-WIDTHS = [4, 26, 38, 42, 16, 18, 16, 20, 24, 24, 36, 32, 22, 22, 30, 34, 12, 46]
+WIDTHS = [4, 26, 38, 42, 16, 18, 16, 20, 24, 24, 36, 32, 22, 22, 30, 34, 28, 12, 46]
 
-wb = Workbook()
-ws = wb.active
-ws.title = "Read me"
-lines = [
- ("MEBS Facility Services: 20 private-sector competitors (UAE)", True),
- ("Prepared 30 Oct 2026 from public web sources. Government-owned or government-linked companies are excluded (see 'Excluded' sheet).", False),
- ("", False),
- ("Sheets", True),
- ("1. FM Companies (8)  2. Security Only (6)  3. Cleaning Only (6)  4. MEBS benchmark  5. Excluded (gov-linked)", False),
- ("", False),
- ("How to read the data", True),
- ("Employees: as reported by the company or a named source. Where sources disagree, the range is shown.", False),
- ("Revenue: private UAE companies do not publish accounts. Published figures are used when available; third-party database estimates are labelled.", False),
- ("*Indicative revenue (our estimate) = reported headcount x typical billing per employee per year:", False),
- ("    FM: AED 75k to 110k | Security: AED 72k to 100k | Cleaning: AED 45k to 65k. Use only for rough sizing, not as fact.", False),
- ("Data confidence: High = audited/official; Medium = company releases and reputable press; Low = directories/aggregators only.", False),
- ("Owner names marked 'not published' should be confirmed via the Dubai DET / Abu Dhabi ADDED trade licence registers.", False),
-]
-for i, (t, b) in enumerate(lines, 1):
-    c = ws.cell(row=i, column=1, value=t)
-    c.font = Font(bold=b, size=14 if i == 1 else 11)
-ws.column_dimensions["A"].width = 130
+def build(out, parts):
+    global wb
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "Read me"
+    lines = [
+     ("MEBS Facility Services: 20 private-sector competitors (UAE)", True),
+     ("Prepared 30 Oct 2026 from public web sources. Rule: no company with a government or state owner, including partial or indirect stakes (see 'Excluded' sheet).", False),
+     ("", False),
+     ("Sheets", True),
+     ("1. FM Companies (8)  2. Security Only (6)  3. Cleaning Only (6)  4. MEBS benchmark  5. Excluded (gov-linked)\nSeparate files are also provided per category.", False),
+     ("", False),
+     ("How to read the data", True),
+     ("Employees: as reported by the company or a named source. Where sources disagree, the range is shown.", False),
+     ("Revenue: private UAE companies do not publish accounts. Published figures are used when available; third-party database estimates are labelled.", False),
+     ("*Indicative revenue (our estimate) = reported headcount x typical billing per employee per year:", False),
+     ("    FM: AED 75k to 110k | Security: AED 72k to 100k | Cleaning: AED 45k to 65k. Use only for rough sizing, not as fact.", False),
+     ("Data confidence: High = audited/official; Medium = company releases and reputable press; Low = directories/aggregators only.", False),
+     ("Owner names marked 'not published' should be confirmed via the Dubai DET / Abu Dhabi ADDED trade licence registers.", False),
+    ]
+    for i, (t, b) in enumerate(lines, 1):
+        c = ws.cell(row=i, column=1, value=t)
+        c.font = Font(bold=b, size=14 if i == 1 else 11)
+    ws.column_dimensions["A"].width = 130
 
-def sheet(title, cat, rows):
-    s = wb.create_sheet(title)
-    for j, h in enumerate(COLS, 1):
-        c = s.cell(row=1, column=j, value=h)
-        c.font = Font(bold=True, color="FFFFFF"); c.fill = HEAD; c.alignment = wrap; c.border = border
-        s.column_dimensions[get_column_letter(j)].width = WIDTHS[j - 1]
-    fill = PatternFill("solid", fgColor=FILLS[cat])
-    for i, r in enumerate(rows, 1):
-        e = r["e"] or (None, None)
-        vals = [i, r["name"], r["svc"], r["owner"], r["nat"], r["own"], r["year"], r["hq"], r["cov"],
-                r["emp"], r["cap"], r["rev"], est(cat, *e), r["lic"], r["cli"], r["why"], r["conf"], r["src"]]
-        for j, v in enumerate(vals, 1):
-            c = s.cell(row=i + 1, column=j, value=v)
-            c.alignment = wrap; c.border = border
-            if j == 2:
-                c.font = Font(bold=True); c.fill = fill
-    s.freeze_panes = "C2"
-    s.auto_filter.ref = f"A1:{get_column_letter(len(COLS))}{len(rows) + 1}"
+    def sheet(title, cat, rows):
+        s = wb.create_sheet(title)
+        for j, h in enumerate(COLS, 1):
+            c = s.cell(row=1, column=j, value=h)
+            c.font = Font(bold=True, color="FFFFFF"); c.fill = HEAD; c.alignment = wrap; c.border = border
+            s.column_dimensions[get_column_letter(j)].width = WIDTHS[j - 1]
+        fill = PatternFill("solid", fgColor=FILLS[cat])
+        for i, r in enumerate(rows, 1):
+            e = r["e"] or (None, None)
+            vals = [i, r["name"], r["svc"], r["owner"], r["nat"], r["own"], r["year"], r["hq"], r["cov"],
+                    r["emp"], r["cap"], r["rev"], est(cat, *e), r["lic"], r["cli"], r["why"], r.get("gov", "No government or state shareholder found in public sources"), r["conf"], r["src"]]
+            for j, v in enumerate(vals, 1):
+                c = s.cell(row=i + 1, column=j, value=v)
+                c.alignment = wrap; c.border = border
+                if j == 2:
+                    c.font = Font(bold=True); c.fill = fill
+        s.freeze_panes = "C2"
+        s.auto_filter.ref = f"A1:{get_column_letter(len(COLS))}{len(rows) + 1}"
 
-sheet("FM Companies", "FM", FM)
-sheet("Security Only", "Security", SEC)
-sheet("Cleaning Only", "Cleaning", CLN)
+    for title, cat, rows in parts:
+        sheet(title, cat, rows)
 
-s = wb.create_sheet("MEBS benchmark")
-hdr = ["Company", "Services", "Owner", "Nationality", "Ownership", "Founded", "Head office", "Coverage", "Employees", "Licences"]
-for j, (h, v) in enumerate(zip(hdr, MEBS), 1):
-    a = s.cell(row=j, column=1, value=h); a.font = Font(bold=True); a.border = border
-    b = s.cell(row=j, column=2, value=v); b.alignment = wrap; b.border = border
-s.column_dimensions["A"].width = 16; s.column_dimensions["B"].width = 90
+    s = wb.create_sheet("MEBS benchmark")
+    hdr = ["Company", "Services", "Owner", "Nationality", "Ownership", "Founded", "Head office", "Coverage", "Employees", "Licences"]
+    for j, (h, v) in enumerate(zip(hdr, MEBS), 1):
+        a = s.cell(row=j, column=1, value=h); a.font = Font(bold=True); a.border = border
+        b = s.cell(row=j, column=2, value=v); b.alignment = wrap; b.border = border
+    s.column_dimensions["A"].width = 16; s.column_dimensions["B"].width = 90
 
-s = wb.create_sheet("Excluded (gov-linked)")
-for j, h in enumerate(["Company", "Reason excluded"], 1):
-    c = s.cell(row=1, column=j, value=h); c.font = Font(bold=True, color="FFFFFF"); c.fill = HEAD
-for i, (n, why) in enumerate(EXCL, 2):
-    s.cell(row=i, column=1, value=n).border = border
-    c = s.cell(row=i, column=2, value=why); c.alignment = wrap; c.border = border
-s.column_dimensions["A"].width = 32; s.column_dimensions["B"].width = 100
+    s = wb.create_sheet("Excluded (gov-linked)")
+    for j, h in enumerate(["Company", "Reason excluded"], 1):
+        c = s.cell(row=1, column=j, value=h); c.font = Font(bold=True, color="FFFFFF"); c.fill = HEAD
+    for i, (n, why) in enumerate(EXCL, 2):
+        s.cell(row=i, column=1, value=n).border = border
+        c = s.cell(row=i, column=2, value=why); c.alignment = wrap; c.border = border
+    s.column_dimensions["A"].width = 32; s.column_dimensions["B"].width = 100
 
-wb.save(OUT)
-print("saved", OUT, len(FM) + len(SEC) + len(CLN), "companies")
+    wb.save(out)
+
+PARTS = [("FM Companies", "FM", FM), ("Security Only", "Security", SEC), ("Cleaning Only", "Cleaning", CLN)]
+build(OUT, PARTS)
+base = OUT.rsplit(".", 1)[0]
+for title, cat, rows in PARTS:
+    build(f"{base}_{cat}.xlsx", [(title, cat, rows)])
+print("saved", OUT, "and 3 category files,", len(FM) + len(SEC) + len(CLN), "companies")
