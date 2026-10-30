@@ -9,7 +9,7 @@ from pathlib import Path
 here = Path(__file__).parent
 src = (here / "build_workbook.py").read_text()
 data_src = src[: src.index("thin = Side")]
-ns = {}
+ns = {"__file__": str(here / "build_workbook.py")}
 argv, sys.argv = sys.argv, ["build_workbook.py", "unused.xlsx"]
 exec(data_src, ns)
 sys.argv = argv

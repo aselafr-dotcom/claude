@@ -205,6 +205,8 @@ EXCL = [
  ("Al Tanmyah Services", "Subsidiary of Dubai Islamic Bank (government shareholding)"),
 ]
 
+exec(open(__import__("os").path.join(__import__("os").path.dirname(__file__), "extra_data.py")).read())
+
 MEBS = ["MEBS Facility Services (Middle East Building Security)",
         "Security guarding (SIRA licensed), cleaning, MEP maintenance, HVAC, plumbing, pest control, lifeguards",
         "Al Qaisi Group. Founder Salem Ahmed Salem Al Qaisi", "Emirati", "Private", "2000 (security); IFM since 2019",
@@ -223,11 +225,11 @@ def build(out, parts):
     ws = wb.active
     ws.title = "Read me"
     lines = [
-     ("MEBS Facility Services: 20 private-sector competitors (UAE)", True),
+     ("MEBS Facility Services: 60 private-sector competitors (UAE), 20 per category", True),
      ("Prepared 30 Oct 2026 from public web sources. Rule: no company with a government or state owner, including partial or indirect stakes (see 'Excluded' sheet).", False),
      ("", False),
      ("Sheets", True),
-     ("1. FM Companies (8)  2. Security Only (6)  3. Cleaning Only (6)  4. MEBS benchmark  5. Excluded (gov-linked)\nSeparate files are also provided per category.", False),
+     ("1. FM Companies (20)  2. Security Only (20)  3. Cleaning Only (20)  4. MEBS benchmark  5. Excluded (gov-linked)\nSeparate files are also provided per category.", False),
      ("", False),
      ("How to read the data", True),
      ("Employees: as reported by the company or a named source. Where sources disagree, the range is shown.", False),
