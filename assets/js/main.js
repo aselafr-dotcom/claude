@@ -54,6 +54,7 @@
     zap: '<path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/>',
     users: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',
     wallet: '<path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/>',
+    book: '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15Z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/>',
     pen: '<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>',
     rocket: '<path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>',
     refresh: '<path d="M3 12a9 9 0 0 1 15-6.7L21 8M21 3v5h-5M21 12a9 9 0 0 1-15 6.7L3 16M8 16H3v5"/>',
@@ -151,62 +152,6 @@
       .join("");
   }
 
-  /* ---------- Company: earlier role photo story ---------- */
-  function renderStory() {
-    const s = D.earlierWork;
-    if (!s) return;
-    $("#earlierCompany").textContent = s.company;
-    $("#story").innerHTML = `
-      <div class="story-copy rv">
-        <p class="eyebrow on-dark">${icon("video")}${esc(s.role)}</p>
-        <h4>${esc(s.title)}</h4>
-        <p>${esc(s.text)}</p>
-        <div class="story-stat"><b data-count="${esc(s.stat.value)}">${esc(s.stat.value)}</b><span>${esc(s.stat.label)}</span></div>
-        <button type="button" class="pill-link" data-slide="${s.slide}" style="align-self:flex-start;background:transparent;color:#fff;border-color:rgba(255,255,255,.25)">${icon("eye")}See all six videos</button>
-      </div>
-      <div class="story-photos">${s.photos
-        .map((p, i) => `<button type="button" class="photo rv" style="--d:${i * 90}ms" data-src="${esc(p.src)}" data-caption="${esc(s.company)} TikTok: ${esc(p.views)} views">
-            <img src="${esc(p.src)}" alt="${esc(s.company)} TikTok video still" width="157" height="200">
-            <span class="views">${icon("play")}${esc(p.views)}</span>
-          </button>`)
-        .join("")}</div>`;
-  }
-
-  /* ---------- Company: samples ---------- */
-  let filter = "All";
-  const samples = [...D.galleries.strategy, ...D.galleries.content].filter((s) => s.slide !== (D.earlierWork && D.earlierWork.slide));
-  function renderSamples() {
-    const cats = ["All", ...new Set(samples.map((s) => s.cat))];
-    $("#filters").innerHTML = cats
-      .map((c) => `<button type="button" role="tab" data-filter="${esc(c)}" aria-selected="${c === filter}">${esc(c)}</button>`)
-      .join("");
-    $("#sampleGrid").innerHTML = samples
-      .map((s) => `<figure class="sample rv" data-cat="${esc(s.cat)}">
-          <button type="button" class="shot" data-slide="${s.slide}" aria-label="View: ${esc(s.title)}">
-            <img src="${slideSrc(s.slide)}" alt="${esc(slideTitle(s.slide))}" width="596" height="335">
-            <span class="zoom" aria-hidden="true">⤢</span>
-          </button>
-          <figcaption><span class="cat">${esc(s.cat)}</span><b>${esc(s.title)}</b><span>${esc(s.note)}</span></figcaption>
-        </figure>`)
-      .join("");
-  }
-  $("#filters").addEventListener("click", (e) => {
-    const b = e.target.closest("[data-filter]");
-    if (!b) return;
-    filter = b.dataset.filter;
-    $$("#filters button").forEach((x) => x.setAttribute("aria-selected", String(x === b)));
-    $$("#sampleGrid .sample").forEach((el, i) => {
-      const show = filter === "All" || el.dataset.cat === filter;
-      el.classList.toggle("hide", !show);
-      el.classList.remove("pre", "in", "enter");
-      if (show && !reduceMotion) {
-        void el.offsetWidth;
-        el.style.animationDelay = `${(i % 6) * 50}ms`;
-        el.classList.add("enter");
-      }
-    });
-  });
-
   /* ---------- Case sheet ---------- */
   const sheet = $("#caseSheet");
   function openCase(id) {
@@ -257,6 +202,98 @@
     if (card) openCase(card.dataset.case);
   });
 
+  /* ---------- Services (organised by what I do; company and freelance kept apart) ---------- */
+  const SCOPE_TEXT = { company: "Work as an employee", freelance: "Work for my own clients" };
+  const clientIcon = (it) => {
+    if (it.icon) return it.icon;
+    const f = D.freelance.find((x) => x.client === it.client);
+    return f ? f.icon || "briefcase" : "building";
+  };
+
+  function itemCard(it) {
+    if (it.embed) return `<div class="item-embed wide" data-embed="${esc(it.embed)}"></div>`;
+    let media = "";
+    if (it.slide) {
+      media = `<button type="button" class="item-media shot" data-slide="${it.slide}" aria-label="View: ${esc(it.title)}">
+          <img src="${slideSrc(it.slide)}" alt="${esc(slideTitle(it.slide))}" width="596" height="335"><span class="zoom" aria-hidden="true">⤢</span>
+        </button>`;
+    } else if (it.image) {
+      media = `<button type="button" class="item-media shot" data-src="${esc(it.image)}" data-caption="${esc(it.client)}: ${esc(it.title)}" aria-label="View: ${esc(it.title)}">
+          <img src="${esc(it.image)}" alt="${esc(it.imageAlt || it.title)}"><span class="zoom" aria-hidden="true">⤢</span>
+        </button>`;
+    } else {
+      media = `<div class="item-media icon-media ${esc(it.scope)}"><span class="mono">${icon(clientIcon(it))}</span></div>`;
+    }
+    const extra = (it.extraSlides || [])
+      .map((n) => `<button type="button" class="pill-link" data-slide="${n}">${icon("eye")}${esc(slideTitle(n).replace(/^[^:]+:\s*/, ""))}</button>`)
+      .join("");
+    const links = (it.links || []).map((l) => link(l)).join("");
+    return `<article class="item rv">
+      ${media}
+      <div class="item-body">
+        <p class="item-client"><span class="scope ${esc(it.scope)}">${it.scope === "company" ? "Company" : "Freelance"}</span>${esc(it.client)}</p>
+        <h4>${esc(it.title)}</h4>
+        <p>${esc(it.text)}</p>
+        ${it.stat ? `<div class="item-stat"><b data-count="${esc(it.stat.value)}">${esc(it.stat.value)}</b><span>${esc(it.stat.label)}</span></div>` : ""}
+        ${it.bullets?.length ? `<ul class="feature-list one">${it.bullets.map((b) => `<li>${icon("check")}<span>${esc(b)}</span></li>`).join("")}</ul>` : ""}
+        ${it.tools?.length ? `<div class="tags">${it.tools.map((x) => `<span class="tag">${esc(x)}</span>`).join("")}</div>` : ""}
+        ${extra || links ? `<div class="ev-row">${extra}${links}</div>` : ""}
+      </div>
+    </article>`;
+  }
+
+  function renderServices() {
+    const list = D.services || [];
+    $("#svcIndex").innerHTML = list
+      .map((sv, i) => {
+        const c = sv.items.filter((x) => x.scope === "company").length;
+        const f = sv.items.filter((x) => x.scope === "freelance").length;
+        return `<a class="svc-tile rv" href="#svc-${esc(sv.id)}" style="--d:${i * 60}ms">
+          <span class="svc-ic">${icon(sv.icon)}</span>
+          <h3>${esc(sv.title)}</h3>
+          <p>${esc(sv.intro.split(".")[0])}.</p>
+          <div class="svc-count">${c ? `<span class="scope company">${c} company</span>` : ""}${f ? `<span class="scope freelance">${f} freelance</span>` : ""}</div>
+        </a>`;
+      })
+      .join("");
+
+    $("#serviceSections").innerHTML = list
+      .map((sv) => {
+        const group = (scope) => {
+          const items = sv.items.filter((x) => x.scope === scope);
+          if (!items.length) return "";
+          return `<div class="scope-group ${scope}">
+            <div class="scope-head"><span class="scope ${scope}">${scope === "company" ? "Company" : "Freelance"}</span><span>${SCOPE_TEXT[scope]}</span></div>
+            <div class="item-grid n-${items.filter((x) => !x.embed).length}">${items.map(itemCard).join("")}</div>
+          </div>`;
+        };
+        return `<section class="svc section" id="svc-${esc(sv.id)}" aria-labelledby="svc-${esc(sv.id)}-title">
+          <div class="wrap">
+            <div class="svc-head">
+              <span class="part-icon">${icon(sv.icon)}</span>
+              <div>
+                <p class="eyebrow">Service</p>
+                <h2 id="svc-${esc(sv.id)}-title">${esc(sv.title)}</h2>
+                <p class="section-lede">${esc(sv.intro)}</p>
+              </div>
+            </div>
+            <div class="tool-row"><span class="tool-label">${icon("zap")}Tools</span>${sv.tools.map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>
+            ${sv.steps ? `<ol class="mini-steps">${sv.steps.map((st) => `<li>${esc(st)}</li>`).join("")}</ol>` : ""}
+            ${group("company")}
+            ${group("freelance")}
+          </div>
+        </section>`;
+      })
+      .join("");
+
+    // Move the Bolt's Family blocks into their service sections.
+    $$("[data-embed]").forEach((slot) => {
+      const tpl = slot.dataset.embed === "boltsDashboard" ? $("#tplBoltsDashboard") : $("#tplBoltsWebsite");
+      if (tpl) slot.appendChild(tpl.content.cloneNode(true));
+    });
+    fillIcons($("#serviceSections"));
+  }
+
   /* ---------- Freelance: Bolt's Family ---------- */
   const bolts = D.freelance.find((f) => f.id === "bolts-family");
   let metric = "reach";
@@ -264,13 +301,8 @@
 
   function renderBolts() {
     if (!bolts) return;
-    $("#boltsHead").innerHTML = `
-      <span class="mono">${icon(bolts.icon)}</span>
-      <div><h3>${esc(bolts.client)}</h3><p>${esc(bolts.category)} · ${esc(bolts.period)}</p></div>
-      <div class="tags"><span class="tag tag-ico">${icon("code")}Website + SEO</span><span class="tag tag-ico">${icon("megaphone")}Meta Ads</span></div>`;
-
     const w = bolts.website;
-    if (w) {
+    if (w && $("#boltsWeb")) {
       const url = safeUrl(w.url);
       $("#boltsWeb").innerHTML = `
         <button type="button" class="web-shot rv" data-src="${esc(w.image)}" data-caption="${esc(w.title)}"><img src="${esc(w.image)}" alt="Bolt's Family website project overview" width="376" height="532"></button>
@@ -283,6 +315,7 @@
         </div>`;
     }
 
+    if (!$("#dashSub")) return;
     $("#dashSub").textContent = bolts.challenge;
     const r = bolts.results;
     const kpis = [
@@ -345,45 +378,49 @@
       .join("");
     requestAnimationFrame(() => requestAnimationFrame(() => $$(".camp-fill", box).forEach((el) => el.style.setProperty("--w", `${el.dataset.w}%`))));
   }
-  $("#metricTabs").addEventListener("click", (e) => {
-    const b = e.target.closest("[data-metric]");
-    if (!b) return;
-    metric = b.dataset.metric;
-    $$("#metricTabs button").forEach((x) => x.setAttribute("aria-selected", String(x === b)));
-    drawBars(false);
-  });
-  $("#sortTabs").addEventListener("click", (e) => {
-    const b = e.target.closest("[data-sort]");
-    if (!b) return;
-    sortKey = b.dataset.sort;
-    $$("#sortTabs button").forEach((x) => x.setAttribute("aria-selected", String(x === b)));
-    drawCamps();
-  });
+  function wireDash() {
+    if (!$("#metricTabs")) return;
+    $("#metricTabs").addEventListener("click", (e) => {
+      const b = e.target.closest("[data-metric]");
+      if (!b) return;
+      metric = b.dataset.metric;
+      $$("#metricTabs button").forEach((x) => x.setAttribute("aria-selected", String(x === b)));
+      drawBars(false);
+    });
+    $("#sortTabs").addEventListener("click", (e) => {
+      const b = e.target.closest("[data-sort]");
+      if (!b) return;
+      sortKey = b.dataset.sort;
+      $$("#sortTabs button").forEach((x) => x.setAttribute("aria-selected", String(x === b)));
+      drawCamps();
+    });
+  }
 
-  /* ---------- Freelance: other clients ---------- */
-  function renderOtherClients() {
-    const others = D.freelance.filter((f) => f.id !== "bolts-family");
-    $("#otherClients").innerHTML = others
+  /* ---------- Freelance: services matrix ---------- */
+  function renderMatrix() {
+    const cols = D.freelanceServices || [];
+    // Each client row links to the first service section that shows their work.
+    const firstSection = (client) => (D.services || []).find((sv) => sv.items.some((it) => it.client === client));
+    const head = `<thead><tr><th scope="col">Client</th>${cols
+      .map((c) => `<th scope="col"><span class="m-col">${icon(c.icon)}<span>${esc(c.short)}</span></span></th>`)
+      .join("")}</tr></thead>`;
+    const rows = D.freelance
       .map((f) => {
-        if (f.image) {
-          return `<article class="client-card rv" id="${esc(f.id)}">
-            <button type="button" class="photo" data-src="${esc(f.image)}" data-caption="${esc(f.title)}"><img src="${esc(f.image)}" alt="${esc(f.client)} Instagram grid with concert photos" width="400" height="332"></button>
-            <div class="client-card-body">
-              <div class="client-head" style="gap:12px"><span class="mono">${icon(f.icon)}</span><div><h3>${esc(f.client)}</h3><p class="sub">${esc(f.category)}</p></div></div>
-              <h4>${esc(f.title)}</h4>
-              <p>${esc(f.text)}</p>
-              <div class="tags">${(f.services || []).map((s) => `<span class="tag">${esc(s)}</span>`).join("")}</div>
-            </div>
-          </article>`;
-        }
-        return `<article class="client-card compact rv" id="${esc(f.id)}">
-          <div class="client-head" style="gap:12px"><span class="mono">${icon(f.icon || "briefcase")}</span><div><h3 style="font-size:22px">${esc(f.client)}</h3><p class="sub" style="font-size:13.5px;color:var(--muted)">${esc(f.category)} · Freelance client</p></div></div>
-          <p style="color:var(--muted);font-size:15px">Work samples and results for this client are shared on request.</p>
-          <a class="pill-link" href="#contact" style="justify-self:start">${icon("message")}Ask about this project</a>
-        </article>`;
+        const sv = firstSection(f.client);
+        return `<tr>
+          <th scope="row"><a href="${sv ? `#svc-${esc(sv.id)}` : "#services"}" class="m-client"><span class="mono">${icon(f.icon || "briefcase")}</span><span><b>${esc(f.client)}</b><small>${esc(f.category)}</small></span></a></th>
+          ${cols
+            .map((c) => (f.serviceKeys || []).includes(c.key)
+              ? `<td><span class="m-yes" title="${esc(c.label)}">${icon("check")}<span class="visually-hidden">${esc(c.label)}: yes</span></span></td>`
+              : `<td><span class="m-no" aria-label="${esc(c.label)}: no">·</span></td>`)
+            .join("")}
+        </tr>`;
       })
       .join("");
+    $("#serviceMatrix").innerHTML = head + `<tbody>${rows}</tbody>`;
   }
+
+  const serviceTags = (f) => (f.services || []).map((x) => `<span class="tag">${esc(x)}</span>`).join("");
 
   /* ---------- Process ---------- */
   function renderSteps() {
@@ -554,7 +591,7 @@
     if (reduceMotion) return;
     // Only content that starts below the fold is hidden for its entrance, so the first view is always complete.
     const fold = window.innerHeight;
-    const revealables = $$(".rv, .section-head, .part-head, .sub-head, .dash, .contact, .creds, .logo-group");
+    const revealables = $$(".rv, .section-head, .svc-head, .tool-row, .scope-head, .sub-head, .dash, .contact, .creds, .logo-group");
     revealables.forEach((el) => {
       if (el.getBoundingClientRect().top > fold) el.classList.add("rv", "pre");
     });
@@ -611,7 +648,9 @@
     const links = $$("#navLinks a");
     const spy = new IntersectionObserver(
       (entries) => entries.forEach((en) => {
-        if (en.isIntersecting) links.forEach((a) => a.classList.toggle("active", a.getAttribute("href") === `#${en.target.id}`));
+        if (!en.isIntersecting) return;
+        const id = en.target.id.startsWith("svc-") ? "services" : en.target.id;
+        links.forEach((a) => a.classList.toggle("active", a.getAttribute("href") === `#${id}`));
       }),
       { rootMargin: "-40% 0px -55% 0px" }
     );
@@ -636,11 +675,11 @@
   renderHero();
   renderLogos();
   renderKpis();
+  renderServices();
   renderCases();
-  renderStory();
-  renderSamples();
+  renderMatrix();
   renderBolts();
-  renderOtherClients();
+  wireDash();
   renderSteps();
   renderTimeline();
   renderSkills();

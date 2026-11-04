@@ -17,8 +17,8 @@
     <div class="wrap nav-inner">
       <a class="brand" href="#top"><span class="dot" aria-hidden="true"></span><span data-bind="name">Asela Fernando</span></a>
       <nav class="nav-links" id="navLinks" aria-label="Sections">
-        <a href="#company"><span data-icon="building"></span>Company work</a>
-        <a href="#freelance"><span data-icon="briefcase"></span>Freelance</a>
+        <a href="#services"><span data-icon="layers"></span>Services</a>
+        <a href="#clients"><span data-icon="building"></span>Clients</a>
         <a href="#experience"><span data-icon="calendar"></span>Experience</a>
         <a href="#skills"><span data-icon="sparkles"></span>Skills</a>
       </nav>
@@ -39,8 +39,8 @@
           <h1 class="hero-title" id="heroHeadline"></h1>
           <p class="hero-intro" id="heroIntro"></p>
           <div class="hero-ctas">
-            <a class="btn btn-mint" href="#company"><span data-icon="building"></span>Company work</a>
-            <a class="btn btn-ghost" href="#freelance"><span data-icon="briefcase"></span>Freelance work</a>
+            <a class="btn btn-mint" href="#services"><span data-icon="layers"></span>See my services</a>
+            <a class="btn btn-ghost" href="#clients"><span data-icon="building"></span>Clients &amp; case studies</a>
           </div>
           <ul class="hero-facts" id="heroFacts"></ul>
         </div>
@@ -76,100 +76,86 @@
       <div class="kpi-grid" id="kpis"></div>
     </section>
 
-    <!-- ================= COMPANY WORK ================= -->
-    <section class="section" id="company" aria-labelledby="companyTitle">
-      <div class="wrap">
-        <div class="part-head">
-          <span class="part-icon" data-icon="building"></span>
-          <div>
-            <p class="eyebrow">Part 1 · In-house roles</p>
-            <h2 id="companyTitle">Company work</h2>
-            <p class="section-lede">Marketing I lead as an employee: Al Qaisi Group in Dubai since 2023, and earlier roles in Sri Lanka.</p>
-          </div>
+    <!-- ================= SERVICES ================= -->
+    <section class="wrap section" id="services" aria-labelledby="servicesTitle">
+      <div class="section-head split">
+        <div>
+          <p class="eyebrow">What I do</p>
+          <h2 id="servicesTitle">Six services, with proof for each</h2>
         </div>
-
-        <div class="sub-head">
-          <h3><span data-icon="layers"></span>Case studies · Al Qaisi Group, Dubai</h3>
-          <p>Open a project for the brief, approach, results and original slides.</p>
+        <div class="legend">
+          <span class="scope company">Company</span><span>Work done as an employee</span>
+          <span class="scope freelance">Freelance</span><span>Work for my own clients</span>
         </div>
-        <div class="case-grid" id="caseGrid"></div>
-
-        <div class="sub-head">
-          <h3><span data-icon="video"></span>Earlier role · <span id="earlierCompany"></span></h3>
-        </div>
-        <div class="story" id="story"></div>
-
-        <div class="sub-head split">
-          <div>
-            <h3><span data-icon="compass"></span>Strategy and content samples</h3>
-            <p>Plans, automation and content produced in company roles.</p>
-          </div>
-          <div class="chips-filter" id="filters" role="tablist" aria-label="Filter samples"></div>
-        </div>
-        <div class="sample-grid" id="sampleGrid"></div>
       </div>
+      <div class="svc-index" id="svcIndex"></div>
     </section>
 
-    <!-- ================= FREELANCE ================= -->
-    <section class="section band" id="freelance" aria-labelledby="freelanceTitle">
-      <div class="wrap">
-        <div class="part-head">
-          <span class="part-icon mint" data-icon="briefcase"></span>
+    <div id="serviceSections"></div>
+
+    <!-- ================= CLIENTS ================= -->
+    <section class="wrap section" id="clients" aria-labelledby="clientsTitle">
+      <div class="section-head">
+        <p class="eyebrow">Clients</p>
+        <h2 id="clientsTitle">Company case studies and freelance clients</h2>
+      </div>
+
+      <div class="sub-head" style="margin-top:0">
+        <h3><span data-icon="building"></span>Company case studies · Al Qaisi Group, Dubai</h3>
+        <p>Open a project for the brief, scope, strategy, results and original slides.</p>
+      </div>
+      <div class="case-grid" id="caseGrid"></div>
+
+      <div class="sub-head">
+        <h3><span data-icon="briefcase"></span>Freelance clients · what I deliver</h3>
+        <p>Every freelance client also gets strategic marketing consultation.</p>
+      </div>
+      <div class="matrix-wrap"><table class="matrix" id="serviceMatrix"></table></div>
+    </section>
+
+    <!-- Embedded freelance blocks, placed into their service sections by main.js -->
+    <template id="tplBoltsWebsite">
+      <div class="web-project" id="boltsWeb"></div>
+    </template>
+    <template id="tplBoltsDashboard">
+      <div class="dash">
+        <div class="dash-head">
           <div>
-            <p class="eyebrow">Part 2 · Independent clients</p>
-            <h2 id="freelanceTitle">Freelance work</h2>
-            <p class="section-lede">Projects I deliver directly for clients, outside my employment.</p>
+            <p class="eyebrow on-dark"><span data-icon="paw"></span>Bolt's Family · Meta Ads live account data</p>
+            <h3 class="dash-title">Puppy sales campaigns on Meta</h3>
+            <p class="dash-sub" id="dashSub"></p>
+          </div>
+          <span class="badge-live"><span class="pulse" aria-hidden="true"></span>Pulled from Meta Ads Manager</span>
+        </div>
+        <div class="dash-kpis" id="dashKpis"></div>
+        <div class="dash-grid">
+          <div class="panel">
+            <div class="panel-head">
+              <h4><span data-icon="bar"></span>Monthly trend</h4>
+              <div class="seg" role="tablist" aria-label="Chart metric" id="metricTabs"></div>
+            </div>
+            <div class="bars" id="bars" role="img"></div>
+            <p class="panel-note" id="barsNote"></p>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h4><span data-icon="filter"></span>Conversion funnel</h4></div>
+            <div class="funnel" id="funnel"></div>
+            <p class="panel-note">Funnel widths are illustrative; numbers are exact.</p>
           </div>
         </div>
-
-        <!-- Bolt's Family -->
-        <article class="client" id="bolts-family">
-          <header class="client-head" id="boltsHead"></header>
-
-          <div class="web-project" id="boltsWeb"></div>
-
-          <div class="dash">
-            <div class="dash-head">
-              <div>
-                <p class="eyebrow on-dark"><span data-icon="megaphone"></span>Meta Ads · live account data</p>
-                <h3 class="dash-title">Paid social performance</h3>
-                <p class="dash-sub" id="dashSub"></p>
-              </div>
-              <span class="badge-live"><span class="pulse" aria-hidden="true"></span>Pulled from Meta Ads Manager</span>
-            </div>
-            <div class="dash-kpis" id="dashKpis"></div>
-            <div class="dash-grid">
-              <div class="panel">
-                <div class="panel-head">
-                  <h4><span data-icon="bar"></span>Monthly trend</h4>
-                  <div class="seg" role="tablist" aria-label="Chart metric" id="metricTabs"></div>
-                </div>
-                <div class="bars" id="bars" role="img"></div>
-                <p class="panel-note" id="barsNote"></p>
-              </div>
-              <div class="panel">
-                <div class="panel-head"><h4><span data-icon="filter"></span>Conversion funnel</h4></div>
-                <div class="funnel" id="funnel"></div>
-                <p class="panel-note">Funnel widths are illustrative; numbers are exact.</p>
-              </div>
-            </div>
-            <div class="panel">
-              <div class="panel-head">
-                <h4><span data-icon="trending"></span>Top campaigns</h4>
-                <div class="seg" role="tablist" aria-label="Sort campaigns" id="sortTabs">
-                  <button type="button" role="tab" aria-selected="true" data-sort="n">Most results</button>
-                  <button type="button" role="tab" aria-selected="false" data-sort="cpr">Lowest cost</button>
-                </div>
-              </div>
-              <div class="camps" id="camps"></div>
+        <div class="panel">
+          <div class="panel-head">
+            <h4><span data-icon="trending"></span>Top campaigns</h4>
+            <div class="seg" role="tablist" aria-label="Sort campaigns" id="sortTabs">
+              <button type="button" role="tab" aria-selected="true" data-sort="n">Most results</button>
+              <button type="button" role="tab" aria-selected="false" data-sort="cpr">Lowest cost</button>
             </div>
           </div>
-        </article>
-
-        <!-- Other freelance clients -->
-        <div class="client-row" id="otherClients"></div>
+          <div class="camps" id="camps"></div>
+        </div>
+        <p class="panel-note">Bolt's Family also runs Google Ads for puppy listings; this panel shows the Meta account only.</p>
       </div>
-    </section>
+    </template>
 
     <!-- Process -->
     <section class="wrap section" id="process" aria-labelledby="processTitle">

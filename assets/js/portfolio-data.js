@@ -200,9 +200,9 @@ window.PORTFOLIO = {
       { name: "Cyber Concepts", note: "Sri Lanka" },
     ],
     freelance: [
-      { name: "Bolt's Family", note: "Pet breeder, UAE", icon: "paw" },
-      { name: "Clipnox Media Production", note: "Photo & video, UAE / LK", icon: "camera" },
-      { name: "Shiyo Bridal", note: "Bridal", icon: "heart" },
+      { name: "Bolt's Family", note: "Website · Meta & Google Ads", icon: "paw" },
+      { name: "Clipnox Media Production", note: "Website · Meta Ads · Social", icon: "camera" },
+      { name: "Shiyo Bridal", note: "Social · Meta sales campaigns", icon: "heart" },
     ],
   },
 
@@ -357,11 +357,23 @@ window.PORTFOLIO = {
     ],
   },
 
+  // Services offered to freelance clients (columns of the services matrix).
+  freelanceServices: [
+    { key: "strategy", label: "Strategic marketing consultation", short: "Strategy", icon: "compass" },
+    { key: "social", label: "Social media management & organic growth", short: "Social media", icon: "users" },
+    { key: "meta", label: "Meta Ads", short: "Meta Ads", icon: "megaphone" },
+    { key: "google", label: "Google Ads", short: "Google Ads", icon: "search" },
+    { key: "web", label: "Website development & UI/UX", short: "Website & UI/UX", icon: "monitor" },
+    { key: "seo", label: "Technical SEO & blog", short: "SEO & blog", icon: "trending" },
+  ],
+
   // Freelance work.
   freelance: [
     {
       id: "bolts-family",
       client: "Bolt's Family",
+      serviceKeys: ["strategy", "meta", "google", "web", "seo"],
+      summary: "Website design and management, Meta and Google advertising for puppy sales, and ongoing marketing strategy.",
       icon: "paw",
       website: {
         url: "https://boltsfamily.ae",
@@ -379,7 +391,7 @@ window.PORTFOLIO = {
       },
       category: "Pet breeder, UAE",
       period: "May 2026 to Present",
-      services: ["Meta Ads", "WhatsApp click-to-message", "Instagram promotion", "Retargeting", "Website lead campaigns"],
+      services: ["Strategic consultation", "Website design", "Website management", "Meta Ads", "Google Ads"],
       art: "art-ribs",
       source: "Meta Ads Manager, lifetime to 4 Nov 2026",
       challenge:
@@ -433,10 +445,12 @@ window.PORTFOLIO = {
       client: "Clipnox Media Production",
       category: "Photo & video production, UAE and Sri Lanka",
       icon: "camera",
+      serviceKeys: ["strategy", "social", "meta", "web"],
+      summary: "Website design, Meta campaigns and social media management focused on organic growth, plus marketing strategy.",
       image: "assets/img/clipnox-grid.jpg",
-      title: "Event content for Ananthaya Chapter 05, Acoustic Night Dubai 2026",
-      text: "Clipnox was the official photography partner for the concert. I planned the Instagram grid and wrote the post copy, alt text and hashtags to turn the event photos into enquiries for event coverage.",
-      services: ["Instagram grid planning", "Post copy & CTAs", "Alt text & hashtags", "Event promotion"],
+      title: "Example: Ananthaya Chapter 05, Acoustic Night Dubai 2026",
+      text: "Clipnox was the official photography partner for the concert. The event photos became an Instagram grid and posts with copy, alt text and hashtags written to bring in enquiries for event coverage.",
+      services: ["Strategic consultation", "Website design", "Meta campaigns", "Social media management", "Organic growth"],
       evidence: [],
     },
     {
@@ -444,10 +458,99 @@ window.PORTFOLIO = {
       client: "Shiyo Bridal",
       icon: "heart",
       category: "Bridal",
-      pending: true,
+      serviceKeys: ["strategy", "social", "meta"],
+      summary: "Social media management and organic growth, sales campaigns on Meta, and marketing strategy.",
+      services: ["Strategic consultation", "Social media management", "Organic growth", "Meta sales campaigns"],
       evidence: [
         { type: "live", label: "Shiyo Bridal page", url: "" },
         { type: "report", label: "Insights report", url: "" },
+      ],
+    },
+  ],
+
+  // The page is organised by service. Each service lists company work and freelance work separately.
+  services: [
+    {
+      id: "social",
+      title: "Social media management",
+      icon: "users",
+      intro: "Content calendars, community management and organic growth, measured with platform analytics every month.",
+      tools: ["Instagram", "Facebook", "LinkedIn", "TikTok", "Meta Business Suite", "Canva"],
+      items: [
+        { scope: "company", client: "MEBS Facility Services", title: "Social media analytics", text: "Monthly reporting on reach, engagement and profile activity across Facebook, Instagram and LinkedIn.", slide: 7 },
+        { scope: "company", client: "SASA Real Estate", title: "Social media analytics", text: "Performance tracking for off-plan property content and lead-focused posts.", slide: 12 },
+        { scope: "company", client: "Middle East Real Estate", title: "Social media analytics", text: "Engagement and profile insights for a Dubai sales, leasing and property management brand.", slide: 16 },
+        { scope: "company", client: "Middle East Real Estate", title: "Monthly content schedule", text: "A planned calendar of posts and carousels, scheduled ahead for consistent publishing.", slide: 20 },
+        { scope: "freelance", client: "Clipnox Media Production", title: "Social media management & organic growth", text: "Instagram planning and posting for a photo and video studio, including event coverage such as Ananthaya Chapter 05, Acoustic Night Dubai 2026.", image: "assets/img/clipnox-grid.jpg", imageAlt: "Clipnox Instagram grid with event photos" },
+        { scope: "freelance", client: "Shiyo Bridal", title: "Social media management & organic growth", text: "Day-to-day social media management for a bridal brand, focused on growing the audience organically.", icon: "heart" },
+      ],
+    },
+    {
+      id: "ads",
+      title: "Advertising",
+      icon: "megaphone",
+      intro: "Meta, Google and LinkedIn campaigns built for leads and sales, with every lead routed to CRM, WhatsApp and email follow-up.",
+      tools: ["Meta Ads Manager", "Google Ads", "LinkedIn Ads", "Zoho CRM", "WATI (WhatsApp)", "Looker Studio"],
+      items: [
+        { scope: "company", client: "SASA Real Estate", title: "Meta lead generation campaign", text: "Off-plan property lead generation with precise audience targeting, engaging creatives and continuous optimisation for a low cost per lead.", slide: 13 },
+        { scope: "company", client: "Al Qaisi Group", title: "Meta campaign strategy", text: "Audience targeting for Dubai property investors, financial and lifestyle ad hooks, and retargeting of form openers, video viewers and WhatsApp clickers.", slide: 26 },
+        { scope: "company", client: "Al Qaisi Group", title: "Lead generation automation", text: "Meta Ads to lead form to Zoho CRM to WhatsApp (WATI) to email and agent follow-up, so no lead waits.", slide: 21 },
+        { scope: "company", client: "Al Qaisi Group", title: "B2B action plan and budget", text: "LinkedIn with Sales Navigator, lead nurturing and ABM, plus a month-by-month annual budget across channels.", slide: 22, extraSlides: [27] },
+        { scope: "freelance", client: "Bolt's Family", embed: "boltsDashboard", wide: true },
+        { scope: "freelance", client: "Shiyo Bridal", title: "Sales campaigns on Meta", text: "Meta campaigns aimed directly at sales for a bridal brand, alongside organic social media.", icon: "heart" },
+        { scope: "freelance", client: "Clipnox Media Production", title: "Meta campaigns", text: "Paid Meta campaigns to promote event photography and video services in the UAE and Sri Lanka.", icon: "camera" },
+      ],
+    },
+    {
+      id: "design",
+      title: "Post designing",
+      icon: "pen",
+      intro: "Static posts, carousels, short-form video and brand identity, designed to stop the scroll and stay on brand.",
+      tools: ["Canva", "Adobe Photoshop", "Adobe Lightroom", "Adobe Premiere Pro", "CapCut"],
+      items: [
+        { scope: "company", client: "MEBS Facility Services", title: "Social posts", text: "Facility management thought leadership, safety tips and UAE national moments.", slide: 8 },
+        { scope: "company", client: "SASA Real Estate", title: "Social posts", text: "Off-plan launches, Dubai market news and seasonal greetings.", slide: 14 },
+        { scope: "company", client: "Middle East Real Estate", title: "Social posts", text: "Sales, leasing and property management content with a consistent template system.", slide: 17 },
+        { scope: "company", client: "MEBS Facility Services", title: "Brand identity", text: "Logo system, uniforms, fleet branding and corporate gifts for a unified premium image.", slide: 10 },
+        { scope: "company", client: "Fintech app", title: "Campaign creatives", text: "Consumer finance social creatives for the Sri Lankan market.", slide: 18 },
+        { scope: "company", client: "LR Platinum", title: "TikTok short-form video", text: "Superbike showroom videos: six videos reached 1.75M views.", slide: 19, stat: { value: "1.75M", label: "TikTok views" } },
+        { scope: "freelance", client: "Clipnox Media Production", title: "Event post series", text: "Instagram grid and posts built from concert photography, with copy, alt text and hashtags.", image: "assets/img/clipnox-grid.jpg", imageAlt: "Clipnox Instagram grid with event photos" },
+      ],
+    },
+    {
+      id: "web",
+      title: "Website development & UI/UX",
+      icon: "monitor",
+      intro: "Websites and landing pages designed mobile-first, with clear calls to action and WhatsApp or form capture on every page.",
+      tools: ["HTML / CSS / JavaScript", "Cloudflare Pages", "Yoast SEO", "Google Tag Manager", "GA4"],
+      items: [
+        { scope: "company", client: "MEBS Facility Services", title: "Website management & conversion", text: "Website enhancements, landing pages, forms and conversion journeys to lift inbound enquiries.", image: "assets/img/cover-mebs.jpg", imageAlt: "MEBS Facility Services website on tablets", links: [{ type: "live", label: "mebsfacility.com", url: "https://www.mebsfacility.com" }] },
+        { scope: "company", client: "SASA Real Estate", title: "Property website", text: "Off-plan property pages with project highlights and enquiry capture.", image: "assets/img/cover-sasa.jpg", imageAlt: "SASA Real Estate website on tablets", links: [{ type: "live", label: "sasarealestate.com", url: "https://www.sasarealestate.com" }] },
+        { scope: "company", client: "Middle East Real Estate", title: "Property website", text: "Sales, leasing and property management pages built around search and enquiries.", image: "assets/img/cover-mere.jpg", imageAlt: "Middle East Real Estate website on tablets", links: [{ type: "live", label: "middleeast.ae", url: "https://www.middleeast.ae" }] },
+        { scope: "freelance", client: "Bolt's Family", embed: "boltsWebsite", wide: true },
+        { scope: "freelance", client: "Clipnox Media Production", title: "Website design", text: "Website design for a photo and video production studio serving the UAE and Sri Lanka.", icon: "camera" },
+      ],
+    },
+    {
+      id: "seo",
+      title: "Technical SEO",
+      icon: "search",
+      intro: "Technical and on-page SEO aimed at high-intent keywords, tracked in Search Console and GA4 and benchmarked in Ahrefs and Semrush.",
+      tools: ["Ahrefs", "Semrush", "Google Search Console", "GA4", "Google Tag Manager", "Yoast SEO"],
+      items: [
+        { scope: "company", client: "MEBS Facility Services", title: "SEO for mebsfacility.com", text: "Technical and on-page SEO on high-intent facility management keywords, monitored with Semrush position tracking, Search Console and GA4.", slide: 9, stat: { value: "+60%", label: "organic traffic" }, tools: ["Ahrefs", "Semrush", "Search Console", "GA4"] },
+        { scope: "freelance", client: "Bolt's Family", title: "SEO for boltsfamily.ae", text: "SEO set up from launch for a UAE puppy sales site.", image: "assets/img/bolts-proposal.jpg", imageAlt: "Bolt's Family website and SEO project overview", tools: ["Ahrefs", "Semrush", "Search Console", "GA4"], bullets: ["Keyword research for UAE pet buyer searches", "Meta titles, descriptions and H1/H2 structure", "Schema: PetStore, FAQ, Article, BreadcrumbList", "XML sitemap submitted to Search Console, robots.txt", "Image alt text, Open Graph and Twitter cards", "Fast Cloudflare hosting with SSL"] },
+      ],
+    },
+    {
+      id: "blog",
+      title: "Blog strategy",
+      icon: "book",
+      intro: "Keyword-led articles that answer real buyer questions and pass authority to the pages that sell.",
+      tools: ["Ahrefs", "Semrush", "Google Search Console"],
+      steps: ["Keyword research", "Topic plan", "Write & optimise", "Internal links & schema", "Track in Search Console"],
+      items: [
+        { scope: "freelance", client: "Bolt's Family", title: "UAE puppy buyer blog", text: "Six long-form articles targeting high-volume UAE pet keywords, linked into breed and puppy pages.", icon: "paw", stat: { value: "6", label: "SEO articles, 800+ words each" }, bullets: ["Topics chosen from UAE keyword research", "FAQ sections on puppy, breed and service pages", "Internal linking from articles to breed pages", "Article and FAQ schema for rich results"] },
       ],
     },
   ],
