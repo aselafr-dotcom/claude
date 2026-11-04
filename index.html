@@ -4,208 +4,214 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Asela Fernando Portfolio</title>
-  <meta name="description" content="Digital marketing portfolio of Asela Fernando: case studies for MEBS Facility Services, SASA Real Estate and Middle East Real Estate, freelance work for Bolt's Family, campaign strategy, content and reports.">
+  <meta name="description" content="Asela Fernando, Digital Marketing Manager in Dubai. Case studies, live Meta Ads results, campaign strategy, experience and contact.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-  <header class="topbar" id="topbar">
-    <div class="wrap">
-      <a class="brand" href="#home" data-bind="owner.brand">©ASELA</a>
-      <nav class="nav" id="nav">
-        <a href="#home">Home</a>
-        <a href="#work">Case Studies</a>
-        <a href="#freelance">Freelance</a>
-        <a href="#strategy">Strategy</a>
-        <a href="#content">Content</a>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+
+  <header class="nav" id="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top"><span class="dot" aria-hidden="true"></span><span data-bind="name">Asela Fernando</span></a>
+      <nav class="nav-links" id="navLinks" aria-label="Sections">
+        <a href="#work">Work</a>
+        <a href="#results">Results</a>
+        <a href="#samples">Samples</a>
         <a href="#experience">Experience</a>
         <a href="#skills">Skills</a>
-        <a href="#evidence">Reports</a>
-        <a href="#contact">Contact</a>
       </nav>
-      <div class="pills">
-        <span class="pill">Portfolio</span>
-        <span class="pill dark" data-bind="owner.year">2026</span>
-      </div>
-      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav">Menu</button>
+      <a class="btn btn-ink nav-cta" href="#contact">Let's talk</a>
+      <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="navLinks">Menu</button>
     </div>
   </header>
 
-  <main class="wrap" id="app">
-    <div class="data-note" id="dataNote" hidden></div>
+  <main id="top">
+    <div class="wrap"><div class="data-note" id="dataNote" hidden></div></div>
 
     <!-- Hero -->
-    <section class="slide reveal" id="home">
+    <section class="wrap hero">
       <div class="hero-panel">
-        <div>
-          <div id="heroTags" class="tag-row"></div>
-          <h1 class="display" id="heroTitle">Digital Marketing Portfolio</h1>
-          <p class="lead" id="heroSummary"></p>
+        <div class="hero-copy">
+          <span class="status"><span class="pulse" aria-hidden="true"></span><span id="availability"></span></span>
+          <p class="hero-name" id="heroName"></p>
+          <h1 class="hero-title" id="heroHeadline"></h1>
+          <p class="hero-intro" id="heroIntro"></p>
+          <div class="hero-ctas">
+            <a class="btn btn-mint" href="#work">See case studies</a>
+            <a class="btn btn-ghost" id="heroWhatsApp" href="#contact" target="_blank" rel="noopener">WhatsApp me ↗</a>
+          </div>
+          <ul class="hero-facts" id="heroFacts"></ul>
         </div>
-        <figure class="shot hero-shot" id="heroShot"></figure>
-        <a class="round-btn hero-dl" href="#index" aria-label="Jump to selected work">
-          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v11M3 8l5 5 5-5"/></svg>
-        </a>
+        <div class="hero-visual">
+          <div class="portrait"><img id="portrait" alt="Portrait of Asela Fernando" width="180" height="297"></div>
+          <div class="float-chip chip-a"><b>+40%</b><span>qualified leads</span></div>
+          <div class="float-chip chip-b"><b>4,331</b><span>chats from Meta ads</span></div>
+        </div>
       </div>
-      <div class="grid cols-4 hero-stats" id="heroStats"></div>
-    </section>
-
-    <!-- Index of work -->
-    <section class="slide reveal" id="index">
-      <div class="slide-head">
-        <span class="slide-num"></span>
-        <span class="star" aria-hidden="true">✳</span>
-      </div>
-      <div class="work-index" id="workIndex"></div>
-      <div class="slide-head" style="margin:34px 0 0;align-items:flex-end">
-        <h2 class="display">Selected<br>Work</h2>
-        <p class="kicker">Click any slide to view it full size. Numbers link to the report, live page or ad account they came from.</p>
+      <div class="marquee" aria-label="Brands worked with">
+        <span class="marquee-label">Brands I've worked with</span>
+        <div class="marquee-track"><div class="marquee-row" id="clients"></div></div>
       </div>
     </section>
 
-    <!-- In-house case studies -->
-    <section class="slide reveal" id="work">
-      <div class="slide-head">
-        <div>
-          <span class="slide-num"></span>
-          <h2 class="title" style="margin-top:10px">Case Studies</h2>
-        </div>
-        <p class="kicker">In-house work across Al Qaisi Group, Dubai: facility management and two real estate brands.</p>
+    <!-- Impact -->
+    <section class="wrap section" id="impact" aria-labelledby="impactTitle">
+      <div class="section-head">
+        <p class="eyebrow">At a glance</p>
+        <h2 id="impactTitle">Results I can show the evidence for</h2>
       </div>
-      <div id="caseStudies"></div>
+      <div class="kpi-grid" id="kpis"></div>
     </section>
 
-    <!-- Freelance -->
-    <section class="slide reveal" id="freelance">
-      <div class="slide-head">
+    <!-- Work -->
+    <section class="wrap section" id="work" aria-labelledby="workTitle">
+      <div class="section-head split">
         <div>
-          <span class="slide-num"></span>
-          <h2 class="title" style="margin-top:10px">Freelance<br>Projects</h2>
+          <p class="eyebrow">Selected work</p>
+          <h2 id="workTitle">Case studies</h2>
         </div>
-        <p class="kicker">Independent client work. Bolt's Family figures are pulled directly from the client's Meta ad account.</p>
+        <p class="section-lede">Open a project to see the brief, the approach, the results and the original slides.</p>
       </div>
-      <div id="caseList"></div>
+      <div class="work-grid" id="workGrid"></div>
     </section>
 
-    <!-- Strategy gallery -->
-    <section class="slide reveal" id="strategy">
-      <div class="slide-head">
-        <div>
-          <span class="slide-num"></span>
-          <h2 class="title" style="margin-top:10px">Strategy, Systems<br>&amp; Planning</h2>
+    <!-- Results dashboard -->
+    <section class="wrap section" id="results" aria-labelledby="resultsTitle">
+      <div class="dash">
+        <div class="dash-head">
+          <div>
+            <p class="eyebrow on-dark">Live campaign data · Freelance</p>
+            <h2 id="resultsTitle">Bolt's Family: Meta Ads performance</h2>
+            <p class="dash-sub" id="dashSub"></p>
+          </div>
+          <span class="badge-live"><span class="pulse" aria-hidden="true"></span>Pulled from Meta Ads Manager</span>
         </div>
-        <p class="kicker">Campaign strategy, lead automation, competitor research and budget planning.</p>
+
+        <div class="dash-kpis" id="dashKpis"></div>
+
+        <div class="dash-grid">
+          <div class="panel">
+            <div class="panel-head">
+              <h3>Monthly trend</h3>
+              <div class="seg" role="tablist" aria-label="Chart metric" id="metricTabs"></div>
+            </div>
+            <div class="bars" id="bars" role="img"></div>
+            <p class="panel-note" id="barsNote"></p>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>Conversion funnel</h3></div>
+            <div class="funnel" id="funnel"></div>
+            <p class="panel-note">Funnel widths are illustrative; numbers are exact.</p>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h3>Top campaigns</h3>
+            <div class="seg" role="tablist" aria-label="Sort campaigns" id="sortTabs">
+              <button type="button" role="tab" aria-selected="true" data-sort="n">Most results</button>
+              <button type="button" role="tab" aria-selected="false" data-sort="cpr">Lowest cost</button>
+            </div>
+          </div>
+          <div class="camps" id="camps"></div>
+        </div>
       </div>
-      <div class="gallery" id="strategyGallery"></div>
     </section>
 
-    <!-- Content gallery -->
-    <section class="slide reveal" id="content">
-      <div class="slide-head">
-        <div>
-          <span class="slide-num"></span>
-          <h2 class="title" style="margin-top:10px">Social Media<br>Content</h2>
-        </div>
-        <p class="kicker">Content produced and scheduled across real estate, facility management, fintech and retail.</p>
+    <!-- Process -->
+    <section class="wrap section" id="process" aria-labelledby="processTitle">
+      <div class="section-head">
+        <p class="eyebrow">How I work</p>
+        <h2 id="processTitle">From research to results, in four steps</h2>
       </div>
-      <div class="gallery" id="contentGallery"></div>
+      <ol class="steps" id="steps"></ol>
+    </section>
+
+    <!-- Samples -->
+    <section class="wrap section" id="samples" aria-labelledby="samplesTitle">
+      <div class="section-head split">
+        <div>
+          <p class="eyebrow">Work samples</p>
+          <h2 id="samplesTitle">Strategy, automation and content</h2>
+        </div>
+        <div class="chips-filter" id="filters" role="tablist" aria-label="Filter samples"></div>
+      </div>
+      <div class="sample-grid" id="sampleGrid"></div>
     </section>
 
     <!-- Experience -->
-    <section class="slide reveal" id="experience">
-      <div class="slide-head">
-        <div style="display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap">
-          <span class="slide-num" style="width:100%"></span>
-          <span class="pill mint" style="padding:8px 14px">● Work Experience</span>
-          <p class="kicker">Roles, responsibilities and the measurable outcome of each, with links to the supporting evidence.</p>
+    <section class="wrap section" id="experience" aria-labelledby="expTitle">
+      <div class="section-head split">
+        <div>
+          <p class="eyebrow">Career</p>
+          <h2 id="expTitle">12+ years of experience</h2>
         </div>
-        <h2 class="title align-end">Experience<br>&amp; Impact</h2>
+        <p class="section-lede">Newest first. Open a role to see responsibilities and results.</p>
       </div>
-      <figure class="shot wide-shot" data-slide="3"></figure>
-      <div class="exp-list" id="expList"></div>
+      <div class="timeline" id="timeline"></div>
     </section>
 
-    <!-- Skills, education & certifications -->
-    <section class="slide reveal" id="skills">
-      <div class="slide-head">
-        <div>
-          <span class="slide-num"></span>
-          <h2 class="title" style="margin-top:10px">Skills, Tools &amp;<br>Certifications</h2>
-        </div>
-        <p class="kicker">Nine capability areas, from strategy and paid media through analytics, AI automation and creative production.</p>
+    <!-- Skills -->
+    <section class="wrap section" id="skills" aria-labelledby="skillsTitle">
+      <div class="section-head">
+        <p class="eyebrow">Capabilities</p>
+        <h2 id="skillsTitle">Skills, certifications and education</h2>
       </div>
-      <div class="grid cols-2">
-        <figure class="shot" data-slide="5"></figure>
-        <figure class="shot" data-slide="4"></figure>
-      </div>
-      <div class="grid cols-3" id="skillGroups" style="margin-top:14px"></div>
-      <div class="skills-layout" style="margin-top:28px">
-        <div>
-          <p class="small" style="margin-bottom:10px">Education</p>
-          <div class="grid" id="eduList"></div>
+      <div class="skills-grid" id="skillGrid"></div>
+      <div class="creds">
+        <div class="cred-col">
+          <div class="cred-head"><h3>Certifications</h3><a class="text-link" id="walletLink" target="_blank" rel="noopener">Verify in wallet ↗</a></div>
+          <ul class="cred-list" id="certList"></ul>
         </div>
-        <div>
-          <p class="small" style="margin-bottom:10px">Licenses &amp; certifications</p>
-          <div class="grid" id="certList"></div>
-          <div id="walletCta" style="margin-top:14px"></div>
+        <div class="cred-col">
+          <div class="cred-head"><h3>Education</h3></div>
+          <ul class="cred-list" id="eduList"></ul>
         </div>
       </div>
-    </section>
-
-    <!-- Reports & evidence -->
-    <section class="slide reveal" id="evidence">
-      <div class="slide-head">
-        <div>
-          <span class="slide-num"></span>
-          <h2 class="title" style="margin-top:10px">Reports &amp;<br>Evidence Library</h2>
-        </div>
-        <p class="kicker">All supporting material in one place: ad account data, analytics slides, live pages and profiles.</p>
-      </div>
-      <div class="table-scroll">
-        <table class="evidence-table">
-          <thead><tr><th class="type">Type</th><th>Project</th><th>Document</th><th>Status</th></tr></thead>
-          <tbody id="evidenceRows"></tbody>
-        </table>
-      </div>
-      <div class="deck-links" id="deckLinks"></div>
     </section>
 
     <!-- Contact -->
-    <section class="slide contact reveal" id="contact">
-      <div class="contact-side">
-        <span class="pill mint" style="align-self:flex-start">Open to work</span>
-        <div id="contactFacts" class="tag-row"></div>
-        <figure class="shot" data-slide="25" style="margin-top:auto"></figure>
-      </div>
-      <div class="contact-main">
-        <h2 class="display">Let's Work<br>Together</h2>
-        <p class="lead" id="contactLead"></p>
-        <div class="contact-links" id="contactLinks"></div>
+    <section class="wrap section" id="contact" aria-labelledby="contactTitle">
+      <div class="contact">
+        <div class="contact-copy">
+          <p class="eyebrow on-dark">Contact</p>
+          <h2 id="contactTitle">Let's grow your leads together.</h2>
+          <p class="contact-sub" id="contactSub"></p>
+          <ul class="hero-facts on-dark" id="contactFacts"></ul>
+        </div>
+        <div class="contact-actions" id="contactActions"></div>
       </div>
     </section>
   </main>
 
-  <footer>
-    <div class="wrap">
-      <span id="footerName"></span>
-      <a href="#home">Back to top ↑</a>
-    </div>
+  <footer class="wrap footer">
+    <span id="footerText"></span>
+    <a href="#top">Back to top ↑</a>
   </footer>
 
+  <!-- Case study panel -->
+  <dialog class="sheet" id="caseSheet" aria-labelledby="sheetTitle">
+    <div class="sheet-inner" id="sheetBody"></div>
+  </dialog>
+
+  <!-- Slide viewer -->
   <dialog class="lightbox" id="lightbox" aria-label="Slide viewer">
     <div class="lb-bar">
       <span class="lb-count" id="lbCount"></span>
-      <button class="lb-btn" id="lbClose" aria-label="Close">✕</button>
+      <button class="icon-btn" id="lbClose" type="button" aria-label="Close">✕</button>
     </div>
     <img id="lbImg" alt="">
     <div class="lb-foot">
-      <button class="lb-btn" id="lbPrev" aria-label="Previous slide">←</button>
+      <button class="icon-btn" id="lbPrev" type="button" aria-label="Previous">←</button>
       <p id="lbCaption"></p>
-      <button class="lb-btn" id="lbNext" aria-label="Next slide">→</button>
+      <button class="icon-btn" id="lbNext" type="button" aria-label="Next">→</button>
     </div>
   </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="assets/js/portfolio-data.js"></script>
   <script src="assets/js/main.js"></script>

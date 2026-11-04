@@ -18,6 +18,11 @@ window.PORTFOLIO = {
     name: "Asela Fernando",
     brand: "©ASELA",
     title: "Digital Marketing Manager",
+    headline: "I turn ad budgets into qualified leads and sales conversations.",
+    intro:
+      "12+ years in performance marketing, SEO and content across real estate, facility management, e-commerce and fintech. Based in Dubai, working B2B and B2C.",
+    portrait: "assets/img/portrait.jpg",
+    availability: "Open to full-time roles and freelance projects",
     tagline: ["Digital Marketing", "Performance Marketing", "AI & Automation"],
     location: "Al Quoz, Dubai, UAE",
     year: "2026",
@@ -174,11 +179,34 @@ window.PORTFOLIO = {
     },
   ],
 
+  // Brands worked with (shown as a scrolling strip under the hero).
+  clients: [
+    "MEBS Facility Services",
+    "SASA Real Estate",
+    "Middle East Real Estate",
+    "Bolt's Family",
+    "Clipnox Media Production",
+    "Shiyo Bridal",
+    "Rawabina Restaurant",
+    "Renuka Group",
+    "LR Platinum",
+  ],
+
+  // How I work: four steps, shown as a simple process row.
+  process: [
+    { title: "Research", text: "Audience, competitor and market analysis before any spend." },
+    { title: "Strategy", text: "Channel mix, funnel, budget plan and the KPIs that matter." },
+    { title: "Launch", text: "Campaigns, content and automation built to capture every lead." },
+    { title: "Optimise", text: "Weekly reporting, testing and budget shifts toward what converts." },
+  ],
+
   // In-house case studies, built from the Canva deck slides.
   caseStudies: [
     {
       id: "mebs",
       client: "MEBS Facility Services",
+      outcome: "+60% organic traffic through technical SEO and content",
+      tags: ["B2B", "SEO", "Brand"],
       sector: "Facility management · B2B",
       context: "Al Qaisi Group, Dubai",
       hero: 6,
@@ -211,6 +239,8 @@ window.PORTFOLIO = {
     {
       id: "sasa",
       client: "SASA Real Estate",
+      outcome: "Meta lead generation for off-plan property at a low cost per lead",
+      tags: ["Real estate", "Paid social", "Lead gen"],
       sector: "Dubai off-plan real estate",
       context: "Al Qaisi Group, Dubai",
       hero: 11,
@@ -241,6 +271,8 @@ window.PORTFOLIO = {
     {
       id: "mere",
       client: "Middle East Real Estate",
+      outcome: "360° campaigns with CRM and WhatsApp lead automation",
+      tags: ["Real estate", "Automation", "Content"],
       sector: "Dubai residential sales, leasing & property management",
       context: "Al Qaisi Group, Dubai",
       hero: 15,
@@ -273,20 +305,20 @@ window.PORTFOLIO = {
   // Galleries of slides. Each entry: slide number + caption.
   galleries: {
     strategy: [
-      { slide: 26, title: "Meta campaign strategy", note: "Audience targeting, ad copy hooks and retargeting for Dubai property investors" },
-      { slide: 21, title: "Lead generation automation", note: "Meta Ads → lead form → Zoho CRM → WhatsApp (WATI) → email + agent follow-up" },
-      { slide: 22, title: "B2B marketing action plan", note: "Strategy, LinkedIn with Sales Navigator, lead nurturing and ABM" },
-      { slide: 23, title: "Meta campaign & content strategy", note: "Guide to running Meta ads plus the social content playbook" },
-      { slide: 24, title: "Competitor analysis", note: "Major Dubai real estate agencies: web and social benchmarks" },
-      { slide: 27, title: "Annual marketing budget plan", note: "2025 month-by-month budget across search, SEO, Meta and LinkedIn" },
+      { slide: 26, cat: "Paid media", title: "Meta campaign strategy", note: "Audience targeting, ad copy hooks and retargeting for Dubai property investors" },
+      { slide: 21, cat: "Automation", title: "Lead generation automation", note: "Meta Ads → lead form → Zoho CRM → WhatsApp (WATI) → email + agent follow-up" },
+      { slide: 22, cat: "Strategy", title: "B2B marketing action plan", note: "Strategy, LinkedIn with Sales Navigator, lead nurturing and ABM" },
+      { slide: 23, cat: "Paid media", title: "Meta campaign & content strategy", note: "Guide to running Meta ads plus the social content playbook" },
+      { slide: 24, cat: "Strategy", title: "Competitor analysis", note: "Major Dubai real estate agencies: web and social benchmarks" },
+      { slide: 27, cat: "Strategy", title: "Annual marketing budget plan", note: "2025 month-by-month budget across search, SEO, Meta and LinkedIn" },
     ],
     content: [
-      { slide: 8, title: "MEBS social content", note: "Facility management thought leadership and UAE moments" },
-      { slide: 14, title: "SASA social content", note: "Off-plan launches and Dubai market news" },
-      { slide: 17, title: "Middle East Real Estate content", note: "Sales, leasing and property management posts" },
-      { slide: 20, title: "Content schedule", note: "Monthly calendar with carousel planning" },
-      { slide: 18, title: "Fintech app campaigns", note: "Sri Lanka consumer finance social creatives" },
-      { slide: 19, title: "TikTok: superbike showroom", note: "382K, 236K, 365K, 334K, 183K and 252K views" },
+      { slide: 8, cat: "Content", title: "MEBS social content", note: "Facility management thought leadership and UAE moments" },
+      { slide: 14, cat: "Content", title: "SASA social content", note: "Off-plan launches and Dubai market news" },
+      { slide: 17, cat: "Content", title: "Middle East Real Estate content", note: "Sales, leasing and property management posts" },
+      { slide: 20, cat: "Content", title: "Content schedule", note: "Monthly calendar with carousel planning" },
+      { slide: 18, cat: "Content", title: "Fintech app campaigns", note: "Sri Lanka consumer finance social creatives" },
+      { slide: 19, cat: "Video", title: "TikTok: superbike showroom", note: "382K, 236K, 365K, 334K, 183K and 252K views" },
     ],
   },
 
@@ -320,15 +352,25 @@ window.PORTFOLIO = {
         metric: "Monthly reach (Meta accounts)",
         labels: ["May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov*"],
         values: [288892, 294864, 6679, 597, 5252, 202841, 29279],
+        series: {
+          reach: { label: "Reach", unit: "", values: [288892, 294864, 6679, 597, 5252, 202841, 29279] },
+          impressions: { label: "Impressions", unit: "", values: [688997, 788260, 10941, 627, 7161, 419092, 42455] },
+          spend: { label: "Spend", unit: "AED ", values: [7566, 8063, 318, 10, 276, 12981, 1292] },
+        },
         footnote: "*Nov = 1 to 4 Nov. Jul to Sep: campaigns paused.",
       },
+      funnel: [
+        { label: "Impressions", value: 1957533 },
+        { label: "Clicks", value: 47874, note: "2.45% CTR" },
+        { label: "Conversations", value: 4331, note: "1 chat per 11 clicks" },
+      ],
       campaigns: [
-        { name: "WhatsApp UAE / Sales Gen", spend: "AED 5,647", result: "1,611 conversations", cost: "AED 3.51" },
-        { name: "Weekend / Urgent", spend: "AED 5,644", result: "1,587 conversations", cost: "AED 3.56" },
-        { name: "Retargeting, warm UAE", spend: "AED 1,402", result: "285 conversations", cost: "AED 4.92" },
-        { name: "Sales Gen, Toy Poodle", spend: "AED 571", result: "195 conversations", cost: "AED 2.93" },
-        { name: "Breed ad sets (ABO)", spend: "AED 1,089", result: "154 conversations", cost: "AED 7.07" },
-        { name: "Website contact leads", spend: "AED 1,011", result: "45 website contacts", cost: "AED 22.46" },
+        { name: "WhatsApp UAE / Sales Gen", n: 1611, cpr: 3.51, spend: "AED 5,647", result: "1,611 conversations", cost: "AED 3.51" },
+        { name: "Weekend / Urgent", n: 1587, cpr: 3.56, spend: "AED 5,644", result: "1,587 conversations", cost: "AED 3.56" },
+        { name: "Retargeting, warm UAE", n: 285, cpr: 4.92, spend: "AED 1,402", result: "285 conversations", cost: "AED 4.92" },
+        { name: "Sales Gen, Toy Poodle", n: 195, cpr: 2.93, spend: "AED 571", result: "195 conversations", cost: "AED 2.93" },
+        { name: "Breed ad sets (ABO)", n: 154, cpr: 7.07, spend: "AED 1,089", result: "154 conversations", cost: "AED 7.07" },
+        { name: "Website contact leads", n: 45, cpr: 22.46, spend: "AED 1,011", result: "45 website contacts", cost: "AED 22.46" },
       ],
       testimonial: { quote: "", author: "" },
       evidence: [
