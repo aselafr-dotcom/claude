@@ -7,6 +7,8 @@
  *   - Any link set to "" (empty) is shown as a greyed "link pending" button.
  *     Leave the `url` key out entirely when no link is intended.
  *   - A chart only draws when `trend.values` has numbers in it.
+ *   - Slide images live in assets/slides/slide-NN.jpg (exported from the Canva
+ *     deck "Digital Marketing Portfolio - Asela Fernando"). Refer to them by number.
  *
  * The yellow banner at the top of the page disappears once nothing is TBC
  * and every `url: ""` has been filled in.
@@ -46,20 +48,20 @@ window.PORTFOLIO = {
     {
       label: "Increase in qualified leads",
       value: "+40%",
-      note: "Google, Meta and LinkedIn campaigns at MEBS Facility Services, with lower cost per acquisition",
+      note: "Google, Meta and LinkedIn campaigns across Al Qaisi Group, with lower cost per acquisition",
       source: { label: "Lead generation report", url: "" },
     },
     {
       label: "Increase in organic traffic",
       value: "+60%",
-      note: "Technical and on-page SEO on high-intent keywords at MEBS Facility Services",
-      source: { label: "SEO / GA4 report", url: "" },
+      note: "Technical and on-page SEO on high-intent keywords for MEBS Facility Services",
+      source: { label: "SEO analysis slide", url: "assets/slides/slide-09.jpg" },
     },
     {
-      label: "Industry certifications",
-      value: "8",
-      note: "Google, LinkedIn, HubSpot, Semrush, Ahrefs and eMinds",
-      source: { label: "Credential wallet", url: "https://www.credential.net/profile/aselafernando249698/wallet" },
+      label: "WhatsApp conversations started",
+      value: "4,331",
+      note: "Bolt's Family, UAE: Meta click-to-message campaigns, May to Nov 2026",
+      source: { label: "Meta Ads Manager", url: "#bolts-family" },
     },
   ],
 
@@ -91,6 +93,7 @@ window.PORTFOLIO = {
       ],
       evidence: [
         { type: "report", label: "Lead & SEO results report", url: "" },
+        { type: "slide", label: "SEO analysis", url: "assets/slides/slide-09.jpg" },
         {
           type: "press",
           label: "Gulf Business: MEBS feature",
@@ -111,7 +114,12 @@ window.PORTFOLIO = {
         "Analysed customer insights, campaign performance and market trends to refine digital strategies and improve ROI.",
         "Directed content development, campaign execution and ongoing performance optimisation.",
       ],
-      focus: ["Brand awareness", "Lead generation", "Multi-platform social", "Customer insights", "ROI optimisation"],
+      metrics: [
+        { label: "TikTok views, 6 videos", value: "1.75M" },
+        { label: "Top single video", value: "382K" },
+      ],
+      focus: ["Superbike content for riders", "Short-form video", "Lead generation"],
+      evidence: [{ type: "slide", label: "TikTok content", url: "assets/slides/slide-19.jpg" }],
     },
     {
       company: "A V Business Solutions (Pvt) Ltd.",
@@ -166,91 +174,186 @@ window.PORTFOLIO = {
     },
   ],
 
-  // Freelance case studies. Each follows: challenge > approach > results > proof.
+  // In-house case studies, built from the Canva deck slides.
+  caseStudies: [
+    {
+      id: "mebs",
+      client: "MEBS Facility Services",
+      sector: "Facility management · B2B",
+      context: "Al Qaisi Group, Dubai",
+      hero: 6,
+      gallery: [7, 8, 9, 10],
+      overview:
+        "Sustainable organic growth through strategic content, SEO and audience engagement to raise brand visibility, website traffic and long-term customer relationships.",
+      scope: [
+        "Marketing strategy across digital and offline channels",
+        "Branding, positioning, communications and PR",
+        "Social media reach and engagement",
+        "Campaigns for security, cleaning and maintenance services",
+        "CSR activities and corporate events",
+      ],
+      strategy: [
+        "Brand leadership: position MEBS as a trusted, professional FM partner in Dubai",
+        "Digital growth: SEO, social engagement and organic visibility",
+        "Content excellence: audience-focused, value-driven storytelling",
+        "Performance marketing: analytics to refine campaigns and ROI",
+      ],
+      results: [
+        { label: "Organic traffic", value: "+60%" },
+        { label: "Qualified leads (group)", value: "+40%" },
+      ],
+      links: [
+        { type: "live", label: "mebsfacility.com", url: "https://www.mebsfacility.com" },
+        { type: "live", label: "@mebsfacility", url: "https://www.instagram.com/mebsfacility/" },
+        { type: "press", label: "Gulf Business feature", url: "https://gulfbusiness.com/en/2024/uae/mebs-a-success-story-in-uaes-facility-mgmt-sector/" },
+      ],
+    },
+    {
+      id: "sasa",
+      client: "SASA Real Estate",
+      sector: "Dubai off-plan real estate",
+      context: "Al Qaisi Group, Dubai",
+      hero: 11,
+      gallery: [13, 12, 14, 26],
+      overview:
+        "High-quality lead generation for off-plan property: funnel optimisation, multi-channel campaigns and reporting, aligned with the sales team.",
+      scope: [
+        "Lead generation campaigns for off-plan properties",
+        "Funnel optimisation from enquiry to qualified lead",
+        "Campaign planning across Google, Meta and LinkedIn",
+        "Performance tracking, analytics and reporting",
+      ],
+      strategy: [
+        "Audience segmentation: investors, end users and international buyers",
+        "Regional creatives in INR, PKR and GBP with financial and lifestyle hooks",
+        "Retargeting form openers, 25%+ video viewers and WhatsApp clickers",
+        "Lead nurturing through CRM-triggered email and WhatsApp",
+      ],
+      results: [
+        { label: "Meta lead gen", value: "Low CPL" },
+        { label: "Lead routing", value: "CRM + WhatsApp" },
+      ],
+      links: [
+        { type: "live", label: "sasarealestate.com", url: "https://www.sasarealestate.com" },
+        { type: "live", label: "@sasarealestate", url: "https://www.instagram.com/sasarealestate/" },
+      ],
+    },
+    {
+      id: "mere",
+      client: "Middle East Real Estate",
+      sector: "Dubai residential sales, leasing & property management",
+      context: "Al Qaisi Group, Dubai",
+      hero: 15,
+      gallery: [16, 17, 20, 21],
+      overview:
+        "360° digital marketing for a Dubai real estate brand: paid media, CRM automation, brand identity and consistent content.",
+      scope: [
+        "360° campaigns across Google, Meta and LinkedIn",
+        "Zoho CRM and Portle integration for lead management and reporting",
+        "Brand identity and consistent social and web content",
+        "Events, partnerships and community engagement",
+      ],
+      strategy: [
+        "Build trust as a reliable property partner",
+        "Grow through SEO, social media and organic reach",
+        "Value-driven, audience-focused content",
+        "Optimise campaigns with data to maximise ROI",
+      ],
+      results: [
+        { label: "Lead flow", value: "Automated" },
+        { label: "Content", value: "Scheduled" },
+      ],
+      links: [
+        { type: "live", label: "middleeast.ae", url: "https://www.middleeast.ae" },
+        { type: "live", label: "@middleeast.ae", url: "https://www.instagram.com/middleeast.ae/" },
+      ],
+    },
+  ],
+
+  // Galleries of slides. Each entry: slide number + caption.
+  galleries: {
+    strategy: [
+      { slide: 26, title: "Meta campaign strategy", note: "Audience targeting, ad copy hooks and retargeting for Dubai property investors" },
+      { slide: 21, title: "Lead generation automation", note: "Meta Ads → lead form → Zoho CRM → WhatsApp (WATI) → email + agent follow-up" },
+      { slide: 22, title: "B2B marketing action plan", note: "Strategy, LinkedIn with Sales Navigator, lead nurturing and ABM" },
+      { slide: 23, title: "Meta campaign & content strategy", note: "Guide to running Meta ads plus the social content playbook" },
+      { slide: 24, title: "Competitor analysis", note: "Major Dubai real estate agencies: web and social benchmarks" },
+      { slide: 27, title: "Annual marketing budget plan", note: "2025 month-by-month budget across search, SEO, Meta and LinkedIn" },
+    ],
+    content: [
+      { slide: 8, title: "MEBS social content", note: "Facility management thought leadership and UAE moments" },
+      { slide: 14, title: "SASA social content", note: "Off-plan launches and Dubai market news" },
+      { slide: 17, title: "Middle East Real Estate content", note: "Sales, leasing and property management posts" },
+      { slide: 20, title: "Content schedule", note: "Monthly calendar with carousel planning" },
+      { slide: 18, title: "Fintech app campaigns", note: "Sri Lanka consumer finance social creatives" },
+      { slide: 19, title: "TikTok: superbike showroom", note: "382K, 236K, 365K, 334K, 183K and 252K views" },
+    ],
+  },
+
+  // Freelance work.
   freelance: [
     {
       id: "bolts-family",
       client: "Bolt's Family",
-      category: "TBC: Industry",
-      period: "TBC: Mon 20XX to Mon 20XX",
-      services: ["TBC: Social media management", "TBC: Paid ads", "TBC: Content"],
+      category: "Pet breeder, UAE",
+      period: "May 2026 to Present",
+      services: ["Meta Ads", "WhatsApp click-to-message", "Instagram promotion", "Retargeting", "Website lead campaigns"],
       art: "art-ribs",
-      challenge: "TBC: What the client needed. Starting point in numbers (followers, sales, leads, cost per result).",
+      source: "Meta Ads Manager, lifetime to 4 Nov 2026",
+      challenge:
+        "Turn breed-specific puppy listings (Toy Poodle, Maltipoo, English Cocker Spaniel, Dachshund, Yorkshire Terrier) into WhatsApp sales conversations across the UAE at a low cost per conversation.",
       approach: [
-        "TBC: Audit / research step.",
-        "TBC: Strategy (audiences, content pillars, offer).",
-        "TBC: Execution (channels, posting cadence, ad structure).",
-        "TBC: Optimisation and reporting rhythm.",
+        "Always-on WhatsApp sales campaign for the UAE, plus a weekend / urgency variant.",
+        "Warm retargeting of engaged audiences and breed-level ad sets (ABO) to see which breeds pull demand.",
+        "Instagram post promotion for each new litter to drive profile visits and DMs.",
+        "From October 2026, website contact campaigns to capture leads off-platform.",
       ],
       results: [
-        { label: "TBC: Reach", value: "TBC", detail: "TBC: period + source" },
-        { label: "TBC: Engagement rate", value: "TBC", detail: "TBC: period + source" },
-        { label: "TBC: Leads / sales", value: "TBC", detail: "TBC: period + source" },
+        { label: "Ad spend managed", value: "AED 30,505", detail: "45 campaigns, May to Nov 2026" },
+        { label: "Messaging conversations started", value: "4,331", detail: "AED 5.54 blended; best campaigns AED 2.93 to 3.56" },
+        { label: "Reach (Meta accounts)", value: "696,910", detail: "1,957,533 impressions · frequency 2.8" },
+        { label: "Clicks (all)", value: "47,874", detail: "CTR 2.45% · CPM AED 15.58" },
+        { label: "Instagram profile visits", value: "2,356", detail: "From promoted litter posts" },
+        { label: "Website contacts", value: "52", detail: "Website lead campaigns, Oct to Nov 2026" },
       ],
-      // Monthly values for the report chart, e.g. { labels: ["Jan","Feb",...], values: [1200, 1850, ...] }
-      trend: { metric: "TBC: Monthly reach", labels: [], values: [] },
+      trend: {
+        metric: "Monthly reach (Meta accounts)",
+        labels: ["May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov*"],
+        values: [288892, 294864, 6679, 597, 5252, 202841, 29279],
+        footnote: "*Nov = 1 to 4 Nov. Jul to Sep: campaigns paused.",
+      },
+      campaigns: [
+        { name: "WhatsApp UAE / Sales Gen", spend: "AED 5,647", result: "1,611 conversations", cost: "AED 3.51" },
+        { name: "Weekend / Urgent", spend: "AED 5,644", result: "1,587 conversations", cost: "AED 3.56" },
+        { name: "Retargeting, warm UAE", spend: "AED 1,402", result: "285 conversations", cost: "AED 4.92" },
+        { name: "Sales Gen, Toy Poodle", spend: "AED 571", result: "195 conversations", cost: "AED 2.93" },
+        { name: "Breed ad sets (ABO)", spend: "AED 1,089", result: "154 conversations", cost: "AED 7.07" },
+        { name: "Website contact leads", spend: "AED 1,011", result: "45 website contacts", cost: "AED 22.46" },
+      ],
       testimonial: { quote: "", author: "" },
       evidence: [
-        { type: "report", label: "Monthly report (PDF)", url: "" },
-        { type: "live", label: "Facebook page", url: "" },
-        { type: "live", label: "Instagram", url: "" },
-        { type: "behance", label: "Behance case study", url: "" },
+        { type: "live", label: "Bolt's Family on Facebook", url: "https://www.facebook.com/1391345590733309" },
+        { type: "report", label: "Ads Manager export (PDF)", url: "" },
       ],
     },
     {
       id: "clipnox",
       client: "Clipnox Media Production",
       category: "Media production",
-      period: "TBC: Mon 20XX to Mon 20XX",
-      services: ["TBC: Brand content", "TBC: Video promotion", "TBC: Lead generation"],
-      art: "art-dark",
-      challenge: "TBC: What the client needed. Starting point in numbers (followers, enquiries, bookings, cost per lead).",
-      approach: [
-        "TBC: Audit / research step.",
-        "TBC: Strategy (showreel, audiences, offer).",
-        "TBC: Execution (channels, ad formats, cadence).",
-        "TBC: Optimisation and reporting rhythm.",
-      ],
-      results: [
-        { label: "TBC: Video views", value: "TBC", detail: "TBC: period + source" },
-        { label: "TBC: Enquiries", value: "TBC", detail: "TBC: period + source" },
-        { label: "TBC: Cost per lead", value: "TBC", detail: "TBC: period + source" },
-      ],
-      trend: { metric: "TBC: Monthly enquiries", labels: [], values: [] },
-      testimonial: { quote: "", author: "" },
+      pending: true,
       evidence: [
-        { type: "report", label: "Campaign report (PDF)", url: "" },
-        { type: "live", label: "YouTube / TikTok", url: "" },
-        { type: "live", label: "Meta Ad Library", url: "" },
-        { type: "behance", label: "Behance case study", url: "" },
+        { type: "live", label: "Clipnox page", url: "" },
+        { type: "report", label: "Campaign report", url: "" },
       ],
     },
     {
       id: "shiyo-bridal",
       client: "Shiyo Bridal",
       category: "Bridal",
-      period: "TBC: Mon 20XX to Mon 20XX",
-      services: ["TBC: Social media management", "TBC: Paid ads", "TBC: Photo / reel direction"],
-      art: "art-wave",
-      challenge: "TBC: What the client needed. Starting point in numbers (followers, bookings, DMs, cost per message).",
-      approach: [
-        "TBC: Audit / research step.",
-        "TBC: Strategy (seasonality, audiences, offer).",
-        "TBC: Execution (reels, carousels, messaging ads).",
-        "TBC: Optimisation and reporting rhythm.",
-      ],
-      results: [
-        { label: "TBC: Followers gained", value: "TBC", detail: "TBC: period + source" },
-        { label: "TBC: Messaging conversations", value: "TBC", detail: "TBC: period + source" },
-        { label: "TBC: Bookings", value: "TBC", detail: "TBC: period + source" },
-      ],
-      trend: { metric: "TBC: Monthly conversations", labels: [], values: [] },
-      testimonial: { quote: "", author: "" },
+      pending: true,
       evidence: [
-        { type: "report", label: "Insights report (PDF)", url: "" },
-        { type: "live", label: "Instagram", url: "" },
-        { type: "live", label: "Facebook page", url: "" },
-        { type: "behance", label: "Behance case study", url: "" },
+        { type: "live", label: "Shiyo Bridal page", url: "" },
+        { type: "report", label: "Insights report", url: "" },
       ],
     },
   ],
@@ -258,19 +361,42 @@ window.PORTFOLIO = {
   behance: {
     projectTitle: "Portfolio | Digital Marketing",
     url: "https://www.behance.net/gallery/238431633/Portfolio-Digital-Marketing",
-    blurb:
-      "TBC: Short description of what the Behance project covers (campaign creatives, social grids, ad results, brand work).",
-    // Copy these from the Behance project page.
-    stats: [
-      { label: "Project views", value: "TBC" },
-      { label: "Appreciations", value: "TBC" },
-      { label: "Published", value: "TBC" },
-    ],
-    // Other Behance projects worth linking.
-    more: [
-      { title: "TBC: Project title", url: "", tags: ["TBC"] },
-      { title: "TBC: Project title", url: "", tags: ["TBC"] },
-    ],
+    blurb: "The full case-study deck is also published on Behance.",
+    stats: [],
+    more: [],
+  },
+
+  canvaDeck: "https://www.canva.com/d/xMUTVjRKVZJESEq",
+
+  // Name of every slide in assets/slides, used for alt text and the viewer caption.
+  slideTitles: {
+    1: "Portfolio cover",
+    2: "About me",
+    3: "Work experience",
+    4: "Certifications",
+    5: "Skills and tools",
+    6: "MEBS Facility Services: overview, scope and strategy",
+    7: "MEBS: social media analytics",
+    8: "MEBS: social media content",
+    9: "MEBS: SEO analysis (Semrush and Search Console)",
+    10: "MEBS: brand identity",
+    11: "SASA Real Estate: overview, scope and strategy",
+    12: "SASA Real Estate: social media analytics",
+    13: "SASA Real Estate: Meta lead generation campaign",
+    14: "SASA Real Estate: social media content",
+    15: "Middle East Real Estate: overview, scope and strategy",
+    16: "Middle East Real Estate: social media analytics",
+    17: "Middle East Real Estate: social media content",
+    18: "Fintech app social campaigns",
+    19: "TikTok: superbike showroom videos",
+    20: "Social media content schedule",
+    21: "Lead generation automation (Meta, Zoho CRM, WATI, email)",
+    22: "B2B marketing strategy action plan",
+    23: "Meta campaign and content strategy",
+    24: "Competitor analysis: Dubai real estate",
+    25: "Thank you and contact",
+    26: "Meta campaign strategy: targeting, ad copy, retargeting",
+    27: "Annual marketing budget plan",
   },
 
   skills: [

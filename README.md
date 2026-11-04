@@ -1,18 +1,22 @@
 # Digital Marketing Portfolio
 
-A one-page portfolio site styled after a black / mint / forest-green "annual report" slide deck. Sections:
+A one-page, image-led portfolio styled after a black / mint / forest-green "annual report" slide deck. Every slide image opens full size in a built-in viewer. Sections:
 
-1. **Hero**: name, title, summary, headline stat
-2. **Table of contents**: tiles linking to every section and case study
-3. **Key achievements**: headline numbers, each with a source link
-4. **Work experience**: role cards with responsibilities, measured impact and report links
-5. **Freelance projects**: Bolt's Family, Clipnox Media Production, Shiyo Bridal (challenge, approach, results, monthly report chart, testimonial, evidence links)
-6. **Reports & evidence library**: every report, live link and case study collected into one table, marked Linked or Pending
-7. **Behance**: the [Portfolio | Digital Marketing](https://www.behance.net/gallery/238431633/Portfolio-Digital-Marketing) project, its stats and other projects
-8. **Skills, tools & certifications**
+1. **Hero**: name, summary, the About slide and four headline results with sources
+2. **Selected work**: image tiles linking to each case study
+3. **Case studies**: MEBS Facility Services, SASA Real Estate and Middle East Real Estate, each with overview, scope, strategy, results, live links and a strip of portfolio slides
+4. **Freelance projects**: Bolt's Family (live Meta Ads Manager data: spend, conversations, reach, monthly chart, top campaigns), plus Clipnox Media Production and Shiyo Bridal in progress
+5. **Strategy, systems & planning**: Meta strategy, lead automation, B2B action plan, competitor analysis, budget plan
+6. **Social media content**: content slides across real estate, facility management, fintech and TikTok
+7. **Work experience**, **skills, education & certifications**
+8. **Reports & evidence library**: every link and slide in one table, plus Behance and the Canva deck
 9. **Contact**
 
 Plain HTML, CSS and JavaScript. No build step.
+
+## Slide images
+
+`assets/slides/slide-01.jpg` to `slide-27.jpg` are the 27 pages of the Canva deck "Digital Marketing Portfolio - Asela Fernando", at 596 px wide. To use sharper versions, export the deck from Canva as JPG (1600 px wide works well) and overwrite these files with the same names.
 
 ## Editing content
 
