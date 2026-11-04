@@ -46,24 +46,32 @@ window.PORTFOLIO = {
   highlights: [
     {
       label: "Years in digital marketing",
+      scope: "career",
+      icon: "calendar",
       value: "12+",
       note: "Since 2014, including 3+ years in Dubai, UAE",
       source: { label: "LinkedIn profile", url: "https://www.linkedin.com/in/aselafr/" },
     },
     {
       label: "Increase in qualified leads",
+      scope: "company",
+      icon: "target",
       value: "+40%",
       note: "Google, Meta and LinkedIn campaigns across Al Qaisi Group, with lower cost per acquisition",
       source: { label: "Lead generation report", url: "" },
     },
     {
       label: "Increase in organic traffic",
+      scope: "company",
+      icon: "search",
       value: "+60%",
       note: "Technical and on-page SEO on high-intent keywords for MEBS Facility Services",
       source: { label: "SEO analysis slide", url: "assets/slides/slide-09.jpg" },
     },
     {
       label: "WhatsApp conversations started",
+      scope: "freelance",
+      icon: "message",
       value: "4,331",
       note: "Bolt's Family, UAE: Meta click-to-message campaigns, May to Nov 2026",
       source: { label: "Meta Ads Manager", url: "#bolts-family" },
@@ -179,18 +187,24 @@ window.PORTFOLIO = {
     },
   ],
 
-  // Brands worked with (shown as a scrolling strip under the hero).
-  clients: [
-    "MEBS Facility Services",
-    "SASA Real Estate",
-    "Middle East Real Estate",
-    "Bolt's Family",
-    "Clipnox Media Production",
-    "Shiyo Bridal",
-    "Rawabina Restaurant",
-    "Renuka Group",
-    "LR Platinum",
-  ],
+  // Logo wall. Companies are employers and in-house brands; freelance are independent clients.
+  logos: {
+    company: [
+      { name: "MEBS Facility Services", logo: "assets/img/logo-mebs.png", note: "Al Qaisi Group" },
+      { name: "SASA Real Estate", logo: "assets/img/logo-sasa.png", note: "Al Qaisi Group" },
+      { name: "Middle East Real Estate", logo: "assets/img/logo-mere.png", note: "Al Qaisi Group" },
+      { name: "Rawabina Restaurant", note: "Al Qaisi Group" },
+      { name: "LR Platinum", note: "Sri Lanka" },
+      { name: "A V Business Solutions", note: "Sri Lanka" },
+      { name: "Renuka Group PLC", note: "Sri Lanka" },
+      { name: "Cyber Concepts", note: "Sri Lanka" },
+    ],
+    freelance: [
+      { name: "Bolt's Family", note: "Pet breeder, UAE", icon: "paw" },
+      { name: "Clipnox Media Production", note: "Photo & video, UAE / LK", icon: "camera" },
+      { name: "Shiyo Bridal", note: "Bridal", icon: "heart" },
+    ],
+  },
 
   // How I work: four steps, shown as a simple process row.
   process: [
@@ -204,6 +218,8 @@ window.PORTFOLIO = {
   caseStudies: [
     {
       id: "mebs",
+      cover: "assets/img/cover-mebs.jpg",
+      logo: "assets/img/logo-mebs.png",
       client: "MEBS Facility Services",
       outcome: "+60% organic traffic through technical SEO and content",
       tags: ["B2B", "SEO", "Brand"],
@@ -238,6 +254,8 @@ window.PORTFOLIO = {
     },
     {
       id: "sasa",
+      cover: "assets/img/cover-sasa.jpg",
+      logo: "assets/img/logo-sasa.png",
       client: "SASA Real Estate",
       outcome: "Meta lead generation for off-plan property at a low cost per lead",
       tags: ["Real estate", "Paid social", "Lead gen"],
@@ -270,6 +288,8 @@ window.PORTFOLIO = {
     },
     {
       id: "mere",
+      cover: "assets/img/cover-mere.jpg",
+      logo: "assets/img/logo-mere.png",
       client: "Middle East Real Estate",
       outcome: "360° campaigns with CRM and WhatsApp lead automation",
       tags: ["Real estate", "Automation", "Content"],
@@ -302,6 +322,21 @@ window.PORTFOLIO = {
     },
   ],
 
+  // A photo story from an earlier company role.
+  earlierWork: {
+    company: "LR Platinum",
+    role: "Digital Marketing Manager, 2020 to 2023",
+    title: "Superbike showroom content on TikTok",
+    text: "Short-form videos made for riders and enthusiasts. Six videos reached 1.75M views between them.",
+    stat: { value: "1.75M", label: "views across six videos" },
+    photos: [
+      { src: "assets/img/bike-1.jpg", views: "382K" },
+      { src: "assets/img/bike-2.jpg", views: "236K" },
+      { src: "assets/img/bike-3.jpg", views: "365K" },
+    ],
+    slide: 19,
+  },
+
   // Galleries of slides. Each entry: slide number + caption.
   galleries: {
     strategy: [
@@ -327,6 +362,21 @@ window.PORTFOLIO = {
     {
       id: "bolts-family",
       client: "Bolt's Family",
+      icon: "paw",
+      website: {
+        url: "https://boltsfamily.ae",
+        image: "assets/img/bolts-proposal.jpg",
+        title: "boltsfamily.ae: website, CMS and SEO",
+        text: "A premium puppy sales website for the UAE, designed and built from scratch: a mobile-first design system, puppy listings with filters, WhatsApp enquiry buttons and an admin panel to manage puppies without a developer.",
+        features: [
+          "28 hand-coded pages, mobile-first",
+          "Custom CMS with breed and gender filters",
+          "WhatsApp message per puppy, booking widget",
+          "Keyword research, schema markup and sitemap",
+          "6 SEO blog articles for UAE pet buyers",
+          "Cloudflare hosting with SSL",
+        ],
+      },
       category: "Pet breeder, UAE",
       period: "May 2026 to Present",
       services: ["Meta Ads", "WhatsApp click-to-message", "Instagram promotion", "Retargeting", "Website lead campaigns"],
@@ -381,16 +431,18 @@ window.PORTFOLIO = {
     {
       id: "clipnox",
       client: "Clipnox Media Production",
-      category: "Media production",
-      pending: true,
-      evidence: [
-        { type: "live", label: "Clipnox page", url: "" },
-        { type: "report", label: "Campaign report", url: "" },
-      ],
+      category: "Photo & video production, UAE and Sri Lanka",
+      icon: "camera",
+      image: "assets/img/clipnox-grid.jpg",
+      title: "Event content for Ananthaya Chapter 05, Acoustic Night Dubai 2026",
+      text: "Clipnox was the official photography partner for the concert. I planned the Instagram grid and wrote the post copy, alt text and hashtags to turn the event photos into enquiries for event coverage.",
+      services: ["Instagram grid planning", "Post copy & CTAs", "Alt text & hashtags", "Event promotion"],
+      evidence: [],
     },
     {
       id: "shiyo-bridal",
       client: "Shiyo Bridal",
+      icon: "heart",
       category: "Bridal",
       pending: true,
       evidence: [
