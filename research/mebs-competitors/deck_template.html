@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MEBS Competitor Deck</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap">
+<style>
+/* Light, single-look design: a blue presentation board (title + slide count) holding a 2-column grid of 16:9 slides drawn at 1280x720 and scaled to fit; click to present, click a company for its dossier. */
+:root {
+  --board: #2c6db4;
+  --board-2: #275f9e;
+  --blue: #1f7ae8;
+  --blue-2: #1559cf;
+  --blue-3: #2a8cff;
+  --ink: #0f2747;
+  --navy: #17386b;
+  --muted: #5d6f8a;
+  --soft: #eaf2fd;
+  --line: #dbe5f2;
+  --red: #e0262b;
+  --white: #ffffff;
+  --display: "Poppins", "Segoe UI", Arial, sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+:root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; font-family: var(--display); color: var(--white);
+  background: radial-gradient(1200px 600px at 20% -10%, rgba(255,255,255,.10), rgba(255,255,255,0) 60%), linear-gradient(180deg, var(--board) 0%, var(--board-2) 100%) fixed; background-color: var(--board); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--board); }
+.wrap { max-width: 1240px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+button { font-family: inherit; }
+:focus-visible { outline: 3px solid #ffffff; outline-offset: 3px; }
+
+/* Board header */
+.boardhead .wrap { padding-block: clamp(36px, 7vw, 88px) 28px; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px; }
+.boardhead h1 { margin: 0; font-weight: 700; font-size: clamp(2.2rem, 6vw, 4.2rem); line-height: 1.05; letter-spacing: -.01em; text-wrap: balance; }
+.count { text-align: right; }
+.count b { display: block; font-weight: 400; font-size: clamp(2.6rem, 6vw, 4rem); line-height: 1; }
+.count span { font-size: 1.15rem; opacity: .92; }
+.hint { margin: 10px 0 0; font-size: .95rem; opacity: .85; max-width: 60ch; }
+
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; padding-block: 8px 40px; }
+.frame { position: relative; aspect-ratio: 16 / 9; max-width: 100%; border-radius: 12px; overflow: hidden; cursor: pointer; border: 0; padding: 0; background: #ffffff; box-shadow: 0 10px 30px rgba(6, 26, 60, .28); transition: transform .2s; display: block; width: 100%; }
+.frame:hover { transform: translateY(-3px); }
+.frame .slide, .frame .slide * { pointer-events: none; }
+footer .wrap { padding-block: 0 40px; font-size: .82rem; opacity: .8; }
+
+/* Slide canvas */
+.slide { position: absolute; left: 0; top: 0; width: 1280px; height: 720px; transform: scale(var(--s, .45)); transform-origin: 0 0; overflow: hidden; font-family: var(--display); }
+.slide.white { background: #ffffff; color: var(--ink); }
+.slide.blue { background: linear-gradient(135deg, #2b88f2 0%, #1d6ee0 50%, #1558c8 100%); color: #ffffff; }
+.slide.blue::after { content: ""; position: absolute; right: -160px; bottom: -220px; width: 620px; height: 620px; border-radius: 50%; background: rgba(255,255,255,.06); pointer-events: none; }
+.abs { position: absolute; }
+.brand { position: absolute; left: 56px; top: 34px; display: flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 500; }
+.brand i { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: var(--blue); }
+.blue .brand i { background: #ffffff; }
+.brand i svg { width: 14px; height: 14px; stroke: #ffffff; }
+.blue .brand i svg { stroke: var(--blue); }
+.pageno { position: absolute; right: 56px; top: 36px; font-size: 12px; opacity: .75; }
+.h { margin: 0; font-weight: 500; font-size: 46px; line-height: 1.12; letter-spacing: -.01em; }
+.white .h { color: var(--ink); }
+.pill { display: inline-flex; align-items: center; gap: 8px; height: 24px; padding: 0 14px 0 12px; border-radius: 999px; background: var(--blue); color: #ffffff; font-size: 9.5px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; }
+.pill::after { content: ""; width: 26px; height: 3px; border-radius: 2px; background: rgba(255,255,255,.75); }
+.blue .pill { background: rgba(255,255,255,.18); }
+.lead { font-size: 14px; line-height: 1.65; color: var(--muted); }
+.blue .lead { color: rgba(255,255,255,.88); }
+.sub { font-style: italic; font-weight: 500; font-size: 18px; }
+
+/* Illustration tile (stands in for a photo) */
+.photo { position: absolute; border-radius: 22px; overflow: hidden; display: grid; place-items: center;
+  background: repeating-linear-gradient(90deg, rgba(255,255,255,.08) 0 1px, transparent 1px 34px), repeating-linear-gradient(0deg, rgba(255,255,255,.08) 0 1px, transparent 1px 34px), linear-gradient(150deg, #5aa7ff 0%, #2470d8 45%, #123f8f 100%); }
+.photo.alt { background: repeating-linear-gradient(135deg, rgba(255,255,255,.09) 0 2px, transparent 2px 22px), linear-gradient(160deg, #8cc4ff 0%, #3b86e8 50%, #1a4fa8 100%); }
+.photo.navy { background: repeating-linear-gradient(90deg, rgba(255,255,255,.06) 0 1px, transparent 1px 28px), linear-gradient(150deg, #2f5f9e 0%, #17386b 100%); }
+.photo svg { width: 38%; max-width: 150px; height: auto; stroke: #ffffff; stroke-width: 1.6; fill: none; stroke-linecap: round; stroke-linejoin: round; opacity: .95; }
+.photo .cap { position: absolute; left: 16px; bottom: 14px; font-size: 12px; font-weight: 500; color: #ffffff; background: rgba(10, 30, 70, .35); padding: 5px 10px; border-radius: 999px; }
+
+/* Blue info card */
+.bcard { position: absolute; border-radius: 20px; padding: 24px; color: #ffffff; background: linear-gradient(150deg, #3290ff 0%, #1c6ae0 60%, #1556c6 100%); box-shadow: 0 10px 24px rgba(21, 86, 198, .25); }
+.bcard h4 { margin: 0 0 10px; font-size: 16px; font-weight: 500; }
+.bcard p { margin: 0; font-size: 12px; line-height: 1.6; opacity: .9; }
+
+/* Company cards */
+.cgrid { position: absolute; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 1fr; gap: 12px; }
+.co { border: 0; text-align: left; cursor: pointer; border-radius: 16px; padding: 13px 16px 12px; display: grid; align-content: start; gap: 4px; min-width: 0; font-family: var(--display);
+  color: #ffffff; background: linear-gradient(140deg, #2f8cfa 0%, #1a66dc 100%); box-shadow: 0 6px 16px rgba(21, 86, 198, .18); }
+.blue .co { background: rgba(255,255,255,.13); border: 1px solid rgba(255,255,255,.24); box-shadow: none; }
+.co .n { display: flex; gap: 8px; align-items: baseline; font-size: 15px; font-weight: 600; line-height: 1.25; }
+.co .n em { font-style: normal; font-size: 11px; font-weight: 500; opacity: .75; flex: none; }
+.co .n span { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+.co .o { font-size: 11px; line-height: 1.45; opacity: .88; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.co .m { font-size: 10.5px; opacity: .78; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+.co:hover { filter: brightness(1.06); }
+
+/* Segment arrow cards */
+.seg { position: absolute; border: 0; cursor: pointer; text-align: left; font-family: var(--display); color: #ffffff; border-radius: 16px; padding: 22px 18px; display: grid; align-content: start; gap: 10px;
+  background: linear-gradient(160deg, #3d97ff 0%, #2378ea 100%); box-shadow: 0 10px 22px rgba(6, 40, 110, .25); }
+.seg svg { width: 22px; height: 22px; stroke: #ffffff; stroke-width: 2; fill: none; }
+.seg b { margin-top: 70px; font-size: 18px; font-weight: 500; }
+.seg span { font-size: 12px; line-height: 1.55; opacity: .88; }
+
+/* Stats */
+.stat b { display: block; font-size: 34px; font-weight: 600; color: var(--blue); line-height: 1.1; }
+.stat h5 { margin: 4px 0 8px; font-size: 15px; font-weight: 600; color: var(--ink); }
+.stat p { margin: 0 0 10px; font-size: 12px; line-height: 1.6; color: var(--muted); }
+.stat ul { margin: 0; padding-left: 16px; font-size: 11.5px; line-height: 1.7; color: var(--ink); }
+
+.ncard { position: absolute; border-radius: 16px; padding: 16px 20px; color: #ffffff; background: linear-gradient(140deg, #3290ff 0%, #1a64d8 100%); box-shadow: 0 12px 26px rgba(10, 50, 130, .28); }
+.ncard b { display: block; font-size: 20px; font-weight: 600; margin-bottom: 2px; }
+.ncard h5 { margin: 0 0 4px; font-size: 14px; font-weight: 500; }
+.ncard p { margin: 0; font-size: 11.5px; line-height: 1.55; opacity: .9; }
+
+.xlist { position: absolute; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: min-content; gap: 3px 26px; }
+.xlist div { display: grid; grid-template-columns: 10px minmax(0, 1fr); gap: 0 8px; padding: 4px 0 5px; border-bottom: 1px solid var(--line); }
+.xlist i { width: 8px; height: 8px; border-radius: 50%; background: var(--red); margin-top: 6px; }
+.xlist b { font-size: 12px; line-height: 1.3; font-weight: 600; color: var(--ink); }
+.xlist span { grid-column: 2; font-size: 10px; line-height: 1.35; color: var(--muted); display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+
+.tile { position: absolute; border-radius: 20px; padding: 22px; background: linear-gradient(150deg, #3d97ff 0%, #2072e6 100%); box-shadow: 0 10px 22px rgba(6, 40, 110, .22); }
+.tile b { display: block; font-size: 30px; font-weight: 600; }
+.tile h5 { margin: 30px 0 6px; font-size: 14px; font-weight: 600; }
+.tile p { margin: 0; font-size: 11.5px; line-height: 1.55; opacity: .9; }
+
+.contact { position: absolute; display: grid; gap: 16px; font-size: 15px; color: var(--ink); }
+.contact div { display: flex; gap: 12px; align-items: center; }
+.contact i { width: 26px; height: 26px; border-radius: 50%; background: var(--blue); display: grid; place-items: center; flex: none; }
+.contact svg { width: 14px; height: 14px; stroke: #ffffff; stroke-width: 2.4; fill: none; }
+.thanks { position: absolute; left: 56px; bottom: -34px; font-size: 190px; font-weight: 600; letter-spacing: -.02em; line-height: 1;
+  background: linear-gradient(180deg, #2a7de8 0%, rgba(42,125,232,.35) 55%, rgba(42,125,232,0) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+/* Presenter */
+.viewer { position: fixed; inset: 0; z-index: 20; background: rgba(6, 18, 44, .94); display: grid; grid-template-rows: auto 1fr auto; padding: calc(12px + env(safe-area-inset-top, 0px)) max(12px, env(safe-area-inset-right, 0px)) calc(12px + env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px)); }
+.vbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: .9rem; }
+.vstage { display: grid; place-items: center; min-height: 0; }
+.vframe { position: relative; aspect-ratio: 16 / 9; width: min(100%, calc((100vh - 140px) * 16 / 9)); max-width: 100%; border-radius: 10px; overflow: hidden; background: #ffffff; }
+.vnav { display: flex; justify-content: center; gap: 12px; }
+.btn { border: 1px solid rgba(255,255,255,.35); background: rgba(255,255,255,.1); color: #ffffff; border-radius: 999px; padding: 10px 18px; font-size: .9rem; cursor: pointer; }
+.btn:hover { background: rgba(255,255,255,.2); }
+
+/* Company dossier */
+.modal { position: fixed; inset: 0; z-index: 30; background: rgba(6, 18, 44, .6); display: grid; place-items: center; padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+.dossier { width: min(780px, 100%); max-height: 100%; overflow: auto; background: #ffffff; color: var(--ink); border-radius: 20px; }
+.dhead { padding: 22px 24px; color: #ffffff; background: linear-gradient(135deg, #2b88f2 0%, #1558c8 100%); display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; }
+.dhead h3 { margin: 0; font-size: 1.35rem; font-weight: 600; line-height: 1.25; }
+.dhead small { display: block; margin-top: 4px; font-size: .78rem; opacity: .85; letter-spacing: .06em; text-transform: uppercase; }
+.dhead .btn { flex: none; }
+.dbody { margin: 0; padding: 6px 24px 24px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 26px; }
+.dbody div { min-width: 0; }
+.dbody .wide { grid-column: 1 / -1; }
+.dbody dt { margin: 16px 0 4px; font-size: .7rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--blue); }
+.dbody dd { margin: 0; font-size: .9rem; line-height: 1.55; overflow-wrap: anywhere; }
+.chip { display: inline-block; padding: 4px 10px; border-radius: 999px; font-size: .8rem; font-weight: 500; background: #e3f5ec; color: #12784f; }
+.chip.low { background: #fdf0d9; color: #8a5a00; }
+
+@media (max-width: 760px) {
+  .grid { grid-template-columns: minmax(0, 1fr); }
+  .count { text-align: left; }
+  .dbody { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) { .frame { transition: none; } }
+</style>
+</head>
+<body>
+
+<header class="boardhead">
+  <div class="wrap">
+    <div>
+      <h1>MEBS Competitor<br>Landscape Deck</h1>
+      <p class="hint">Click a slide to present it full screen. In a company slide, click any company to see its full details.</p>
+    </div>
+    <div class="count"><b id="total">14</b><span>Total Slides</span></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="grid" id="grid"></div>
+</main>
+
+<footer><div class="wrap">Prepared for MEBS Facility Services from public web sources, November 2026. Illustration tiles stand in for photos. For internal use.</div></footer>
+
+<div class="viewer" id="viewer" hidden role="dialog" aria-modal="true" aria-label="Presentation">
+  <div class="vbar"><span id="vcount">1 / 14</span><button class="btn" id="vclose" type="button">Close</button></div>
+  <div class="vstage"><div class="vframe" id="vframe"></div></div>
+  <div class="vnav"><button class="btn" id="vprev" type="button">Previous</button><button class="btn" id="vnext" type="button">Next</button></div>
+</div>
+
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="dname">
+  <div class="dossier">
+    <div class="dhead"><div><h3 id="dname"></h3><small id="dcat"></small></div><button class="btn" id="dclose" type="button">Close</button></div>
+    <dl class="dbody" id="dbody"></dl>
+  </div>
+</div>
+
+<script>
+const DATA = /*__DATA__*/null;
+
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const IC = {
+  mark: '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 5 6v5c0 5 3 8 7 10 4-2 7-5 7-10V6l-7-3Z"/></svg>',
+  arrow: '<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>',
+  building: '<svg viewBox="0 0 48 48"><path d="M8 42V14l14-6v34M22 42V18l18 6v18M4 42h40M13 20h4M13 27h4M13 34h4M28 28h6M28 35h6"/></svg>',
+  shield: '<svg viewBox="0 0 48 48"><path d="M24 5 8 11v11c0 10 7 17 16 21 9-4 16-11 16-21V11L24 5Z"/><path d="m17 24 5 5 9-10"/></svg>',
+  clean: '<svg viewBox="0 0 48 48"><path d="M18 18h12l2 6v16a2 2 0 0 1-2 2H18a2 2 0 0 1-2-2V24l2-6Z"/><path d="M20 18v-6h8l6-4M28 12h4M38 6l2-2M40 10h3M38 14l2 2"/></svg>',
+  globe: '<svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="17"/><path d="M7 24h34M24 7c5 5 7 11 7 17s-2 12-7 17c-5-5-7-11-7-17s2-12 7-17Z"/></svg>',
+  chart: '<svg viewBox="0 0 48 48"><path d="M6 42h36M12 36V24M20 36V14M28 36V20M36 36V8"/></svg>',
+  pin: '<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>',
+  phone: '<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-3 2a11 11 0 0 0 5 5l2-3 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg>',
+  mail: '<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>',
+  web: '<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 4 6 4 9s-1 6-4 9c-3-3-4-6-4-9s1-6 4-9Z"/></svg>',
+};
+const CAT_LABEL = { FM: "Integrated FM", Security: "Security only", Cleaning: "Cleaning only" };
+const byCat = c => DATA.companies.map((x, i) => ({ ...x, i })).filter(x => x.cat === c);
+const brand = () => `<div class="brand"><i>${IC.mark}</i>MEBS Facility Services</div>`;
+const photo = (x, y, w, h, icon, cap = "", cls = "") =>
+  `<div class="photo ${cls}" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px">${IC[icon]}${cap ? `<span class="cap">${cap}</span>` : ""}</div>`;
+const shortHq = s => String(s).split(/[(;]/)[0].trim();
+
+function coCard(c, n) {
+  return `<button class="co" type="button" data-co="${c.i}">
+    <span class="n"><em>${String(n).padStart(2, "0")}</em><span>${esc(c.name)}</span></span>
+    <span class="o">${esc(c.owner)}</span>
+    <span class="m">${esc(shortHq(c.hq))} · ${esc(c.emp)}</span>
+  </button>`;
+}
+
+const TEXT = {
+  FM: { title: "Integrated FM<br>Competitors", body: "Integrated FM providers that bundle MEP maintenance, cleaning, security and soft services under one contract. This is the model MEBS has offered since 2019." },
+  Security: { title: "Security<br>Competitors", body: "Guarding companies that compete with MEBS's original SIRA-licensed security business, from large locally owned firms to small Dubai specialists." },
+  Cleaning: { title: "Cleaning<br>Competitors", body: "Cleaning specialists, from large commercial contractors to app-based home cleaning, competing with MEBS's cleaning division." },
+};
+
+function catSlide(cat, part, tone) {
+  const all = byCat(cat);
+  const list = all.slice(part * 10, part * 10 + 10);
+  const from = part * 10 + 1, to = part * 10 + list.length;
+  return { tone, html: `
+    <div class="abs" style="left:56px;top:120px;width:380px">
+      <h2 class="h" style="font-size:42px">${TEXT[cat].title}</h2>
+      <div style="margin-top:18px"><span class="pill">${from}–${to} of ${all.length} · no government owners</span></div>
+      <p class="lead" style="margin-top:26px;font-size:13px">${TEXT[cat].body}</p>
+      <p class="lead" style="margin-top:14px;font-size:12px">Click a company for owner, staff, revenue, licences, clients and sources.</p>
+    </div>
+    ${photo(56, 470, 380, 190, cat === "FM" ? "building" : cat === "Security" ? "shield" : "clean", CAT_LABEL[cat], tone === "blue" ? "alt" : "")}
+    <div class="cgrid" style="left:470px;top:64px;width:754px;height:600px">${list.map((c, k) => coCard(c, from + k)).join("")}</div>` };
+}
+
+function slides() {
+  const total = DATA.companies.length;
+  const n = c => byCat(c).length;
+  const excl = DATA.excluded;
+  const m = DATA.mebs;
+  const S = [];
+
+  S.push({ tone: "blue", html: `
+    <div class="abs" style="left:56px;top:150px;width:600px">
+      <h2 style="margin:0;font-size:66px;font-weight:600;line-height:1.12;letter-spacing:.01em">COMPETITOR<br>LANDSCAPE<br>UAE 2026</h2>
+      <div style="margin-top:22px;display:flex;align-items:center;gap:14px;font-size:20px"><span style="width:44px;height:4px;border-radius:2px;background:#fff"></span>Market Intelligence Deck</div>
+    </div>
+    ${photo(700, 70, 300, 380, "building", "Integrated FM")}
+    ${photo(1020, 70, 210, 180, "shield", "Security", "alt")}
+    ${photo(1020, 270, 210, 180, "clean", "Cleaning", "navy")}
+    <div class="bcard" style="left:830px;top:478px;width:340px;background:linear-gradient(150deg,#47a2ff 0%,#2a7ef0 100%);border:1px solid rgba(255,255,255,.35)">
+      <h4 style="display:flex;gap:10px;align-items:center"><span style="width:22px;height:22px;border-radius:50%;background:#fff;color:#1f7ae8;display:grid;place-items:center;font-size:13px;font-weight:700">i</span>This deck covers:</h4>
+      <p>${total} private competitors: ${n("FM")} integrated FM, ${n("Security")} security and ${n("Cleaning")} cleaning companies. None has a government owner.</p>
+    </div>
+    <div class="abs" style="left:56px;bottom:38px;display:flex;gap:46px;font-size:12px;opacity:.85"><span>Page 1</span><span>Prepared for MEBS Facility Services</span></div>` });
+
+  S.push({ tone: "white", html: `
+    <div class="abs" style="left:56px;top:150px;width:470px">
+      <h2 class="h">Market and<br>Context</h2>
+      <div style="margin-top:16px"><span class="pill">MEBS · UAE market 2026</span></div>
+      <h4 style="margin:40px 0 10px;font-size:15px;font-weight:600">Private competitors only</h4>
+      <p class="lead" style="margin:0">MEBS competes in three service lines: integrated facility management, security guarding and cleaning. This deck profiles ${total} privately owned competitors across the UAE. Any company with a government or state shareholder, even a small or indirect one, is listed separately and left out.</p>
+    </div>
+    ${photo(640, 64, 280, 290, "building")}
+    <div class="bcard" style="left:940px;top:64px;width:284px;height:290px"><h4>Integrated FM</h4><p>MEP maintenance, cleaning, security and soft services under one contract. ${n("FM")} competitors, from Farnek and EFS to Emirati family groups.</p></div>
+    <div class="bcard" style="left:640px;top:374px;width:280px;height:290px"><h4>Security and Cleaning</h4><p>Single-service specialists that compete with MEBS's guarding and cleaning divisions. ${n("Security") + n("Cleaning")} competitors.</p></div>
+    ${photo(940, 374, 284, 290, "shield", "", "alt")}` });
+
+  const stat = (num, label, desc, items) => `<div class="stat"><b>${num}</b><h5>${label}</h5><p>${desc}</p><ul>${items.map(t => `<li>${t}</li>`).join("")}</ul></div>`;
+  S.push({ tone: "white", html: `
+    ${photo(56, 64, 360, 240, "globe", "UAE wide", "alt")}
+    <div class="abs" style="left:470px;top:110px;width:700px">
+      <h2 class="h">Competitors<br>at a Glance</h2>
+      <div style="margin-top:16px"><span class="pill">Owners · staff · revenue</span></div>
+    </div>
+    <div class="abs" style="left:56px;top:380px;width:1168px;display:grid;grid-template-columns:repeat(4,1fr);gap:36px">
+      ${stat(total, "Competitors profiled", "Private-sector firms across all emirates.", ["No government owners", "Owner and staff listed"])}
+      ${stat(n("FM"), "Integrated FM", "Full-service facility management.", ["Farnek, EFS, AG Facilities", "Al Shirawi, Khansaheb"])}
+      ${stat(n("Security"), "Security only", "Manned guarding specialists.", ["First Security Group", "Securitas, Emirates Security"])}
+      ${stat(n("Cleaning"), "Cleaning only", "Commercial and home cleaning.", ["Cleanco, Berkeley (Klüh)", "Dussmann, Whitespot"])}
+    </div>` });
+
+  S.push({ tone: "blue", html: `
+    <div class="abs" style="left:0;right:0;top:120px;text-align:center">
+      <h2 style="margin:0;font-size:46px;font-weight:500">Competitor Segments</h2>
+      <div class="sub" style="margin-top:6px;opacity:.9">No government ownership</div>
+    </div>
+    ${[["Integrated FM", `${n("FM")} full-service FM providers`, 4],
+       ["Security only", `${n("Security")} guarding companies`, 6],
+       ["Cleaning only", `${n("Cleaning")} cleaning companies`, 8],
+       ["Excluded", `${excl.length} government-linked firms left out`, 10],
+       ["MEBS", "Our own profile as the benchmark", 11]]
+      .map(([t, d, go], k) => `<button class="seg" type="button" data-go="${go}" style="left:${100 + k * 222}px;top:300px;width:200px;height:260px">${IC.arrow}<b>${t}</b><span>${d}</span></button>`).join("")}` });
+
+  S.push(catSlide("FM", 0, "white"));
+  S.push(catSlide("FM", 1, "white"));
+  S.push(catSlide("Security", 0, "blue"));
+  S.push(catSlide("Security", 1, "blue"));
+  S.push(catSlide("Cleaning", 0, "white"));
+  S.push(catSlide("Cleaning", 1, "white"));
+
+  S.push({ tone: "white", html: `
+    <div class="abs" style="left:56px;top:120px;width:380px">
+      <h2 class="h" style="font-size:42px">Excluded<br>Companies</h2>
+      <div style="margin-top:16px"><span class="pill">Government owned or linked</span></div>
+      <div style="margin-top:40px;font-size:60px;font-weight:600;color:var(--red);line-height:1">${excl.length}</div>
+      <h4 style="margin:6px 0 10px;font-size:15px;font-weight:600">companies left out</h4>
+      <p class="lead" style="margin:0;font-size:13px">Any government or state shareholder, even a partial or indirect one, rules a company out. Dulsco is left out to be safe because one shareholder belongs to the ruling family.</p>
+    </div>
+    <div class="xlist" style="left:470px;top:70px;width:754px">${excl.map(x => `<div><i></i><b>${esc(x.name)}</b><span>${esc(x.why)}</span></div>`).join("")}</div>` });
+
+  S.push({ tone: "blue", html: `
+    <div class="abs" style="left:56px;top:110px;width:420px">
+      <h2 style="margin:0;font-size:44px;font-weight:500;line-height:1.12">MEBS<br>Benchmark</h2>
+      <div class="sub" style="margin-top:8px;opacity:.9">Our position</div>
+    </div>
+    <div class="abs" style="left:560px;top:110px;width:640px;display:grid;grid-template-columns:44px 1fr;gap:6px 16px">
+      <span style="width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.18);display:grid;place-items:center"><svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:#fff;stroke-width:2;fill:none">${IC.arrow.match(/<path[^>]*>/)[0]}</svg></span>
+      <div><div style="font-size:18px;font-weight:500">${esc(m[3])}-owned, part of Al Qaisi Group</div>
+        <p style="margin:10px 0 0;font-size:13px;line-height:1.65;opacity:.88">${esc(m[0])}. Founded ${esc(m[5])}. Head office in ${esc(m[6])}. Services: ${esc(m[1])}.</p></div>
+    </div>
+    <div class="tile" style="left:56px;top:400px;width:360px;height:260px"><b>2000</b><h5>Founded as a security company</h5><p>Added cleaning and maintenance in 2019 to become an integrated FM provider.</p></div>
+    ${photo(440, 400, 360, 260, "building", "Business Bay, Dubai")}
+    <div class="tile" style="left:824px;top:400px;width:400px;height:260px"><b>SIRA</b><h5>Licensed security guarding</h5><p>${esc(m[8])} employees. ${esc(m[9].replace(/^SIRA,\s*/, ""))}.</p></div>` });
+
+  S.push({ tone: "white", html: `
+    <div class="abs" style="left:56px;top:130px;width:500px">
+      <h2 class="h">How to Read<br>this Deck</h2>
+      <div style="margin-top:16px"><span class="pill">Sources and method</span></div>
+      <p class="lead" style="margin-top:36px">All figures come from public web sources: company releases, news coverage and business directories. Private UAE companies do not publish accounts, so some fields are estimates or marked as not published.</p>
+      <div style="margin-top:28px;display:flex;gap:40px"><div><div style="font-size:30px;font-weight:600;color:var(--blue)">${total}</div><div style="font-size:12px;color:var(--muted)">companies profiled</div></div><div><div style="font-size:30px;font-weight:600;color:var(--blue)">3</div><div style="font-size:12px;color:var(--muted)">confidence levels</div></div></div>
+    </div>
+    ${photo(610, 64, 330, 600, "chart", "", "navy")}
+    <div class="ncard" style="left:880px;top:110px;width:344px"><b>01.</b><h5>Employees</h5><p>As reported by the company or a named source. Where sources disagree, the range is shown.</p></div>
+    <div class="ncard" style="left:880px;top:290px;width:344px"><b>02.</b><h5>Revenue</h5><p>Published or database figures are labelled. Our estimate is headcount × typical yearly billing per employee, for rough sizing only.</p></div>
+    <div class="ncard" style="left:880px;top:470px;width:344px"><b>03.</b><h5>Government ownership</h5><p>"None found" means none in public sources. Confirm owners on the Dubai DET or Abu Dhabi ADDED trade licence register.</p></div>` });
+
+  S.push({ tone: "white", html: `
+    ${photo(56, 92, 700, 320, "globe", "MEBS Facility Services", "alt")}
+    <div class="contact" style="left:800px;top:140px">
+      <div><i>${IC.pin}</i>Business Bay, Dubai, UAE</div>
+      <div><i>${IC.phone}</i>+971 4 562 9292</div>
+      <div><i>${IC.mail}</i>info@mebsfacility.com</div>
+      <div><i>${IC.web}</i>www.mebsfacility.com</div>
+    </div>
+    <div class="thanks">Thank You</div>` });
+
+  return S.map((s, k) => `<div class="slide ${s.tone}">${brand()}<span class="pageno">Page ${k + 1}</span>${s.html}</div>`);
+}
+
+const SL = slides();
+document.getElementById("total").textContent = SL.length;
+const grid = document.getElementById("grid");
+grid.innerHTML = SL.map((h, k) => `<div class="frame" role="button" tabindex="0" data-i="${k}" aria-label="Open slide ${k + 1}">${h}</div>`).join("");
+grid.addEventListener("keydown", e => { const f = e.target.closest(".frame"); if (f && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); openViewer(+f.dataset.i); } });
+
+const fit = el => el.style.setProperty("--s", el.clientWidth / 1280);
+const ro = new ResizeObserver(es => es.forEach(e => fit(e.target)));
+grid.querySelectorAll(".frame").forEach(f => { ro.observe(f); fit(f); });
+
+const viewer = document.getElementById("viewer"), vframe = document.getElementById("vframe");
+let cur = 0;
+ro.observe(vframe);
+function show(i) {
+  cur = (i + SL.length) % SL.length;
+  vframe.innerHTML = SL[cur];
+  fit(vframe);
+  document.getElementById("vcount").textContent = `${cur + 1} / ${SL.length}`;
+}
+function openViewer(i) { viewer.hidden = false; show(i); document.getElementById("vnext").focus(); }
+grid.addEventListener("click", e => { const f = e.target.closest(".frame"); if (f) openViewer(+f.dataset.i); });
+document.getElementById("vprev").onclick = () => show(cur - 1);
+document.getElementById("vnext").onclick = () => show(cur + 1);
+document.getElementById("vclose").onclick = () => { viewer.hidden = true; grid.querySelector(`[data-i="${cur}"]`)?.focus(); };
+vframe.addEventListener("click", e => {
+  const c = e.target.closest("[data-co]"); if (c) return openCo(+c.dataset.co);
+  const g = e.target.closest("[data-go]"); if (g) show(+g.dataset.go);
+});
+
+const modal = document.getElementById("modal");
+const F = (l, v, cls = "") => `<div class="${cls}"><dt>${l}</dt><dd>${v}</dd></div>`;
+function openCo(i) {
+  const c = DATA.companies[i];
+  document.getElementById("dname").textContent = c.name;
+  document.getElementById("dcat").textContent = `${CAT_LABEL[c.cat]} · ${shortHq(c.hq)}`;
+  document.getElementById("dbody").innerHTML = [
+    F("Core services", esc(c.svc), "wide"), F("Owner / parent", esc(c.owner), "wide"),
+    F("Owner nationality", esc(c.nat)), F("Ownership type", esc(c.own)),
+    F("Founded", esc(c.year)), F("Head office", esc(c.hq)),
+    F("Coverage", esc(c.cov)), F("Employees", esc(c.emp)),
+    F("Capacity / scale", esc(c.cap), "wide"),
+    F("Revenue (published or third-party)", esc(c.rev)), F("Indicative revenue (our estimate)", esc(c.est)),
+    F("Licences / certifications", esc(c.lic)), F("Notable clients / contracts", esc(c.cli)),
+    F("Why they compete with MEBS", esc(c.why), "wide"),
+    F("Government ownership check", `<span class="chip">${esc(c.gov)}</span>`, "wide"),
+    F("Data confidence", `<span class="chip${/low/i.test(c.conf) ? " low" : ""}">${esc(c.conf)}</span>`),
+    F("Main sources", esc(c.src), "wide"),
+  ].join("");
+  modal.hidden = false;
+  document.getElementById("dclose").focus();
+}
+const closeCo = () => { modal.hidden = true; };
+document.getElementById("dclose").onclick = closeCo;
+modal.addEventListener("click", e => { if (e.target === modal) closeCo(); });
+document.addEventListener("keydown", e => {
+  if (!modal.hidden) { if (e.key === "Escape") closeCo(); return; }
+  if (viewer.hidden) return;
+  if (e.key === "Escape") document.getElementById("vclose").click();
+  if (e.key === "ArrowRight") show(cur + 1);
+  if (e.key === "ArrowLeft") show(cur - 1);
+});
+</script>
+</body>
+</html>

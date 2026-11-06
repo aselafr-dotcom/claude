@@ -1,310 +1,422 @@
-<title>MEBS Competitor Landscape</title>
+<title>MEBS Competitor Deck</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap">
 <style>
-/* Light-only design. Layout: white brand bar with logo, a rounded blue gradient hero with stat tiles (MEBS deck style), sticky filter pills, then rounded white company cards that open into a dossier. */
+/* Light, single-look design: a blue presentation board (title + slide count) holding a 2-column grid of 16:9 slides drawn at 1280x720 and scaled to fit; click to present, click a company for its dossier. */
 :root {
-  /* MEBS brand: navy from the wordmark, bright deck blue, red from the globe */
+  --board: #2c6db4;
+  --board-2: #275f9e;
+  --blue: #1f7ae8;
+  --blue-2: #1559cf;
+  --blue-3: #2a8cff;
+  --ink: #0f2747;
   --navy: #17386b;
-  --blue: #1f6fe0;
-  --blue-deep: #1556c4;
-  --blue-soft: #e7f0fc;
-  --red: #e0262b;
-
-  --bg: #eef3fa;
-  --surface: #ffffff;
-  --fg: #132a4d;
   --muted: #5d6f8a;
-  --line: #d8e2ef;
-  --on-blue: #ffffff;
-
-  --fm: #1f6fe0;
-  --sec: #17386b;
-  --cln: #0f9c9c;
-  --ok: #138a5e;
-  --warn: #a86a00;
-
+  --soft: #eaf2fd;
+  --line: #dbe5f2;
+  --red: #e0262b;
+  --white: #ffffff;
   --display: "Poppins", "Segoe UI", Arial, sans-serif;
-  --body: "Roboto", "Segoe UI", Helvetica, Arial, sans-serif;
-  --mono: "Roboto Mono", ui-monospace, Menlo, Consolas, monospace;
-  --radius: 18px;
   color-scheme: light;
 }
-
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 :root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
 html { -webkit-text-size-adjust: 100%; }
-body { margin: 0; background: var(--bg); color: var(--fg); font: 400 16px/1.55 var(--body); }
-body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
-.wrap { max-width: 1200px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
-:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
-h1, h2, h3 { font-family: var(--display); text-wrap: balance; }
+body { margin: 0; font-family: var(--display); color: var(--white);
+  background: radial-gradient(1200px 600px at 20% -10%, rgba(255,255,255,.10), rgba(255,255,255,0) 60%), linear-gradient(180deg, var(--board) 0%, var(--board-2) 100%) fixed; background-color: var(--board); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--board); }
+.wrap { max-width: 1240px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+button { font-family: inherit; }
+:focus-visible { outline: 3px solid #ffffff; outline-offset: 3px; }
 
-/* Brand bar */
-.brandbar .wrap { padding-block: 18px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; }
-.logo { display: flex; align-items: center; gap: 12px; background: #ffffff; border-radius: 14px; padding: 8px 14px; }
-.logo img { height: 52px; width: auto; display: block; }
-.wordmark { display: grid; line-height: 1; color: #17386b; }
-.wordmark b { font: 500 2rem/1 var(--body); letter-spacing: .01em; }
-.wordmark span { font: 400 .95rem/1.2 var(--body); }
-.tag { font: 500 .78rem/1 var(--body); color: var(--muted); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 9px 14px; }
-.tag b { color: var(--red); font-weight: 700; }
+/* Board header */
+.boardhead .wrap { padding-block: clamp(36px, 7vw, 88px) 28px; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px; }
+.boardhead h1 { margin: 0; font-weight: 700; font-size: clamp(2.2rem, 6vw, 4.2rem); line-height: 1.05; letter-spacing: -.01em; text-wrap: balance; }
+.count { text-align: right; }
+.count b { display: block; font-weight: 400; font-size: clamp(2.6rem, 6vw, 4rem); line-height: 1; }
+.count span { font-size: 1.15rem; opacity: .92; }
+.hint { margin: 10px 0 0; font-size: .95rem; opacity: .85; max-width: 60ch; }
 
-/* Hero */
-.hero { background: linear-gradient(135deg, var(--blue) 0%, var(--blue-deep) 100%); color: var(--on-blue); border-radius: var(--radius); padding: clamp(22px, 4vw, 40px); display: grid; gap: 26px; position: relative; overflow: hidden; }
-.hero::after { content: ""; position: absolute; right: -80px; top: -80px; width: 320px; height: 320px; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,.16), rgba(255,255,255,0) 70%); pointer-events: none; }
-.eyebrow { display: inline-flex; align-items: center; gap: 10px; font: 500 .82rem/1 var(--body); letter-spacing: .04em; }
-.eyebrow::before { content: ""; width: 28px; height: 3px; border-radius: 2px; background: #ffffff; }
-.hero h1 { margin: 10px 0 0; font-weight: 600; font-size: clamp(2rem, 4.6vw, 3.1rem); line-height: 1.08; max-width: 16ch; }
-.hero p { margin: 12px 0 0; max-width: 60ch; opacity: .92; }
-.tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
-.tile { background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.22); border-radius: 14px; padding: 14px 16px; display: grid; gap: 6px; }
-.tile svg { width: 18px; height: 18px; }
-.tile b { font: 600 2rem/1 var(--display); font-variant-numeric: tabular-nums; }
-.tile span { font-size: .88rem; opacity: .92; }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; padding-block: 8px 40px; }
+.frame { position: relative; aspect-ratio: 16 / 9; max-width: 100%; border-radius: 12px; overflow: hidden; cursor: pointer; border: 0; padding: 0; background: #ffffff; box-shadow: 0 10px 30px rgba(6, 26, 60, .28); transition: transform .2s; display: block; width: 100%; }
+.frame:hover { transform: translateY(-3px); }
+.frame .slide, .frame .slide * { pointer-events: none; }
+footer .wrap { padding-block: 0 40px; font-size: .82rem; opacity: .8; }
 
-/* Controls */
-.controls { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); }
-.controls .wrap { padding-block: 14px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
-.tabs { display: flex; flex-wrap: wrap; gap: 8px; }
-.tab { font: 500 .92rem/1 var(--body); padding: 10px 16px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); cursor: pointer; }
-.tab small { font: 500 .74rem/1 var(--mono); margin-left: 6px; color: var(--muted); }
-.tab[aria-selected="true"] { background: var(--blue); border-color: var(--blue); color: var(--on-blue); }
-.tab[aria-selected="true"] small { color: var(--on-blue); opacity: .85; }
-.search { flex: 1 1 220px; max-width: 340px; }
-.search input { width: 100%; font: 400 .95rem/1 var(--body); padding: 11px 16px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--fg); }
+/* Slide canvas */
+.slide { position: absolute; left: 0; top: 0; width: 1280px; height: 720px; transform: scale(var(--s, .45)); transform-origin: 0 0; overflow: hidden; font-family: var(--display); }
+.slide.white { background: #ffffff; color: var(--ink); }
+.slide.blue { background: linear-gradient(135deg, #2b88f2 0%, #1d6ee0 50%, #1558c8 100%); color: #ffffff; }
+.slide.blue::after { content: ""; position: absolute; right: -160px; bottom: -220px; width: 620px; height: 620px; border-radius: 50%; background: rgba(255,255,255,.06); pointer-events: none; }
+.abs { position: absolute; }
+.brand { position: absolute; left: 56px; top: 34px; display: flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 500; }
+.brand i { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: var(--blue); }
+.blue .brand i { background: #ffffff; }
+.brand i svg { width: 14px; height: 14px; stroke: #ffffff; }
+.blue .brand i svg { stroke: var(--blue); }
+.pageno { position: absolute; right: 56px; top: 36px; font-size: 12px; opacity: .75; }
+.h { margin: 0; font-weight: 500; font-size: 46px; line-height: 1.12; letter-spacing: -.01em; }
+.white .h { color: var(--ink); }
+.pill { display: inline-flex; align-items: center; gap: 8px; height: 24px; padding: 0 14px 0 12px; border-radius: 999px; background: var(--blue); color: #ffffff; font-size: 9.5px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; }
+.pill::after { content: ""; width: 26px; height: 3px; border-radius: 2px; background: rgba(255,255,255,.75); }
+.blue .pill { background: rgba(255,255,255,.18); }
+.lead { font-size: 14px; line-height: 1.65; color: var(--muted); }
+.blue .lead { color: rgba(255,255,255,.88); }
+.sub { font-style: italic; font-weight: 500; font-size: 18px; }
 
-/* List */
-main .wrap { padding-block: 8px 48px; display: grid; gap: 30px; }
-.rule { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-h2 { margin: 0; font-weight: 600; font-size: 1.45rem; color: var(--navy); }
-.pillnote { display: inline-block; margin-top: 8px; font: 500 .74rem/1 var(--body); letter-spacing: .03em; color: var(--on-blue); background: var(--blue); border-radius: 999px; padding: 6px 12px; }
-.note { color: var(--muted); font-size: .9rem; margin: 0; }
-.list { display: grid; gap: 10px; }
-.head, .row > summary { display: grid; grid-template-columns: 6px minmax(0, 2.2fr) minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1.25fr) 30px; gap: 16px; align-items: center; }
-.head { padding: 0 18px 0 0; font: 500 .74rem/1.2 var(--body); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
-.row { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
-.row > summary { list-style: none; cursor: pointer; padding: 16px 18px 16px 0; }
-.row > summary::-webkit-details-marker { display: none; }
-.row > summary:hover { background: var(--blue-soft); }
-.stripe { align-self: stretch; }
-.FM .stripe { background: var(--fm); } .Security .stripe { background: var(--sec); } .Cleaning .stripe { background: var(--cln); }
-.name { font: 600 1.02rem/1.3 var(--display); color: var(--navy); }
-.cat { display: inline-block; margin-top: 4px; font: 500 .7rem/1 var(--mono); letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
-.owner { font-size: .92rem; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.nat, .emp { font-size: .92rem; }
-.emp { font-variant-numeric: tabular-nums; }
-.chev { width: 30px; height: 30px; border-radius: 50%; background: var(--blue-soft); display: grid; place-items: center; justify-self: center; }
-.chev::after { content: ""; width: 8px; height: 8px; border-right: 2px solid var(--blue); border-bottom: 2px solid var(--blue); transform: translateY(-2px) rotate(45deg); transition: transform .2s; }
-.row[open] .chev::after { transform: translateY(2px) rotate(-135deg); }
-.lbl { display: none; }
+/* Illustration tile (stands in for a photo) */
+.photo { position: absolute; border-radius: 22px; overflow: hidden; display: grid; place-items: center;
+  background: repeating-linear-gradient(90deg, rgba(255,255,255,.08) 0 1px, transparent 1px 34px), repeating-linear-gradient(0deg, rgba(255,255,255,.08) 0 1px, transparent 1px 34px), linear-gradient(150deg, #5aa7ff 0%, #2470d8 45%, #123f8f 100%); }
+.photo.alt { background: repeating-linear-gradient(135deg, rgba(255,255,255,.09) 0 2px, transparent 2px 22px), linear-gradient(160deg, #8cc4ff 0%, #3b86e8 50%, #1a4fa8 100%); }
+.photo.navy { background: repeating-linear-gradient(90deg, rgba(255,255,255,.06) 0 1px, transparent 1px 28px), linear-gradient(150deg, #2f5f9e 0%, #17386b 100%); }
+.photo svg { width: 38%; max-width: 150px; height: auto; stroke: #ffffff; stroke-width: 1.6; fill: none; stroke-linecap: round; stroke-linejoin: round; opacity: .95; }
+.photo .cap { position: absolute; left: 16px; bottom: 14px; font-size: 12px; font-weight: 500; color: #ffffff; background: rgba(10, 30, 70, .35); padding: 5px 10px; border-radius: 999px; }
 
-.dossier { margin: 0; padding: 6px 22px 22px 24px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px 28px; border-top: 1px solid var(--line); }
-.dossier div { min-width: 0; }
-.dossier dt { font: 500 .72rem/1.2 var(--body); letter-spacing: .08em; text-transform: uppercase; color: var(--blue); margin: 16px 0 4px; }
-.dossier dd { margin: 0; font-size: .93rem; overflow-wrap: anywhere; }
-.dossier .wide { grid-column: 1 / -1; }
-.est { font-family: var(--mono); font-size: .86rem; color: var(--navy); }
-.pill { display: inline-flex; align-items: center; gap: 6px; font: 500 .8rem/1.3 var(--body); padding: 5px 11px; border-radius: 999px; background: color-mix(in srgb, var(--ok) 13%, transparent); color: var(--ok); }
-.pill.low { background: color-mix(in srgb, var(--warn) 15%, transparent); color: var(--warn); }
-.pill.gov::before { content: ""; flex: none; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
-.empty { padding: 30px 16px; color: var(--muted); text-align: center; background: var(--surface); border-radius: 14px; border: 1px solid var(--line); }
+/* Blue info card */
+.bcard { position: absolute; border-radius: 20px; padding: 24px; color: #ffffff; background: linear-gradient(150deg, #3290ff 0%, #1c6ae0 60%, #1556c6 100%); box-shadow: 0 10px 24px rgba(21, 86, 198, .25); }
+.bcard h4 { margin: 0 0 10px; font-size: 16px; font-weight: 500; }
+.bcard p { margin: 0; font-size: 12px; line-height: 1.6; opacity: .9; }
 
-/* Benchmark and exclusions */
-.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr); gap: 18px; align-items: start; }
-.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; min-width: 0; }
-.panel.blue { background: linear-gradient(135deg, var(--blue) 0%, var(--blue-deep) 100%); color: var(--on-blue); border: 0; }
-.panel h3 { margin: 0 0 14px; font-weight: 600; font-size: 1.15rem; }
-.panel:not(.blue) h3 { color: var(--navy); }
-.kv { display: grid; grid-template-columns: 8em minmax(0, 1fr); gap: 8px 14px; margin: 0; font-size: .92rem; }
-.kv dt { opacity: .78; }
-.kv dd { margin: 0; }
-.excl { list-style: none; margin: 0; padding: 0; display: grid; }
-.excl li { display: grid; grid-template-columns: minmax(0, 12em) minmax(0, 1fr); gap: 14px; padding: 10px 0; border-top: 1px solid var(--line); font-size: .92rem; }
-.excl li:first-child { border-top: 0; padding-top: 0; }
-.excl b { font-weight: 500; display: flex; gap: 8px; align-items: baseline; }
-.excl b::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--red); transform: translateY(-1px); }
-.excl span { color: var(--muted); }
-.method { display: grid; gap: 8px; max-width: 82ch; font-size: .9rem; color: var(--muted); }
-.method p { margin: 0; }
-.method b { color: var(--fg); font-weight: 500; }
-footer .wrap { padding-block: 0 40px; font-size: .82rem; color: var(--muted); }
+/* Company cards */
+.cgrid { position: absolute; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 1fr; gap: 12px; }
+.co { border: 0; text-align: left; cursor: pointer; border-radius: 16px; padding: 13px 16px 12px; display: grid; align-content: start; gap: 4px; min-width: 0; font-family: var(--display);
+  color: #ffffff; background: linear-gradient(140deg, #2f8cfa 0%, #1a66dc 100%); box-shadow: 0 6px 16px rgba(21, 86, 198, .18); }
+.blue .co { background: rgba(255,255,255,.13); border: 1px solid rgba(255,255,255,.24); box-shadow: none; }
+.co .n { display: flex; gap: 8px; align-items: baseline; font-size: 15px; font-weight: 600; line-height: 1.25; }
+.co .n em { font-style: normal; font-size: 11px; font-weight: 500; opacity: .75; flex: none; }
+.co .n span { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+.co .o { font-size: 11px; line-height: 1.45; opacity: .88; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.co .m { font-size: 10.5px; opacity: .78; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+.co:hover { filter: brightness(1.06); }
 
-@media (max-width: 900px) {
-  .head { display: none; }
-  .row > summary { grid-template-columns: 6px minmax(0, 1fr) 30px; grid-template-areas: "s n c" "s o c" "s m c"; gap: 6px 14px; }
-  .stripe { grid-area: s; } .who { grid-area: n; } .owner { grid-area: o; }
-  .meta { grid-area: m; display: flex; flex-wrap: wrap; gap: 4px 16px; } .chev { grid-area: c; }
-  .lbl { display: inline; color: var(--muted); }
-  .dossier { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .split { grid-template-columns: minmax(0, 1fr); }
-  .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+/* Segment arrow cards */
+.seg { position: absolute; border: 0; cursor: pointer; text-align: left; font-family: var(--display); color: #ffffff; border-radius: 16px; padding: 22px 18px; display: grid; align-content: start; gap: 10px;
+  background: linear-gradient(160deg, #3d97ff 0%, #2378ea 100%); box-shadow: 0 10px 22px rgba(6, 40, 110, .25); }
+.seg svg { width: 22px; height: 22px; stroke: #ffffff; stroke-width: 2; fill: none; }
+.seg b { margin-top: 70px; font-size: 18px; font-weight: 500; }
+.seg span { font-size: 12px; line-height: 1.55; opacity: .88; }
+
+/* Stats */
+.stat b { display: block; font-size: 34px; font-weight: 600; color: var(--blue); line-height: 1.1; }
+.stat h5 { margin: 4px 0 8px; font-size: 15px; font-weight: 600; color: var(--ink); }
+.stat p { margin: 0 0 10px; font-size: 12px; line-height: 1.6; color: var(--muted); }
+.stat ul { margin: 0; padding-left: 16px; font-size: 11.5px; line-height: 1.7; color: var(--ink); }
+
+.ncard { position: absolute; border-radius: 16px; padding: 16px 20px; color: #ffffff; background: linear-gradient(140deg, #3290ff 0%, #1a64d8 100%); box-shadow: 0 12px 26px rgba(10, 50, 130, .28); }
+.ncard b { display: block; font-size: 20px; font-weight: 600; margin-bottom: 2px; }
+.ncard h5 { margin: 0 0 4px; font-size: 14px; font-weight: 500; }
+.ncard p { margin: 0; font-size: 11.5px; line-height: 1.55; opacity: .9; }
+
+.xlist { position: absolute; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: min-content; gap: 3px 26px; }
+.xlist div { display: grid; grid-template-columns: 10px minmax(0, 1fr); gap: 0 8px; padding: 4px 0 5px; border-bottom: 1px solid var(--line); }
+.xlist i { width: 8px; height: 8px; border-radius: 50%; background: var(--red); margin-top: 6px; }
+.xlist b { font-size: 12px; line-height: 1.3; font-weight: 600; color: var(--ink); }
+.xlist span { grid-column: 2; font-size: 10px; line-height: 1.35; color: var(--muted); display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+
+.tile { position: absolute; border-radius: 20px; padding: 22px; background: linear-gradient(150deg, #3d97ff 0%, #2072e6 100%); box-shadow: 0 10px 22px rgba(6, 40, 110, .22); }
+.tile b { display: block; font-size: 30px; font-weight: 600; }
+.tile h5 { margin: 30px 0 6px; font-size: 14px; font-weight: 600; }
+.tile p { margin: 0; font-size: 11.5px; line-height: 1.55; opacity: .9; }
+
+.contact { position: absolute; display: grid; gap: 16px; font-size: 15px; color: var(--ink); }
+.contact div { display: flex; gap: 12px; align-items: center; }
+.contact i { width: 26px; height: 26px; border-radius: 50%; background: var(--blue); display: grid; place-items: center; flex: none; }
+.contact svg { width: 14px; height: 14px; stroke: #ffffff; stroke-width: 2.4; fill: none; }
+.thanks { position: absolute; left: 56px; bottom: -34px; font-size: 190px; font-weight: 600; letter-spacing: -.02em; line-height: 1;
+  background: linear-gradient(180deg, #2a7de8 0%, rgba(42,125,232,.35) 55%, rgba(42,125,232,0) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+/* Presenter */
+.viewer { position: fixed; inset: 0; z-index: 20; background: rgba(6, 18, 44, .94); display: grid; grid-template-rows: auto 1fr auto; padding: calc(12px + env(safe-area-inset-top, 0px)) max(12px, env(safe-area-inset-right, 0px)) calc(12px + env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px)); }
+.vbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: .9rem; }
+.vstage { display: grid; place-items: center; min-height: 0; }
+.vframe { position: relative; aspect-ratio: 16 / 9; width: min(100%, calc((100vh - 140px) * 16 / 9)); max-width: 100%; border-radius: 10px; overflow: hidden; background: #ffffff; }
+.vnav { display: flex; justify-content: center; gap: 12px; }
+.btn { border: 1px solid rgba(255,255,255,.35); background: rgba(255,255,255,.1); color: #ffffff; border-radius: 999px; padding: 10px 18px; font-size: .9rem; cursor: pointer; }
+.btn:hover { background: rgba(255,255,255,.2); }
+
+/* Company dossier */
+.modal { position: fixed; inset: 0; z-index: 30; background: rgba(6, 18, 44, .6); display: grid; place-items: center; padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+.dossier { width: min(780px, 100%); max-height: 100%; overflow: auto; background: #ffffff; color: var(--ink); border-radius: 20px; }
+.dhead { padding: 22px 24px; color: #ffffff; background: linear-gradient(135deg, #2b88f2 0%, #1558c8 100%); display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; }
+.dhead h3 { margin: 0; font-size: 1.35rem; font-weight: 600; line-height: 1.25; }
+.dhead small { display: block; margin-top: 4px; font-size: .78rem; opacity: .85; letter-spacing: .06em; text-transform: uppercase; }
+.dhead .btn { flex: none; }
+.dbody { margin: 0; padding: 6px 24px 24px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 26px; }
+.dbody div { min-width: 0; }
+.dbody .wide { grid-column: 1 / -1; }
+.dbody dt { margin: 16px 0 4px; font-size: .7rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--blue); }
+.dbody dd { margin: 0; font-size: .9rem; line-height: 1.55; overflow-wrap: anywhere; }
+.chip { display: inline-block; padding: 4px 10px; border-radius: 999px; font-size: .8rem; font-weight: 500; background: #e3f5ec; color: #12784f; }
+.chip.low { background: #fdf0d9; color: #8a5a00; }
+
+@media (max-width: 760px) {
+  .grid { grid-template-columns: minmax(0, 1fr); }
+  .count { text-align: left; }
+  .dbody { grid-template-columns: minmax(0, 1fr); }
 }
-@media (min-width: 901px) { .meta { display: contents; } }
-@media (max-width: 540px) {
-  .dossier { grid-template-columns: minmax(0, 1fr); padding-left: 18px; padding-right: 18px; }
-  .excl li { grid-template-columns: minmax(0, 1fr); gap: 2px; }
-  .kv { grid-template-columns: minmax(0, 1fr); gap: 0; }
-  .kv dd { margin-bottom: 8px; }
-  .logo img { height: 42px; }
-}
-@media (prefers-reduced-motion: reduce) { .chev::after { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .frame { transition: none; } }
 </style>
 
 
-<header class="brandbar">
+<header class="boardhead">
   <div class="wrap">
-    <div class="logo">
-      <span class="wordmark"><b>MEBS</b><span>Facility Services</span></span>
+    <div>
+      <h1>MEBS Competitor<br>Landscape Deck</h1>
+      <p class="hint">Click a slide to present it full screen. In a company slide, click any company to see its full details.</p>
     </div>
-    <span class="tag"><b>●</b> Internal · Market intelligence · October 2026</span>
+    <div class="count"><b id="total">14</b><span>Total Slides</span></div>
   </div>
-  <template id="wm"><span class="wordmark"><b>MEBS</b><span>Facility Services</span></span></template>
 </header>
 
-<section class="wrap">
-  <div class="hero">
-    <div>
-      <span class="eyebrow">Competitor landscape · UAE</span>
-      <h1>Who we compete with in the UAE</h1>
-      <p id="lede">Private-sector competitors in integrated FM, security guarding and cleaning. None has a government owner, not even a partial or indirect stake.</p>
-    </div>
-    <div class="tiles" id="tiles"></div>
-  </div>
-</section>
-
-<nav class="controls" aria-label="Filter competitors">
-  <div class="wrap">
-    <div class="tabs" role="tablist" id="tabs"></div>
-    <label class="search">
-      <input id="q" type="search" placeholder="Search company, owner or client" aria-label="Search company, owner or client">
-    </label>
-  </div>
-</nav>
-
-<main>
-  <div class="wrap">
-    <section>
-      <div class="rule">
-        <div>
-          <h2 id="listTitle">All competitors</h2>
-          <span class="pillnote">No government ownership</span>
-        </div>
-        <p class="note">Tap a company to see services, capacity, revenue, licences, clients and sources.</p>
-      </div>
-      <div class="head" aria-hidden="true" id="head" style="margin-top:18px"><span></span><span>Company</span><span>Owner / parent</span><span>Nationality</span><span>Employees</span><span></span></div>
-      <div class="list" id="list" style="margin-top:10px"></div>
-    </section>
-
-    <section class="split">
-      <div class="panel blue">
-        <h3>MEBS benchmark</h3>
-        <dl class="kv" id="mebs"></dl>
-      </div>
-      <div class="panel">
-        <h3>Excluded: government owned or linked</h3>
-        <ul class="excl" id="excl"></ul>
-      </div>
-    </section>
-
-    <section class="method">
-      <h2>How to read this</h2>
-      <p><b>Employees</b> are as reported by the company or a named source. Where sources disagree, the range is shown.</p>
-      <p><b>Revenue</b>: private UAE companies do not publish accounts. Published or database figures are labelled. The indicative estimate is reported headcount × typical annual billing per employee (FM AED 75k to 110k, security AED 72k to 100k, cleaning AED 45k to 65k). Use it for rough sizing only.</p>
-      <p><b>Government ownership</b> means none was found in public sources. Where an owner is not published, confirm it on the Dubai DET or Abu Dhabi ADDED trade licence register.</p>
-    </section>
-  </div>
+<main class="wrap">
+  <div class="grid" id="grid"></div>
 </main>
 
-<footer><div class="wrap">Prepared for MEBS Facility Services from public web sources, October 2026. For internal use.</div></footer>
+<footer><div class="wrap">Prepared for MEBS Facility Services from public web sources, November 2026. Illustration tiles stand in for photos. For internal use.</div></footer>
+
+<div class="viewer" id="viewer" hidden role="dialog" aria-modal="true" aria-label="Presentation">
+  <div class="vbar"><span id="vcount">1 / 14</span><button class="btn" id="vclose" type="button">Close</button></div>
+  <div class="vstage"><div class="vframe" id="vframe"></div></div>
+  <div class="vnav"><button class="btn" id="vprev" type="button">Previous</button><button class="btn" id="vnext" type="button">Next</button></div>
+</div>
+
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="dname">
+  <div class="dossier">
+    <div class="dhead"><div><h3 id="dname"></h3><small id="dcat"></small></div><button class="btn" id="dclose" type="button">Close</button></div>
+    <dl class="dbody" id="dbody"></dl>
+  </div>
+</div>
 
 <script>
 const DATA = {"companies": [{"cat": "FM", "name": "Farnek Services LLC", "svc": "Integrated FM: MEP/hard services, cleaning, security (Farnek Security), hospitality staffing, smart/green FM", "owner": "Private. Group CEO Markus Oberlin. Per The National, Farnek was acquired by Prioria Facility Management (ex-Swissair property arm bought out by private investors). Company calls itself Swiss-owned and independent", "nat": "Swiss (owner/management)", "own": "Private", "year": "1980", "hq": "Al Quoz, Dubai", "cov": "UAE (all emirates), regional projects", "emp": "8,000+ (company); 10,000+ (ZoomInfo)", "cap": "Won contracts worth AED 607M+ in 2023 (company); mobilised 800 cleaning staff for Dubai Airports contract", "rev": "Not published. ZoomInfo estimate US$211M (approx. AED 775M)", "est": "approx. AED 600M to 1,100M", "lic": "SIRA (security arm)", "cli": "Dubai Airports", "why": "Same Dubai base and same mix of security + cleaning + MEP. Ranked #2 in FM Middle East Power List 2025", "gov": "No government or state shareholder found in public sources", "conf": "Medium", "src": "farnek.com/about-us; thenationalnews.com (Oberlin profile); farnek.com (AED 607M 2023 release); i-fm.net (Dubai Airports)"}, {"cat": "FM", "name": "EFS Facilities Services Group", "svc": "Integrated FM: hard/soft services, security (acquired SecurePlus 2016 and Guardian Safety & Security), cleaning, energy", "owner": "Private shareholders; co-founder & Group CEO Tariq Chauhan. Shareholders bought out EMCOR's stake in 2009", "nat": "Indian (co-founder/CEO), UAE-incorporated", "own": "Private", "year": "2006 (EFS brand since 2009)", "hq": "Dubai", "cov": "25 countries, 40 operating companies (Middle East, Africa, Asia, Europe)", "emp": "approx. 32,000 group-wide (EFS newsroom); 20,000 to 25,000 in earlier reports", "cap": "50M+ sqm under management; US$1bn international order book milestone", "rev": "Approx. US$270M in 2021 (Forbes ME). A separate Forbes ME profile cites US$900M for 2021, so figures conflict", "est": "approx. AED 1,500M to 3,520M", "lic": "SIRA (security subsidiaries)", "cli": "Large government-related and corporate portfolios across GCC", "why": "Full IFM incl. in-house security, Dubai HQ, competes for the same commercial and community contracts", "gov": "Private shareholders (names not published); bought out EMCOR in 2009. No government stake found", "conf": "Medium", "src": "forbesmiddleeast.com (Tariq Chauhan); gulfbusiness.com (EMCOR buyout); zawya.com (SecurePlus, Guardian acquisitions); newsroom.efsme.com"}, {"cat": "FM", "name": "Al Shirawi Facilities Management LLC", "svc": "Integrated FM: MEP, civil, cleaning, landscaping, pest control", "owner": "Al Shirawi Group. Chairman Mohamed Al Shirawi; co-founders Abdulla Al Shirawi and Mohan Valrani", "nat": "Emirati / Indian", "own": "Private family group", "year": "Group 1971 (FM operations from 1974 per MEFMA listing)", "hq": "Dubai", "cov": "UAE", "emp": "1,500+ (FM company, 2016); Group 10,500 to 11,000", "cap": "Part of 30+ company group; awards from RTA; ISO 41001 (BSI); BICSc certified", "rev": "Not published", "est": "approx. AED 112M to 220M", "lic": "ISO 41001, BICSc", "cli": "Dubai Design District, Dubai International Humanitarian City, RTA, IT Plaza (HOAM)", "why": "Private Emirati-backed Dubai IFM, similar commercial/community client base", "gov": "No government or state shareholder found in public sources", "conf": "Medium", "src": "mefma.org (Al Shirawi FM); zawya.com (d3, ISO 41001 releases); wikipedia (Mohan Valrani); entrepreneur.com"}, {"cat": "FM", "name": "INAYA Facilities Management Services", "svc": "Integrated FM: MEP, cleaning, soft services, helpdesk", "owner": "Belhasa Group. Chairman Ahmed Saif Belhasa", "nat": "Emirati", "own": "Private family group", "year": "December 2010", "hq": "Dubai", "cov": "UAE, wider GCC", "emp": "501 to 1,000 (aggregator, unverified)", "cap": "Mall and commercial portfolios", "rev": "Not published", "est": "approx. AED 38M to 110M", "lic": "ISO 14001, OHSAS 18001 (2014)", "cli": "Ibn Battuta Mall", "why": "Closest size peer to MEBS; Emirati family-owned Dubai IFM", "gov": "No government or state shareholder found in public sources", "conf": "Low to medium", "src": "gulfnews.com (INAYA launch); zawya.com (ISO award, Ibn Battuta); prospeo.io"}, {"cat": "FM", "name": "Delight International Facilities Management LLC", "svc": "Integrated FM: cleaning (origin), MEP maintenance, soft services", "owner": "Private (Delight group of companies). Owner name not published", "nat": "Not published", "own": "Private", "year": "1991", "hq": "Dubai", "cov": "Dubai, Abu Dhabi", "emp": "500+ (company)", "cap": "Started as a cleaning company and grew into IFM", "rev": "Not published", "est": "approx. AED 38M to 77M", "lic": "ISO certified (per company)", "cli": "Not published", "why": "Size peer that also grew from one service line into IFM, as MEBS did", "gov": "No government or state shareholder found in public sources", "conf": "Low", "src": "delightifm.com/about; devex.com; enggpro.com"}, {"cat": "FM", "name": "Al-Futtaim Engineering & Technologies (Facilities Management division)", "svc": "Facilities maintenance (MEP, civil), property strategy, infrastructure and golf course maintenance, outsourced technical manpower", "owner": "Al-Futtaim Group (Al-Futtaim family). Chairman Omar Al-Futtaim", "nat": "Emirati", "own": "Private family group", "year": "Group 1930s; FM division part of Al-Futtaim Engineering", "hq": "Dubai", "cov": "UAE, Qatar", "emp": "Not published for FM division (Al-Futtaim Group approx. 42,000)", "cap": "Part of a 200+ company private group", "rev": "Not published", "est": "Cannot estimate (headcount unknown)", "lic": "Not published", "cli": "Ministry of Education, Government of Sharjah, Dubai Municipality, dnata", "why": "Private Emirati engineering-led FM competitor for MEP and maintenance contracts", "gov": "No government or state shareholder found in public sources", "conf": "Medium", "src": "meconstructionnews.com (AFET MEFMA partner); zawya.com (AFET maintenance contracts); khaleejtimes.com"}, {"cat": "FM", "name": "Al Naboodah Facilities Management", "svc": "Integrated hard and soft FM: security, concierge, energy and waste management, pest control, water tank cleaning, landscaping, fire systems", "owner": "Al Naboodah Group Enterprises (Al Naboodah family). Sits under Al Naboodah Construction Group (CEO Senan Al Naboodah)", "nat": "Emirati", "own": "Private family group", "year": "Group 1958; FM unit launched as diversification (date not confirmed)", "hq": "Dubai", "cov": "UAE", "emp": "Not published for FM unit (group approx. 32,000)", "cap": "Fire and statutory services self-delivered within group", "rev": "Not published", "est": "Cannot estimate (headcount unknown)", "lic": "Not published", "cli": "Group and third-party property portfolios", "why": "Offers security + cleaning-type soft services alongside MEP, same model as MEBS", "gov": "No government or state shareholder found in public sources", "conf": "Low to medium", "src": "gulfnews.com (Al Naboodah launches FM unit); technicalreviewmiddleeast.com; gulftalent.com"}, {"cat": "FM", "name": "AJAD Facilities Management", "svc": "Total FM: MEP maintenance, cleaning, soft services", "owner": "100% Emirati-owned private company. Owner name not published", "nat": "Emirati", "own": "Private", "year": "2002", "hq": "Abu Dhabi", "cov": "UAE", "emp": "Not reliably published (directory shows 30+)", "cap": "Residential, hospitality, healthcare, education and industrial clients", "rev": "Not published", "est": "Cannot estimate (headcount unknown)", "lic": "Not published", "cli": "Not published", "why": "Emirati-owned IFM competitor in Abu Dhabi", "gov": "No government or state shareholder found in public sources", "conf": "Low", "src": "village.ai (AJAD FM); bayut.com (FM companies Abu Dhabi)"}, {"cat": "FM", "name": "Khansaheb Facilities Management", "svc": "Integrated FM: MEP, civil maintenance, soft services; grew out of Khansaheb's construction business", "owner": "Khansaheb Investment LLC (Khansaheb family). Chairman Tariq Hussain Khansaheb. Bought back Interserve's stakes in group companies", "nat": "Emirati", "own": "Private family group", "year": "Group 1935; FM company (Khansaheb FMS LLC) 2020", "hq": "Dubai", "cov": "UAE", "emp": "501 to 1,000 (aggregator); group 5,000+", "cap": "Backed by a 90-year-old contracting group", "rev": "Not published", "est": "approx. AED 38M to 110M", "lic": "Not published", "cli": "Commercial and community portfolios", "why": "Emirati family-owned IFM in Dubai competing for MEP and soft-services contracts", "gov": "No government or state shareholder found in public sources", "conf": "Medium", "src": "forbesmiddleeast.com (Khansaheb Group); zawya.com (buyback from Interserve); cm-today.com"}, {"cat": "FM", "name": "ADEEB Group", "svc": "Integrated FM, MEP contracting, HVAC operation and maintenance", "owner": "Sultan Bin Rashed (SBR) Group, owned by Sultan Bin Rashed Al Dhaheri", "nat": "Emirati", "own": "Private family group", "year": "1994", "hq": "Sama Tower, Madinat Zayed, Abu Dhabi", "cov": "Abu Dhabi, Dubai, Al Ain, Ajman, Mussafah", "emp": "501 to 1,000 (Naukri, ZoomInfo)", "cap": "Branches in Dubai, Al Ain, Ajman and Mussafah", "rev": "Not published", "est": "approx. AED 38M to 110M", "lic": "ISO 9001, 14001, 45001, 41001, 50001", "cli": "Commercial and industrial clients in Abu Dhabi", "why": "Emirati-owned IFM with strong Abu Dhabi base", "gov": "No government or state shareholder found in public sources", "conf": "Medium", "src": "mefma.org (Adeeb Group); bayut.com (Abu Dhabi FM list); naukrigulf.com"}, {"cat": "FM", "name": "Latinem Facilities Management", "svc": "Technology-driven integrated FM: MEP, soft services, helpdesk", "owner": "Private. Owner not published", "nat": "Not published", "own": "Private", "year": "2014", "hq": "Sobha Hartland Greens, Nad Al Sheba, Dubai", "cov": "UAE", "emp": "90+ (directory)", "cap": "Residential communities and towers", "rev": "Not published", "est": "approx. AED 7M to 16M", "lic": "Not published", "cli": "Owners associations and residential communities", "why": "Dubai IFM competing for owners-association and community contracts", "gov": "No government or state shareholder found in public sources", "conf": "Low", "src": "mefma.org (Latinem FM); village.ai; dubizzle.com (FM companies Dubai)"}, {"cat": "FM", "name": "Living Stone Facilities Management LLC", "svc": "Facility management with an industrial-sector focus", "owner": "Private. Owner not published", "nat": "Not published", "own": "Private", "year": "Not published", "hq": "Abu Dhabi", "cov": "UAE", "emp": "Not published", "cap": "Described as one of the larger FM firms in Abu Dhabi", "rev": "Not published", "est": "Cannot estimate (headcount unknown)", "lic": "Not published", "cli": "Industrial clients", "why": "Abu Dhabi FM competitor in industrial sites", "gov": "No government or state shareholder found in public sources", "conf": "Low", "src": "bayut.com (FM companies Abu Dhabi); ensun.io"}, {"cat": "FM", "name": "Sodexo Middle East", "svc": "Integrated FM: catering, reception, maintenance, cleaning, facilities and equipment management", "owner": "Sodexo SA (France; listed, controlled by the Bellon family). Operates through joint ventures in Dubai and Abu Dhabi (Sodexo | Kelvin)", "nat": "French (parent)", "own": "Private (listed multinational, family-controlled)", "year": "In UAE since 1974; Kelvin (Abu Dhabi) since 1984", "hq": "Dubai Silicon Oasis, Dubai", "cov": "UAE, Oman, Qatar", "emp": "Not published for UAE", "cap": "Global group; healthcare, education and corporate sites", "rev": "Not published for UAE", "est": "Cannot estimate (headcount unknown)", "lic": "Not published", "cli": "Healthcare, education and corporate sites", "why": "Global soft-services and IFM player bidding for large corporate contracts", "gov": "Parent controlled by the Bellon family; no state owner found. Local JV partners not published, so verify", "conf": "Medium", "src": "middleeast.sodexo.com (Kelvin Catering Services); zawya.com (Sodexo healthcare release)"}, {"cat": "FM", "name": "Kharafi National", "svc": "Construction, operation & maintenance and facilities management", "owner": "M. A. Kharafi & Sons Group (Kharafi family, Kuwait)", "nat": "Kuwaiti", "own": "Private family group", "year": "UAE branch 1995 (Dubai), Abu Dhabi 1996", "hq": "Kuwait (UAE offices in Dubai and Abu Dhabi)", "cov": "UAE, Kuwait, Qatar, Bahrain, Egypt", "emp": "5,150 to 25,000+ group-wide (sources conflict)", "cap": "Large O&M contractor for infrastructure and utilities", "rev": "Not published", "est": "Cannot estimate (headcount unknown)", "lic": "Not published", "cli": "Infrastructure and utilities O&M", "why": "Competes for large O&M and FM contracts", "gov": "No government or state shareholder found in public sources", "conf": "Medium", "src": "meed.com (Kharafi National); highperformr.ai; aeconline.ae"}, {"cat": "FM", "name": "AG Facilities Solutions (AGFS)", "svc": "Total FM and contracting: MEP, cleaning, soft services", "owner": "Al Ghurair Group (Al Ghurair Investment)", "nat": "Emirati", "own": "Private family group", "year": "2003 to 2006 (sources conflict)", "hq": "AG House, Deira, Dubai", "cov": "UAE", "emp": "10,000+ across 4,300+ locations (company)", "cap": "4,300+ service locations", "rev": "Not published", "est": "approx. AED 750M to 1,100M", "lic": "Not published", "cli": "Retail, commercial and residential portfolios", "why": "One of the largest private Emirati IFM providers in Dubai", "gov": "No government or state shareholder found in public sources", "conf": "Medium", "src": "mefma.org (AG Facilities Solutions); zawya.com (Al Ghurair appoints AGFS CEO); zoominfo.com"}, {"cat": "FM", "name": "OCS Middle East (OCS United Service Emirates LLC)", "svc": "Integrated FM, MEP O&M, commercial cleaning and housekeeping, security", "owner": "OCS Group (UK), now owned by private equity firm CD&R", "nat": "British (parent)", "own": "Private (PE-owned)", "year": "Regional launch via JV with Tadmur Group", "hq": "The Curve Building, Al Quoz, Dubai", "cov": "UAE, Qatar", "emp": "101 to 200 in UAE (aggregator); group 87,000+", "cap": "Backed by a global FM group", "rev": "Not published for UAE", "est": "approx. AED 8M to 22M", "lic": "Not published", "cli": "Corporate offices", "why": "International IFM with cleaning and security in Dubai", "gov": "No government or state shareholder found in public sources", "conf": "Low to medium", "src": "bbgdubai.org (OCS Middle East); zawya.com (OCS enters Qatar); pulse2.com (OCS/Mitie)"}, {"cat": "FM", "name": "BKA Facilities Management (formerly BK Gulf FM)", "svc": "Integrated FM: MEP, building services, soft services", "owner": "50/50 Dutco Group (Baker family) and Al Ali Property Investments", "nat": "Emirati", "own": "Private", "year": "1998 (rebranded 2023)", "hq": "Dubai", "cov": "UAE", "emp": "1,001 to 2,000 (aggregator); Dutco group 14,000+", "cap": "Dutco bought out Balfour Beatty's 49% in 2017", "rev": "Not published", "est": "approx. AED 75M to 220M", "lic": "Not published", "cli": "Commercial and residential buildings", "why": "Established Dubai IFM with MEP strength", "gov": "No government or state shareholder found in public sources", "conf": "Medium", "src": "dutco.com (BK Gulf FM); thenationalnews.com (Balfour Beatty sale); mefma.org (BKA FM)"}, {"cat": "FM", "name": "Al Bonian Facilities Management", "svc": "Hard FM, soft FM, security, engineering and specialist services", "owner": "Private (Albonian International). Owner not published; CEO Ayman Salah Bustami", "nat": "Not published", "own": "Private", "year": "2013", "hq": "Dubai", "cov": "UAE", "emp": "125 to 500 (aggregator, conflicting)", "cap": "Offers security in-house, like MEBS", "rev": "Not published", "est": "approx. AED 9M to 55M", "lic": "Not published", "cli": "Commercial and residential", "why": "Dubai IFM bundling security and soft services", "gov": "No government or state shareholder found in public sources", "conf": "Low", "src": "mefma.org (Al Bonian FM); cbnme.com; prospeo.io"}, {"cat": "FM", "name": "iFM Facilities Management LLC", "svc": "Smart integrated FM across all seven emirates", "owner": "Private. CEO Hazem Al Hamed (aggregator). Owner not published", "nat": "Not published", "own": "Private", "year": "Not published", "hq": "Abu Dhabi / Dubai (sources conflict)", "cov": "All seven emirates", "emp": "201 to 600 (aggregators)", "cap": "UAE-wide coverage", "rev": "Not published", "est": "approx. AED 15M to 66M", "lic": "Not published", "cli": "Not published", "why": "UAE-wide IFM competitor", "gov": "No government or state shareholder found in public sources", "conf": "Low", "src": "mefma.org (iFM); aeroleads.com; village.ai"}, {"cat": "FM", "name": "QBG Services", "svc": "Facilities management, staffing, landscaping", "owner": "Qurum Business Group (Oman). Owners not published", "nat": "Omani", "own": "Private group", "year": "Group 1970 (unverified)", "hq": "Muscat, Oman (UAE operations in Dubai and Abu Dhabi)", "cov": "UAE, Oman", "emp": "51 to 280 (aggregators)", "cap": "Staffing arm placed 150+ Emiratis on UAE projects", "rev": "Not published", "est": "approx. AED 4M to 31M", "lic": "Not published", "cli": "Hospitality and commercial clients", "why": "FM and staffing competitor in Dubai and Abu Dhabi", "gov": "No government or state shareholder found in public sources", "conf": "Low", "src": "village.do (QBG Services); protenders.com (Qurum Business Group); issuu.com"}, {"cat": "Security", "name": "First Security Group (FSG)", "svc": "Manned guarding, security & H&S training (FSG Training Centre), investigations, due diligence", "owner": "Private; founded by 10 retired Dubai Police major generals. CEO Ret. Maj. Gen. Abdul Aziz Al Bannai", "nat": "Emirati", "own": "Private (100% local)", "year": "2004 (start-up capital AED 20M)", "hq": "Dubai", "cov": "UAE", "emp": "1,001 to 5,000 (GulfTalent/Naukri)", "cap": "Dubai Police-registered training centre", "rev": "Not published", "est": "approx. AED 72M to 500M", "lic": "SIRA; training registered with Dubai Police and Dubai Ambulance", "cli": "Corporate and government-related clients", "why": "Emirati-owned Dubai guarding firm, direct overlap with MEBS's origin business", "gov": "Private, 100% local. Founders are retired Dubai Police officers investing as private individuals; no government shareholder found", "conf": "Medium", "src": "gulfnews.com (ex-police officers launch FSG; 'We know the meaning of security'); gulftalent.com"}, {"cat": "Security", "name": "Securitas UAE LLC", "svc": "Specialised guarding, mobile patrol, security receptionists, electronic security, monitoring", "owner": "Securitas AB (Sweden; Nasdaq Stockholm listed)", "nat": "Swedish (parent)", "own": "Private (listed multinational)", "year": "2009 (UAE)", "hq": "Dubai", "cov": "UAE", "emp": "1,400+ (company); 201 to 1,000 (directories)", "cap": "400+ clients; 37% growth in 2014", "rev": "Not published for UAE", "est": "approx. AED 72M to 140M", "lic": "SIRA", "cli": "Corporate offices, community sponsorship (Dubai Exiles RFC)", "why": "Competes on premium corporate guarding in Dubai", "gov": "Parent listed in Stockholm; main shareholders are private Swedish investment companies. No state owner", "conf": "Medium", "src": "tradearabia.com (37% growth 2014); zawya.com; dubaiexiles.com"}, {"cat": "Security", "name": "Magnum Security", "svc": "Security guards, consulting, VIP/close protection, security chauffeurs, CCTV monitoring", "owner": "Private. Managing Director Jimmy Singh (owner not published)", "nat": "Not published", "own": "Private", "year": "2003", "hq": "Dubai (new facility planned in Jebel Ali)", "cov": "UAE", "emp": "1,000+ (company); 501 to 1,000 (ZoomInfo)", "cap": "SIRA and SGS ISO 9001:2015 certified", "rev": "Approx. US$44.5M (ZoomInfo estimate, unverified)", "est": "approx. AED 36M to 100M", "lic": "SIRA, ISO 9001:2015", "cli": "Residential and commercial buildings", "why": "Similar-size Dubai guarding firm, direct price competitor", "gov": "No government or state shareholder found in public sources", "conf": "Medium", "src": "khaleejtimes.com ('Security that matters', 'Think safety with Magnum'); magnumsecurity.ae; zoominfo.com"}, {"cat": "Security", "name": "Landmark Security Services", "svc": "Manned guarding for residential and corporate clients", "owner": "Private. MD Rashid Almoosa, founder Salim Nahfaoui (third-party data, unverified)", "nat": "Not confirmed", "own": "Private", "year": "2004", "hq": "Al Sufouh, Dubai", "cov": "UAE", "emp": "800+ (company/ZoomInfo)", "cap": "SIRA certified", "rev": "Not published", "est": "approx. AED 58M to 100M", "lic": "SIRA", "cli": "Residential communities, corporate", "why": "Size peer of MEBS in Dubai guarding", "gov": "No government or state shareholder found in public sources", "conf": "Low to medium", "src": "landmarksecurity.ae; dubizzle.com (security companies); zoominfo.com; prospeo.io"}, {"cat": "Security", "name": "Guardforce Security Services UAE", "svc": "SIRA-licensed manned guarding for retail, education, hospitality, commercial and industrial", "owner": "Private. CEO Mick Iqbal (Indeed listing). Ultimate owner not published", "nat": "Not confirmed", "own": "Private", "year": "April 2007 (Dubai office)", "hq": "Jumeirah Village Circle, Dubai", "cov": "UAE", "emp": "201 to 500 (aggregator)", "cap": "Multi-sector guarding", "rev": "Not published", "est": "approx. AED 14M to 50M", "lic": "SIRA", "cli": "Retail, schools, hotels", "why": "Smaller Dubai guarding competitor in the same segments", "gov": "No government or state shareholder found in public sources", "conf": "Low", "src": "guardforce.ae; ae.indeed.com; prospeo.io"}, {"cat": "Security", "name": "Al Manal Security LLC", "svc": "Private security guarding and investigations, community-focused contracts", "owner": "Juma Ahmad Majid Al Ghurair and Marwan Ahmad Majid Al Ghurair (per business directory, unverified)", "nat": "Emirati", "own": "Private family", "year": "2005", "hq": "Dubai Silicon Oasis, Dubai", "cov": "UAE", "emp": "80+ (directory)", "cap": "Small and community contracts", "rev": "Not published", "est": "approx. AED 6M to 15M", "lic": "SIRA", "cli": "Residential communities", "why": "Emirati family-owned Dubai guarding firm", "gov": "No government or state shareholder found in public sources", "conf": "Low", "src": "village.ai (Al Manal Security); contactout.com; propertyfinder.ae"}, {"cat": "Security", "name": "Emirates Security Services (Emirates Guard Services)", "svc": "Manned guarding", "owner": "Locally owned private company. Owner not published", "nat": "Emirati", "own": "Private", "year": "2005", "hq": "Abu Dhabi", "cov": "UAE", "emp": "5,001 to 10,000 (directory)", "cap": "Calls itself the largest locally owned security company", "rev": "Not published", "est": "approx. AED 360M to 1,000M", "lic": "Abu Dhabi Police Security Support Services; federal licences", "cli": "Not published", "why": "Large Abu Dhabi guarding competitor", "gov": "No government or state shareholder found in public sources", "conf": "Low", "src": "naukrigulf.com (Emirates Security Services); kompass.com"}, {"cat": "Security", "name": "United Security Group (USG)", "svc": "Security guarding and mobile patrolling", "owner": "Rashed Bin Khalaf Al Otaiba (per Naukri; another directory names different owners)", "nat": "Emirati", "own": "Private", "year": "2007", "hq": "Abu Dhabi (5 branches)", "cov": "UAE", "emp": "501 to 10,000 (sources conflict)", "cap": "Five branch offices", "rev": "US$10M to 50M (Naukri) vs US$172.6M (ZoomInfo), estimates", "est": "approx. AED 72M to 500M", "lic": "Not published", "cli": "Not published", "why": "One of the larger locally owned guarding firms", "gov": "No government or state shareholder found in public sources", "conf": "Low to medium", "src": "naukrigulf.com (United Security Group); zoominfo.com; indeed.com"}, {"cat": "Security", "name": "Emirates Gateway Security Services (EGSS)", "svc": "Manned guarding", "owner": "Private. Owner not published", "nat": "Not published", "own": "Private", "year": "2007", "hq": "Abu Dhabi", "cov": "UAE", "emp": "166 to 500 (aggregator)", "cap": "Abu Dhabi guarding", "rev": "Not published", "est": "approx. AED 12M to 50M", "lic": "Not published", "cli": "Not published", "why": "Abu Dhabi guarding competitor", "gov": "No government or state shareholder found in public sources", "conf": "Low", "src": "prospeo.io (EGSS); propertyfinder.ae"}, {"cat": "Security", "name": "Al Falah Security Services", "svc": "Guarding, access control, perimeter patrols, electronic security operations, 24/7 operations centre", "owner": "Private. Owner not published", "nat": "Not published", "own": "Private", "year": "Not published", "hq": "Mussafah, Abu Dhabi", "cov": "UAE", "emp": "Not published", "cap": "24/7 operations centre", "rev": "Not published", "est": "Cannot estimate (headcount unknown)", "lic": "Not published", "cli": "Not published", "why": "Abu Dhabi guarding competitor", "gov": "No government or state shareholder found in public sources", "conf": "Low", "src": "naukrigulf.com (Al Falah Security Services)"}, {"cat": "Security", "name": "RANN Security Services", "svc": "Guarding, remote monitoring, risk assessments, virtual guarding, field supervision", "owner": "Private. Owner not published", "nat": "Not published", "own": "Private", "year": "Not published", "hq": "Al Rigga, Dubai", "cov": "UAE", "emp": "Not published", "cap": "Claims to be a large SIRA-certified firm", "rev": "Not published", "est": "Cannot estimate (headcount unknown)", "lic": "ISO 9001:2008 (per listing)", "cli": "Not published", "why": "Dubai guarding competitor", "gov": "No government or state shareholder found in public sources", "conf": "Low", "src": "bayut.com (security companies); hidubai.com"}, {"cat": "Security", "name": "Black Horse Security Services", "svc": "Guarding and patrol for events, retail and residential", "owner": "Wael Ahmed (per Prospeo, unverified)", "nat": "Not published", "own": "Private", "year": "2007", "hq": "Port Saeed, Dubai", "cov": "UAE", "emp": "21 to 50 (aggregator)", "cap": "Events, hospitals, hotels", "rev": "Not published", "est": "approx. AED 2M to 5M", "lic": "Not published", "cli": "Events, hospitals, hotels", "why": "Small Dubai guarding competitor", "gov": "No government or state shareholder found in public sources", "conf": "Low", "src": "sothebysrealty.ae (security companies); hidubai.com; prospeo.io"}, {"cat": "Security", "name": "Doorsec Security Services LLC", "svc": "Manned guarding", "owner": "Private. Owner not published", "nat": "Not published", "own": "Private", "year": "2012", "hq": "Dubai", "cov": "UAE", "emp": "42 to 100 (aggregator)", "cap": "Hires directly", "rev": "Not published", "est": "approx. AED 3M to 10M", "lic": "Not confirmed", "cli": "Not published", "why": "Dubai guarding competitor", "gov": "No government or state shareholder found in public sources", "conf": "Low", "src": "prospeo.io (Doorsec); ae.indeed.com"}, {"cat": "Security", "name": "Westminster Security UAE", "svc": "Close protection, security advance teams, chauffeurs, counter-surveillance, residential security", "owner": "Westminster Security Group (UK, private; CEO John Moore)", "nat": "British (parent)", "own": "Private", "year": "2024", "hq": "Dubai", "cov": "UAE", "emp": "Not published", "cap": "High-net-worth and family office clients", "rev": "Not published", "est": "Cannot estimate (headcount unknown)", "lic": "Not published", "cli": "Private families and individuals", "why": "Premium security competitor for VIP and residential work", "gov": "No government or state shareholder found in public sources", "conf": "Medium", "src": "westminstersecurity.co.uk (Dubai launch); securitysystemsnews.com"}, {"cat": "Security", "name": "Belhasa Falcon (formerly BELCOM)", "svc": "Private security guarding", "owner": "Belhasa Group of Companies", "nat": "Emirati", "own": "Private family group", "year": "1993 or 1995 (sources conflict)", "hq": "Dubai", "cov": "UAE", "emp": "Not published", "cap": "Part of Belhasa Group", "rev": "Not published", "est": "Cannot estimate (headcount unknown)", "lic": "Not published", "cli": "Not published", "why": "Emirati family-owned Dubai guarding firm", "gov": "No government or state shareholder found in public sources", "conf": "Low", "src": "naukrigulf.com (Belhasa Falcon)"}, {"cat": "Security", "name": "Fursan Security Services LLC", "svc": "Manned guarding and mobile security", "owner": "Private. Owner not published", "nat": "Not published", "own": "Private", "year": "2014", "hq": "Abu Dhabi", "cov": "UAE", "emp": "20 to 29 (aggregators)", "cap": "Small guarding firm", "rev": "Not published", "est": "approx. AED 1M to 3M", "lic": "Not published", "cli": "Not published", "why": "Small Abu Dhabi guarding competitor", "gov": "No government or state shareholder found in public sources", "conf": "Low", "src": "village.ai (Fursan Security Services); aeroleads.com"}, {"cat": "Security", "name": "Focus Security Services UAE", "svc": "Manned guarding", "owner": "Private. Owner not published", "nat": "Not published", "own": "Private", "year": "2017", "hq": "Ajman", "cov": "UAE", "emp": "58 to 200 (aggregator)", "cap": "Northern emirates guarding", "rev": "Not published", "est": "approx. AED 4M to 20M", "lic": "Not published", "cli": "Not published", "why": "Guarding competitor in the northern emirates", "gov": "No government or state shareholder found in public sources", "conf": "Low", "src": "prospeo.io (Focus Security Services UAE)"}, {"cat": "Security", "name": "Hawk Security Services LLC", "svc": "Physical guarding, housekeeping, kitchen duct cleaning, office support", "owner": "Private. Owner not published", "nat": "Not published", "own": "Private", "year": "Not published", "hq": "Garhoud, Dubai", "cov": "All emirates", "emp": "1,200+ (company); 11 to 50 (ZoomInfo)", "cap": "Security plus housekeeping, close to MEBS's mix", "rev": "Not published", "est": "approx. AED 72M to 120M", "lic": "Not published", "cli": "Not published", "why": "Bundles security and housekeeping like MEBS", "gov": "No government or state shareholder found in public sources", "conf": "Low", "src": "naukrigulf.com (Hawk Security Services); kompass.com"}, {"cat": "Security", "name": "Severity Security & Guarding Services LLC", "svc": "Manned guarding, hospitality security", "owner": "Private. Owner not published", "nat": "Not published", "own": "Private", "year": "Not published", "hq": "Dubai", "cov": "UAE", "emp": "Not published", "cap": "Hospitality-focused", "rev": "Not published", "est": "Cannot estimate (headcount unknown)", "lic": "SIRA (per listings)", "cli": "Hospitality", "why": "Dubai guarding competitor in hospitality", "gov": "No government or state shareholder found in public sources", "conf": "Low", "src": "severitysecurity.ae; thetalentpoint.com"}, {"cat": "Security", "name": "Blue Diamond Facilities Management Services LLC", "svc": "SIRA-approved guarding (part of Blue Diamond group, which also offers FM and cleaning)", "owner": "Private (Blue Diamond Group). Owner not published", "nat": "Not published", "own": "Private", "year": "2012 (group 1995)", "hq": "Business Bay, Dubai", "cov": "UAE", "emp": "27 to 100 (aggregator)", "cap": "Guards trained at Dubai Police-approved institutes", "rev": "Not published", "est": "approx. AED 2M to 10M", "lic": "SIRA; ISO 9001, 14001, 45001", "cli": "Not published", "why": "Dubai security firm in a group that also does FM and cleaning", "gov": "No government or state shareholder found in public sources", "conf": "Low", "src": "dubizzle.com (security companies); prospeo.io; village.ai"}, {"cat": "Cleaning", "name": "Cleanco Group", "svc": "Industrial & commercial cleaning (hospitals, airports, aircraft, universities), pest control, hazardous/medical waste (Cleanco Waste Treatment)", "owner": "Private Emirati group (website hosted under Sarhan Co. domain). Owner name not published; Group CEO reported as Jamal Abdulla Lootah", "nat": "Emirati", "own": "Private", "year": "1980", "hq": "Abu Dhabi", "cov": "UAE", "emp": "10,000+ (company)", "cap": "Guinness World Record for largest hazardous waste management lesson", "rev": "Not published", "est": "approx. AED 450M to 650M", "lic": "Not published", "cli": "Hospitals, airports, aircraft, industrial sites", "why": "Largest cleaning-focused competitor; strong in Abu Dhabi", "gov": "No government or state shareholder found in public sources", "conf": "Medium", "src": "gulftalent.com (Cleanco); mefma.org (Cleanco Group); zawya.com (Guinness record); sustainabilitymenews.com"}, {"cat": "Cleaning", "name": "Berkeley Services UAE (Klüh Group)", "svc": "Maintenance cleaning, high-rise facade/window cleaning, some FM", "owner": "Wholly owned by Klüh Service Management GmbH (Düsseldorf, family company founded 1911)", "nat": "German", "own": "Private family-owned multinational", "year": "Klüh 1911; Burj Khalifa cleaning since 2010", "hq": "Dubai (also Abu Dhabi)", "cov": "UAE", "emp": "approx. 8,000 (2020 company release)", "cap": "Named one of top 3 FM providers in UAE by Klüh; 'Cleaning Company of the Year' Dubai 2018", "rev": "Not published for UAE", "est": "approx. AED 360M to 520M", "lic": "Not published", "cli": "Burj Khalifa (contract renewed 4 times), Cayan Tower", "why": "Premium tower cleaning competitor in Dubai", "gov": "Owned by the Klüh family company (Germany). No state owner", "conf": "Medium", "src": "klueh.de (Burj Khalifa extension 2020; Cleaning Company of the Year 2018; UAE page)"}, {"cat": "Cleaning", "name": "Dussmann Gulf LLC", "svc": "Cleaning & housekeeping, disinfection, healthcare facility cleaning, pest control (plus some FM)", "owner": "Dussmann Group (Germany, family/foundation-owned)", "nat": "German", "own": "Private (sole-proprietorship subsidiary)", "year": "2005", "hq": "Abu Dhabi", "cov": "UAE", "emp": "534 to 3,000+ (sources conflict)", "cap": "Healthcare cleaning specialist", "rev": "Not published", "est": "approx. AED 40M to 195M", "lic": "Not published", "cli": "Hospitals and healthcare facilities", "why": "Competes for healthcare and institutional cleaning contracts", "gov": "Owned by Dussmann Group (German private family/foundation). No state owner", "conf": "Low to medium", "src": "dussmann.ae; reveliolabs.com; mefma.org"}, {"cat": "Cleaning", "name": "White Spot Facilities Management Services LLC (Whitespot)", "svc": "Commercial & residential cleaning, housekeeping, maintenance", "owner": "Private. Owner not published", "nat": "Not published", "own": "Private", "year": "2017", "hq": "Dubai", "cov": "UAE", "emp": "1,001 to 5,000 (Naukri); 51 to 200 (ZoomInfo)", "cap": "Fast-growing cleaning workforce, regular mass hiring", "rev": "Not published", "est": "approx. AED 45M to 195M", "lic": "Not published", "cli": "Commercial buildings, residential", "why": "Fast-growing Dubai cleaning rival for building and housekeeping contracts", "gov": "No government or state shareholder found in public sources", "conf": "Low", "src": "naukrigulf.com; zoominfo.com; mefma.org (White Spot FM)"}, {"cat": "Cleaning", "name": "Justlife (formerly Justmop)", "svc": "On-demand home cleaning, plus beauty, maintenance and home healthcare", "owner": "Founders Kerem Kuyucu and Ali Cagatay Ozcan; VC-backed", "nat": "Turkish (founders)", "own": "Private (VC-backed)", "year": "2015", "hq": "Dubai", "cov": "UAE, KSA", "emp": "500 to 1,000 (aggregators)", "cap": "App-based booking platform", "rev": "Estimates range from under US$5M (ZoomInfo) to US$47.7M (Prospeo)", "est": "approx. AED 22M to 65M", "lic": "Not applicable", "cli": "Residential consumers", "why": "Competes only for residential cleaning; relevant if MEBS targets home services", "gov": "No government or state shareholder found in public sources", "conf": "Low to medium", "src": "bitscale.ai; wamda.com; zoominfo.com; prospeo.io"}, {"cat": "Cleaning", "name": "Total Care Cleaning Services (Al Bwardy Investments)", "svc": "Commercial and residential cleaning", "owner": "Al Bwardy Investments (Emirati family business group)", "nat": "Emirati", "own": "Private family group", "year": "Not published", "hq": "Dubai", "cov": "UAE", "emp": "Not published", "cap": "Part of a diversified Emirati group", "rev": "Not published", "est": "Cannot estimate (headcount unknown)", "lic": "Not published", "cli": "Not published", "why": "Emirati-owned cleaning contractor in Dubai", "gov": "No government or state shareholder found in public sources", "conf": "Low", "src": "albwardy.com (Total Care Cleaning Services page)"}, {"cat": "Cleaning", "name": "Cleanpro Facilities Management Services LLC", "svc": "Cleaning and facility services", "owner": "Private. Owner not published", "nat": "Not published", "own": "Private", "year": "2013", "hq": "Abu Dhabi (branch in Garhoud, Dubai)", "cov": "UAE", "emp": "Not published", "cap": "Branches in Abu Dhabi and Dubai", "rev": "Not published", "est": "Cannot estimate (headcount unknown)", "lic": "Not published", "cli": "Not published", "why": "Cleaning-led competitor in Abu Dhabi and Dubai", "gov": "No government or state shareholder found in public sources", "conf": "Low", "src": "mefma.org (Cleanpro FMS); yellowpages-uae.com"}, {"cat": "Cleaning", "name": "WECARE Building Cleaning", "svc": "Building cleaning", "owner": "WECARE business group. Owner not published", "nat": "Not published", "own": "Private", "year": "1997", "hq": "Dubai", "cov": "UAE", "emp": "1,000+ (Dubai Govt HR listing)", "cap": "Nationwide workforce", "rev": "Not published", "est": "approx. AED 45M to 65M", "lic": "Not published", "cli": "Not published", "why": "Established Dubai building-cleaning contractor", "gov": "No government or state shareholder found in public sources", "conf": "Low to medium", "src": "waffer.dhr.gov.ae (WECARE Bldg Cleaning)"}, {"cat": "Cleaning", "name": "Safaeewala Cleaning & Technical Services LLC", "svc": "Deep cleaning, AC maintenance, technical services", "owner": "Family-run private company. Owner not published", "nat": "Not published", "own": "Private family", "year": "2015", "hq": "Al Qusais, Dubai", "cov": "Dubai", "emp": "50 to 249 (Clutch)", "cap": "Residential and commercial deep cleaning", "rev": "Not published", "est": "approx. AED 2M to 16M", "lic": "Not published", "cli": "Residential and commercial", "why": "Dubai cleaning competitor", "gov": "No government or state shareholder found in public sources", "conf": "Low", "src": "clutch.co (Safaeewala); trustpilot.com; leadstal.com"}, {"cat": "Cleaning", "name": "EcoClean", "svc": "Eco-friendly residential and commercial cleaning, AC and kitchen deep cleaning", "owner": "Private. Owner not published", "nat": "Not published", "own": "Private", "year": "Not reliably published", "hq": "Dubai", "cov": "Dubai", "emp": "201 to 500 (single profile, unverified)", "cap": "Heavy online marketing", "rev": "Not published", "est": "Cannot estimate (headcount unknown)", "lic": "Not published", "cli": "Residential, holiday homes, offices", "why": "Visible Dubai cleaning brand", "gov": "No government or state shareholder found in public sources", "conf": "Low", "src": "cyprus-mail.com; arabtimesonline.com (promotional coverage)"}, {"cat": "Cleaning", "name": "Helpsters Cleaning Services LLC", "svc": "Maid service, deep cleaning, disinfection, commercial cleaning", "owner": "Private. Owner not published", "nat": "Not published", "own": "Private", "year": "Not published", "hq": "Burj Khalifa area, Dubai", "cov": "Dubai", "emp": "Not published", "cap": "Home and commercial", "rev": "Not published", "est": "Cannot estimate (headcount unknown)", "lic": "Not published", "cli": "Residential and commercial", "why": "Dubai cleaning competitor", "gov": "No government or state shareholder found in public sources", "conf": "Low", "src": "propertyfinder.ae (cleaning companies); magicpin.com"}, {"cat": "Cleaning", "name": "Urban Company UAE", "svc": "App-based home cleaning (monthly subscriptions, 30-minute instant cleaning) and other home services", "owner": "Urban Company Limited (India)", "nat": "Indian (parent)", "own": "Private (VC-backed, IPO-bound parent)", "year": "Dubai 2018; Abu Dhabi 2019", "hq": "Dubai", "cov": "Dubai, Abu Dhabi, Sharjah", "emp": "Not published for UAE", "cap": "Also sold through the noon app", "rev": "Not published for UAE", "est": "Cannot estimate (headcount unknown)", "lic": "Not applicable", "cli": "Residential consumers", "why": "Residential cleaning platform", "gov": "No government or state shareholder found in public sources", "conf": "Medium", "src": "urbancompany.com (Abu Dhabi launch); khaleejtimes.com (monthly subscription); gulfnews.com (noon partnership)"}, {"cat": "Cleaning", "name": "Molly Maid Dubai", "svc": "Home and office cleaning", "owner": "Local franchisee (not published) of Molly Maid / Neighborly (USA)", "nat": "Not published", "own": "Private franchise", "year": "Approx. 25 years in Dubai (self-reported)", "hq": "Dubai", "cov": "Dubai", "emp": "Not published", "cap": "International franchise brand", "rev": "Not published", "est": "Cannot estimate (headcount unknown)", "lic": "Not published", "cli": "Residential and offices", "why": "Branded home-cleaning competitor", "gov": "No government or state shareholder found in public sources", "conf": "Low", "src": "business.google.com (Molly Maid Dubai); franchising.com"}, {"cat": "Cleaning", "name": "The Perfect Help (TPH Group)", "svc": "Professional cleaning and maintenance", "owner": "Emirati-owned and managed. Owner not published", "nat": "Emirati", "own": "Private", "year": "Not published", "hq": "Business Bay, Dubai", "cov": "UAE", "emp": "Not published", "cap": "Cleaning plus AC maintenance", "rev": "Not published", "est": "Cannot estimate (headcount unknown)", "lic": "Not published", "cli": "Not published", "why": "Emirati-owned Dubai cleaning competitor", "gov": "No government or state shareholder found in public sources", "conf": "Low", "src": "naukrigulf.com (TPH Group); ae.indeed.com"}, {"cat": "Cleaning", "name": "Schon Building Cleaning Services LLC", "svc": "Commercial cleaning, deep cleaning, sanitisation", "owner": "Private. Owner not published", "nat": "Not published", "own": "Private", "year": "2017", "hq": "Dubai", "cov": "Dubai", "emp": "11 to 50 (directory)", "cap": "Small commercial cleaner", "rev": "Not published", "est": "approx. AED 0M to 3M", "lic": "Not published", "cli": "Commercial", "why": "Dubai commercial cleaning competitor", "gov": "No government or state shareholder found in public sources", "conf": "Low", "src": "ensun.io (commercial cleaning UAE)"}, {"cat": "Cleaning", "name": "CleaningCompany.ae", "svc": "Residential and commercial cleaning", "owner": "Private. Owner not published", "nat": "Not published", "own": "Private", "year": "Not published", "hq": "Dubai", "cov": "UAE", "emp": "Not published", "cap": "Featured by Gulf News as a start-up to watch", "rev": "Not published", "est": "Cannot estimate (headcount unknown)", "lic": "Not published", "cli": "Residential and commercial", "why": "Dubai cleaning competitor", "gov": "No government or state shareholder found in public sources", "conf": "Low", "src": "gulfnews.com ('A start-up to look out for in Dubai'); sothebysrealty.ae"}, {"cat": "Cleaning", "name": "Bookaclean", "svc": "Residential and commercial cleaning with flexible booking", "owner": "Ploesteanca Dumitrascu (per company press release, unverified)", "nat": "Not published", "own": "Private", "year": "Not published", "hq": "Dubai", "cov": "Dubai", "emp": "Not published", "cap": "Online booking", "rev": "Not published", "est": "Cannot estimate (headcount unknown)", "lic": "Not published", "cli": "Residential and commercial", "why": "Dubai cleaning competitor", "gov": "No government or state shareholder found in public sources", "conf": "Low", "src": "markets.financialcontent.com (ACCESS Newswire release); eyeofriyadh.com"}, {"cat": "Cleaning", "name": "Helpbit Homes", "svc": "Home and office cleaning, pest control, moving, at-home salon", "owner": "Private. Owner not published", "nat": "Not published", "own": "Private", "year": "Not published", "hq": "Dubai", "cov": "Dubai", "emp": "Not published", "cap": "Multi-service home platform", "rev": "Not published", "est": "Cannot estimate (headcount unknown)", "lic": "Not published", "cli": "Residential and offices", "why": "Residential cleaning competitor", "gov": "No government or state shareholder found in public sources", "conf": "Low", "src": "mustakbil.com (Helpbit Homes); squareyards.ae"}, {"cat": "Cleaning", "name": "Hello Cleaner", "svc": "Home and office cleaning", "owner": "Private. Owner not published", "nat": "Not published", "own": "Private", "year": "Not published", "hq": "Dubai", "cov": "Dubai", "emp": "Not published", "cap": "92 salary reviews on Indeed", "rev": "Not published", "est": "Cannot estimate (headcount unknown)", "lic": "Not published", "cli": "Residential and offices", "why": "Dubai cleaning competitor", "gov": "No government or state shareholder found in public sources", "conf": "Low", "src": "ae.indeed.com (Hello Cleaner); crunchbase.com"}, {"cat": "Cleaning", "name": "Home Maids", "svc": "Hourly maid and home cleaning services", "owner": "Private. Owner not published", "nat": "Not published", "own": "Private", "year": "2005", "hq": "Dubai", "cov": "Dubai", "emp": "Not published", "cap": "Hourly maid supply", "rev": "Not published", "est": "Cannot estimate (headcount unknown)", "lic": "Not published", "cli": "Residential", "why": "Residential cleaning competitor", "gov": "No government or state shareholder found in public sources", "conf": "Low", "src": "khaleejtimes.com ('Home maids in Dubai')"}], "excluded": [{"name": "Transguard Group", "why": "Part of the Emirates Group, owned by the Investment Corporation of Dubai (Dubai Government)"}, {"name": "Imdaad LLC", "why": "Owned by the Investment Corporation of Dubai (Dubai Government)"}, {"name": "Emrill Services", "why": "50% owned by Emaar Properties (Investment Corporation of Dubai is a major Emaar shareholder); 50% Al-Futtaim"}, {"name": "Ejadah Asset Management", "why": "Part of Dubai Holding Real Estate (Dubai Government-owned)"}, {"name": "Securiguard Middle East", "why": "Owned by Palms Sports, a subsidiary of International Holding Company (IHC), which is state-linked"}, {"name": "Khidmah", "why": "Aldar Properties subsidiary; Aldar has major state-linked shareholders"}, {"name": "Deyaar Facilities Management", "why": "Deyaar Development, linked to Dubai Islamic Bank (government shareholding)"}, {"name": "Musanada / Tadweer / Bee'ah", "why": "Government entities (Abu Dhabi / Sharjah)"}, {"name": "ENGIE Cofely UAE", "why": "ENGIE is partially owned by the French State"}, {"name": "Enova by Veolia", "why": "JV partner Veolia has the French state-owned Caisse des Dépôts as a shareholder (approx. 4.6%)"}, {"name": "G4S UAE", "why": "Parent Allied Universal is co-owned by CDPQ, the Quebec government's pension fund"}, {"name": "ServeU", "why": "Parent Union Properties has had Emirates NBD (government-owned bank) as a major shareholder"}, {"name": "Dulsco Group", "why": "Shareholder is a member of the Dubai ruling family; excluded to stay on the safe side"}, {"name": "Mace Macro Technical Services", "why": "Acquired by Khidmah (Aldar group) in 2022"}, {"name": "Al Tanmyah Services", "why": "Subsidiary of Dubai Islamic Bank (government shareholding)"}, {"name": "Khadamat Facilities Management", "why": "Set up as a JV of Mubadala (Abu Dhabi state investor) and Serco"}, {"name": "Ontegra (formerly Deyaar FM)", "why": "Subsidiary of Deyaar Development (government-linked)"}, {"name": "Tafawuq Facility Management", "why": "Owned by Eltizam, which is 50% ADQ (Abu Dhabi state holding) and 50% IHC"}, {"name": "Emirates International Facility Management", "why": "Subsidiary of Das Holding, reported to be owned by Sheikh Mansour bin Zayed"}, {"name": "Operon Middle East", "why": "Owned by Edgenta, part of UEM Group, which belongs to Malaysia's state fund Khazanah"}, {"name": "Spark Security Services", "why": "Acquired by Aldar Properties in 2022"}, {"name": "World Security", "why": "Owned by DP World (Dubai Government)"}, {"name": "GardaWorld UAE", "why": "Operates in the UAE through a joint venture with Transguard"}, {"name": "Global Security Services Group (GSSG)", "why": "Describes itself as the armed security provider for the UAE government"}, {"name": "Duserve FM & Building Cleaning", "why": "Owned by Dubai World Central (Government of Dubai)"}, {"name": "Hitches & Glitches", "why": "Not separate: a subsidiary of Farnek, which is already listed"}], "mebs": ["MEBS Facility Services (Middle East Building Security)", "Security guarding (SIRA licensed), cleaning, MEP maintenance, HVAC, plumbing, pest control, lifeguards", "Al Qaisi Group. Founder Salem Ahmed Salem Al Qaisi", "Emirati", "Private", "2000 (security); IFM since 2019", "Business Bay, Dubai", "UAE", "501 to 1,000 (Indeed)", "SIRA, ISO 9001 / 14001 / 45001 (directory listing)"]};
-const CATS = [
-  { id: "all", label: "All" },
-  { id: "fm", label: "FM", cat: "FM" },
-  { id: "security", label: "Security", cat: "Security" },
-  { id: "cleaning", label: "Cleaning", cat: "Cleaning" },
-];
-const TITLES = { all: "All competitors", fm: "Integrated FM companies", security: "Security-only companies", cleaning: "Cleaning-only companies" };
-const CAT_LABEL = { FM: "Integrated FM", Security: "Security only", Cleaning: "Cleaning only" };
-const ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>';
 
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-const count = cat => DATA.companies.filter(c => c.cat === cat).length;
-const total = DATA.companies.length;
+const IC = {
+  mark: '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 5 6v5c0 5 3 8 7 10 4-2 7-5 7-10V6l-7-3Z"/></svg>',
+  arrow: '<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>',
+  building: '<svg viewBox="0 0 48 48"><path d="M8 42V14l14-6v34M22 42V18l18 6v18M4 42h40M13 20h4M13 27h4M13 34h4M28 28h6M28 35h6"/></svg>',
+  shield: '<svg viewBox="0 0 48 48"><path d="M24 5 8 11v11c0 10 7 17 16 21 9-4 16-11 16-21V11L24 5Z"/><path d="m17 24 5 5 9-10"/></svg>',
+  clean: '<svg viewBox="0 0 48 48"><path d="M18 18h12l2 6v16a2 2 0 0 1-2 2H18a2 2 0 0 1-2-2V24l2-6Z"/><path d="M20 18v-6h8l6-4M28 12h4M38 6l2-2M40 10h3M38 14l2 2"/></svg>',
+  globe: '<svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="17"/><path d="M7 24h34M24 7c5 5 7 11 7 17s-2 12-7 17c-5-5-7-11-7-17s2-12 7-17Z"/></svg>',
+  chart: '<svg viewBox="0 0 48 48"><path d="M6 42h36M12 36V24M20 36V14M28 36V20M36 36V8"/></svg>',
+  pin: '<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>',
+  phone: '<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-3 2a11 11 0 0 0 5 5l2-3 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg>',
+  mail: '<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>',
+  web: '<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 4 6 4 9s-1 6-4 9c-3-3-4-6-4-9s1-6 4-9Z"/></svg>',
+};
+const CAT_LABEL = { FM: "Integrated FM", Security: "Security only", Cleaning: "Cleaning only" };
+const byCat = c => DATA.companies.map((x, i) => ({ ...x, i })).filter(x => x.cat === c);
+const brand = () => `<div class="brand"><i>${IC.mark}</i>MEBS Facility Services</div>`;
+const photo = (x, y, w, h, icon, cap = "", cls = "") =>
+  `<div class="photo ${cls}" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px">${IC[icon]}${cap ? `<span class="cap">${cap}</span>` : ""}</div>`;
+const shortHq = s => String(s).split(/[(;]/)[0].trim();
 
-document.getElementById("lede").textContent =
-  `${total} private-sector competitors in integrated FM, security guarding and cleaning. None has a government owner, not even a partial or indirect stake.`;
-document.getElementById("tiles").innerHTML =
-  `<div class="tile">${ARROW}<b>${total}</b><span>Competitors profiled</span></div>` +
-  ["FM", "Security", "Cleaning"].map(c => `<div class="tile">${ARROW}<b>${count(c)}</b><span>${CAT_LABEL[c]}</span></div>`).join("");
-
-const tabs = document.getElementById("tabs");
-tabs.innerHTML = CATS.map(t =>
-  `<button class="tab" role="tab" data-id="${t.id}" aria-selected="false">${t.label}<small>${t.cat ? count(t.cat) : total}</small></button>`).join("");
-
-let view = "all";
-const q = document.getElementById("q");
-const field = (label, value, cls = "") => `<div class="${cls}"><dt>${label}</dt><dd>${value}</dd></div>`;
-
-function render() {
-  const t = CATS.find(c => c.id === view) || CATS[0];
-  const term = q.value.trim().toLowerCase();
-  const list = DATA.companies.filter(c => (!t.cat || c.cat === t.cat) &&
-    (!term || [c.name, c.owner, c.cli, c.svc, c.hq].join(" ").toLowerCase().includes(term)));
-  document.getElementById("listTitle").textContent = `${TITLES[t.id]} (${list.length})`;
-  tabs.querySelectorAll(".tab").forEach(b => b.setAttribute("aria-selected", b.dataset.id === t.id));
-  document.getElementById("head").hidden = !list.length;
-  document.getElementById("list").innerHTML = list.length ? list.map(c => `
-    <details class="row ${c.cat}">
-      <summary>
-        <span class="stripe"></span>
-        <span class="who"><span class="name">${esc(c.name)}</span><br><span class="cat">${CAT_LABEL[c.cat]} · ${esc(c.hq)}</span></span>
-        <span class="owner">${esc(c.owner)}</span>
-        <span class="meta">
-          <span class="nat"><span class="lbl">Nationality: </span>${esc(c.nat)}</span>
-          <span class="emp"><span class="lbl">Staff: </span>${esc(c.emp)}</span>
-        </span>
-        <span class="chev" aria-hidden="true"></span>
-      </summary>
-      <dl class="dossier">
-        ${field("Core services", esc(c.svc), "wide")}
-        ${field("Ownership type", esc(c.own))}
-        ${field("Founded", esc(c.year))}
-        ${field("Coverage", esc(c.cov))}
-        ${field("Capacity / scale", esc(c.cap))}
-        ${field("Revenue (published or third-party)", esc(c.rev))}
-        ${field("Indicative revenue (our estimate)", `<span class="est">${esc(c.est)}</span>`)}
-        ${field("Licences / certifications", esc(c.lic))}
-        ${field("Notable clients / contracts", esc(c.cli))}
-        ${field("Data confidence", `<span class="pill${/low/i.test(c.conf) ? " low" : ""}">${esc(c.conf)}</span>`)}
-        ${field("Why they compete with MEBS", esc(c.why), "wide")}
-        ${field("Government ownership check", `<span class="pill gov">${esc(c.gov)}</span>`, "wide")}
-        ${field("Main sources", esc(c.src), "wide")}
-      </dl>
-    </details>`).join("")
-    : `<div class="empty">No competitors match “${esc(q.value)}”. Clear the search to see all ${total}.</div>`;
+function coCard(c, n) {
+  return `<button class="co" type="button" data-co="${c.i}">
+    <span class="n"><em>${String(n).padStart(2, "0")}</em><span>${esc(c.name)}</span></span>
+    <span class="o">${esc(c.owner)}</span>
+    <span class="m">${esc(shortHq(c.hq))} · ${esc(c.emp)}</span>
+  </button>`;
 }
 
-function fromHash() {
-  const h = location.hash.replace("#", "");
-  view = CATS.some(c => c.id === h) ? h : "all";
-  render();
+const TEXT = {
+  FM: { title: "Integrated FM<br>Competitors", body: "Integrated FM providers that bundle MEP maintenance, cleaning, security and soft services under one contract. This is the model MEBS has offered since 2019." },
+  Security: { title: "Security<br>Competitors", body: "Guarding companies that compete with MEBS's original SIRA-licensed security business, from large locally owned firms to small Dubai specialists." },
+  Cleaning: { title: "Cleaning<br>Competitors", body: "Cleaning specialists, from large commercial contractors to app-based home cleaning, competing with MEBS's cleaning division." },
+};
+
+function catSlide(cat, part, tone) {
+  const all = byCat(cat);
+  const list = all.slice(part * 10, part * 10 + 10);
+  const from = part * 10 + 1, to = part * 10 + list.length;
+  return { tone, html: `
+    <div class="abs" style="left:56px;top:120px;width:380px">
+      <h2 class="h" style="font-size:42px">${TEXT[cat].title}</h2>
+      <div style="margin-top:18px"><span class="pill">${from}–${to} of ${all.length} · no government owners</span></div>
+      <p class="lead" style="margin-top:26px;font-size:13px">${TEXT[cat].body}</p>
+      <p class="lead" style="margin-top:14px;font-size:12px">Click a company for owner, staff, revenue, licences, clients and sources.</p>
+    </div>
+    ${photo(56, 470, 380, 190, cat === "FM" ? "building" : cat === "Security" ? "shield" : "clean", CAT_LABEL[cat], tone === "blue" ? "alt" : "")}
+    <div class="cgrid" style="left:470px;top:64px;width:754px;height:600px">${list.map((c, k) => coCard(c, from + k)).join("")}</div>` };
 }
-tabs.addEventListener("click", e => {
-  const b = e.target.closest(".tab"); if (!b) return;
-  if (location.hash.replace("#", "") === b.dataset.id) { view = b.dataset.id; render(); }
-  else location.hash = b.dataset.id;
+
+function slides() {
+  const total = DATA.companies.length;
+  const n = c => byCat(c).length;
+  const excl = DATA.excluded;
+  const m = DATA.mebs;
+  const S = [];
+
+  S.push({ tone: "blue", html: `
+    <div class="abs" style="left:56px;top:150px;width:600px">
+      <h2 style="margin:0;font-size:66px;font-weight:600;line-height:1.12;letter-spacing:.01em">COMPETITOR<br>LANDSCAPE<br>UAE 2026</h2>
+      <div style="margin-top:22px;display:flex;align-items:center;gap:14px;font-size:20px"><span style="width:44px;height:4px;border-radius:2px;background:#fff"></span>Market Intelligence Deck</div>
+    </div>
+    ${photo(700, 70, 300, 380, "building", "Integrated FM")}
+    ${photo(1020, 70, 210, 180, "shield", "Security", "alt")}
+    ${photo(1020, 270, 210, 180, "clean", "Cleaning", "navy")}
+    <div class="bcard" style="left:830px;top:478px;width:340px;background:linear-gradient(150deg,#47a2ff 0%,#2a7ef0 100%);border:1px solid rgba(255,255,255,.35)">
+      <h4 style="display:flex;gap:10px;align-items:center"><span style="width:22px;height:22px;border-radius:50%;background:#fff;color:#1f7ae8;display:grid;place-items:center;font-size:13px;font-weight:700">i</span>This deck covers:</h4>
+      <p>${total} private competitors: ${n("FM")} integrated FM, ${n("Security")} security and ${n("Cleaning")} cleaning companies. None has a government owner.</p>
+    </div>
+    <div class="abs" style="left:56px;bottom:38px;display:flex;gap:46px;font-size:12px;opacity:.85"><span>Page 1</span><span>Prepared for MEBS Facility Services</span></div>` });
+
+  S.push({ tone: "white", html: `
+    <div class="abs" style="left:56px;top:150px;width:470px">
+      <h2 class="h">Market and<br>Context</h2>
+      <div style="margin-top:16px"><span class="pill">MEBS · UAE market 2026</span></div>
+      <h4 style="margin:40px 0 10px;font-size:15px;font-weight:600">Private competitors only</h4>
+      <p class="lead" style="margin:0">MEBS competes in three service lines: integrated facility management, security guarding and cleaning. This deck profiles ${total} privately owned competitors across the UAE. Any company with a government or state shareholder, even a small or indirect one, is listed separately and left out.</p>
+    </div>
+    ${photo(640, 64, 280, 290, "building")}
+    <div class="bcard" style="left:940px;top:64px;width:284px;height:290px"><h4>Integrated FM</h4><p>MEP maintenance, cleaning, security and soft services under one contract. ${n("FM")} competitors, from Farnek and EFS to Emirati family groups.</p></div>
+    <div class="bcard" style="left:640px;top:374px;width:280px;height:290px"><h4>Security and Cleaning</h4><p>Single-service specialists that compete with MEBS's guarding and cleaning divisions. ${n("Security") + n("Cleaning")} competitors.</p></div>
+    ${photo(940, 374, 284, 290, "shield", "", "alt")}` });
+
+  const stat = (num, label, desc, items) => `<div class="stat"><b>${num}</b><h5>${label}</h5><p>${desc}</p><ul>${items.map(t => `<li>${t}</li>`).join("")}</ul></div>`;
+  S.push({ tone: "white", html: `
+    ${photo(56, 64, 360, 240, "globe", "UAE wide", "alt")}
+    <div class="abs" style="left:470px;top:110px;width:700px">
+      <h2 class="h">Competitors<br>at a Glance</h2>
+      <div style="margin-top:16px"><span class="pill">Owners · staff · revenue</span></div>
+    </div>
+    <div class="abs" style="left:56px;top:380px;width:1168px;display:grid;grid-template-columns:repeat(4,1fr);gap:36px">
+      ${stat(total, "Competitors profiled", "Private-sector firms across all emirates.", ["No government owners", "Owner and staff listed"])}
+      ${stat(n("FM"), "Integrated FM", "Full-service facility management.", ["Farnek, EFS, AG Facilities", "Al Shirawi, Khansaheb"])}
+      ${stat(n("Security"), "Security only", "Manned guarding specialists.", ["First Security Group", "Securitas, Emirates Security"])}
+      ${stat(n("Cleaning"), "Cleaning only", "Commercial and home cleaning.", ["Cleanco, Berkeley (Klüh)", "Dussmann, Whitespot"])}
+    </div>` });
+
+  S.push({ tone: "blue", html: `
+    <div class="abs" style="left:0;right:0;top:120px;text-align:center">
+      <h2 style="margin:0;font-size:46px;font-weight:500">Competitor Segments</h2>
+      <div class="sub" style="margin-top:6px;opacity:.9">No government ownership</div>
+    </div>
+    ${[["Integrated FM", `${n("FM")} full-service FM providers`, 4],
+       ["Security only", `${n("Security")} guarding companies`, 6],
+       ["Cleaning only", `${n("Cleaning")} cleaning companies`, 8],
+       ["Excluded", `${excl.length} government-linked firms left out`, 10],
+       ["MEBS", "Our own profile as the benchmark", 11]]
+      .map(([t, d, go], k) => `<button class="seg" type="button" data-go="${go}" style="left:${100 + k * 222}px;top:300px;width:200px;height:260px">${IC.arrow}<b>${t}</b><span>${d}</span></button>`).join("")}` });
+
+  S.push(catSlide("FM", 0, "white"));
+  S.push(catSlide("FM", 1, "white"));
+  S.push(catSlide("Security", 0, "blue"));
+  S.push(catSlide("Security", 1, "blue"));
+  S.push(catSlide("Cleaning", 0, "white"));
+  S.push(catSlide("Cleaning", 1, "white"));
+
+  S.push({ tone: "white", html: `
+    <div class="abs" style="left:56px;top:120px;width:380px">
+      <h2 class="h" style="font-size:42px">Excluded<br>Companies</h2>
+      <div style="margin-top:16px"><span class="pill">Government owned or linked</span></div>
+      <div style="margin-top:40px;font-size:60px;font-weight:600;color:var(--red);line-height:1">${excl.length}</div>
+      <h4 style="margin:6px 0 10px;font-size:15px;font-weight:600">companies left out</h4>
+      <p class="lead" style="margin:0;font-size:13px">Any government or state shareholder, even a partial or indirect one, rules a company out. Dulsco is left out to be safe because one shareholder belongs to the ruling family.</p>
+    </div>
+    <div class="xlist" style="left:470px;top:70px;width:754px">${excl.map(x => `<div><i></i><b>${esc(x.name)}</b><span>${esc(x.why)}</span></div>`).join("")}</div>` });
+
+  S.push({ tone: "blue", html: `
+    <div class="abs" style="left:56px;top:110px;width:420px">
+      <h2 style="margin:0;font-size:44px;font-weight:500;line-height:1.12">MEBS<br>Benchmark</h2>
+      <div class="sub" style="margin-top:8px;opacity:.9">Our position</div>
+    </div>
+    <div class="abs" style="left:560px;top:110px;width:640px;display:grid;grid-template-columns:44px 1fr;gap:6px 16px">
+      <span style="width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.18);display:grid;place-items:center"><svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:#fff;stroke-width:2;fill:none">${IC.arrow.match(/<path[^>]*>/)[0]}</svg></span>
+      <div><div style="font-size:18px;font-weight:500">${esc(m[3])}-owned, part of Al Qaisi Group</div>
+        <p style="margin:10px 0 0;font-size:13px;line-height:1.65;opacity:.88">${esc(m[0])}. Founded ${esc(m[5])}. Head office in ${esc(m[6])}. Services: ${esc(m[1])}.</p></div>
+    </div>
+    <div class="tile" style="left:56px;top:400px;width:360px;height:260px"><b>2000</b><h5>Founded as a security company</h5><p>Added cleaning and maintenance in 2019 to become an integrated FM provider.</p></div>
+    ${photo(440, 400, 360, 260, "building", "Business Bay, Dubai")}
+    <div class="tile" style="left:824px;top:400px;width:400px;height:260px"><b>SIRA</b><h5>Licensed security guarding</h5><p>${esc(m[8])} employees. ${esc(m[9].replace(/^SIRA,\s*/, ""))}.</p></div>` });
+
+  S.push({ tone: "white", html: `
+    <div class="abs" style="left:56px;top:130px;width:500px">
+      <h2 class="h">How to Read<br>this Deck</h2>
+      <div style="margin-top:16px"><span class="pill">Sources and method</span></div>
+      <p class="lead" style="margin-top:36px">All figures come from public web sources: company releases, news coverage and business directories. Private UAE companies do not publish accounts, so some fields are estimates or marked as not published.</p>
+      <div style="margin-top:28px;display:flex;gap:40px"><div><div style="font-size:30px;font-weight:600;color:var(--blue)">${total}</div><div style="font-size:12px;color:var(--muted)">companies profiled</div></div><div><div style="font-size:30px;font-weight:600;color:var(--blue)">3</div><div style="font-size:12px;color:var(--muted)">confidence levels</div></div></div>
+    </div>
+    ${photo(610, 64, 330, 600, "chart", "", "navy")}
+    <div class="ncard" style="left:880px;top:110px;width:344px"><b>01.</b><h5>Employees</h5><p>As reported by the company or a named source. Where sources disagree, the range is shown.</p></div>
+    <div class="ncard" style="left:880px;top:290px;width:344px"><b>02.</b><h5>Revenue</h5><p>Published or database figures are labelled. Our estimate is headcount × typical yearly billing per employee, for rough sizing only.</p></div>
+    <div class="ncard" style="left:880px;top:470px;width:344px"><b>03.</b><h5>Government ownership</h5><p>"None found" means none in public sources. Confirm owners on the Dubai DET or Abu Dhabi ADDED trade licence register.</p></div>` });
+
+  S.push({ tone: "white", html: `
+    ${photo(56, 92, 700, 320, "globe", "MEBS Facility Services", "alt")}
+    <div class="contact" style="left:800px;top:140px">
+      <div><i>${IC.pin}</i>Business Bay, Dubai, UAE</div>
+      <div><i>${IC.phone}</i>+971 4 562 9292</div>
+      <div><i>${IC.mail}</i>info@mebsfacility.com</div>
+      <div><i>${IC.web}</i>www.mebsfacility.com</div>
+    </div>
+    <div class="thanks">Thank You</div>` });
+
+  return S.map((s, k) => `<div class="slide ${s.tone}">${brand()}<span class="pageno">Page ${k + 1}</span>${s.html}</div>`);
+}
+
+const SL = slides();
+document.getElementById("total").textContent = SL.length;
+const grid = document.getElementById("grid");
+grid.innerHTML = SL.map((h, k) => `<div class="frame" role="button" tabindex="0" data-i="${k}" aria-label="Open slide ${k + 1}">${h}</div>`).join("");
+grid.addEventListener("keydown", e => { const f = e.target.closest(".frame"); if (f && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); openViewer(+f.dataset.i); } });
+
+const fit = el => el.style.setProperty("--s", el.clientWidth / 1280);
+const ro = new ResizeObserver(es => es.forEach(e => fit(e.target)));
+grid.querySelectorAll(".frame").forEach(f => { ro.observe(f); fit(f); });
+
+const viewer = document.getElementById("viewer"), vframe = document.getElementById("vframe");
+let cur = 0;
+ro.observe(vframe);
+function show(i) {
+  cur = (i + SL.length) % SL.length;
+  vframe.innerHTML = SL[cur];
+  fit(vframe);
+  document.getElementById("vcount").textContent = `${cur + 1} / ${SL.length}`;
+}
+function openViewer(i) { viewer.hidden = false; show(i); document.getElementById("vnext").focus(); }
+grid.addEventListener("click", e => { const f = e.target.closest(".frame"); if (f) openViewer(+f.dataset.i); });
+document.getElementById("vprev").onclick = () => show(cur - 1);
+document.getElementById("vnext").onclick = () => show(cur + 1);
+document.getElementById("vclose").onclick = () => { viewer.hidden = true; grid.querySelector(`[data-i="${cur}"]`)?.focus(); };
+vframe.addEventListener("click", e => {
+  const c = e.target.closest("[data-co]"); if (c) return openCo(+c.dataset.co);
+  const g = e.target.closest("[data-go]"); if (g) show(+g.dataset.go);
 });
-q.addEventListener("input", render);
-window.addEventListener("hashchange", fromHash);
 
-const MEBS_LABELS = ["Company", "Services", "Owner", "Nationality", "Ownership", "Founded", "Head office", "Coverage", "Employees", "Licences"];
-document.getElementById("mebs").innerHTML = DATA.mebs.map((v, i) => `<dt>${MEBS_LABELS[i]}</dt><dd>${esc(v)}</dd>`).join("");
-document.getElementById("excl").innerHTML = DATA.excluded.map(x => `<li><b>${esc(x.name)}</b><span>${esc(x.why)}</span></li>`).join("");
-
-fromHash();
+const modal = document.getElementById("modal");
+const F = (l, v, cls = "") => `<div class="${cls}"><dt>${l}</dt><dd>${v}</dd></div>`;
+function openCo(i) {
+  const c = DATA.companies[i];
+  document.getElementById("dname").textContent = c.name;
+  document.getElementById("dcat").textContent = `${CAT_LABEL[c.cat]} · ${shortHq(c.hq)}`;
+  document.getElementById("dbody").innerHTML = [
+    F("Core services", esc(c.svc), "wide"), F("Owner / parent", esc(c.owner), "wide"),
+    F("Owner nationality", esc(c.nat)), F("Ownership type", esc(c.own)),
+    F("Founded", esc(c.year)), F("Head office", esc(c.hq)),
+    F("Coverage", esc(c.cov)), F("Employees", esc(c.emp)),
+    F("Capacity / scale", esc(c.cap), "wide"),
+    F("Revenue (published or third-party)", esc(c.rev)), F("Indicative revenue (our estimate)", esc(c.est)),
+    F("Licences / certifications", esc(c.lic)), F("Notable clients / contracts", esc(c.cli)),
+    F("Why they compete with MEBS", esc(c.why), "wide"),
+    F("Government ownership check", `<span class="chip">${esc(c.gov)}</span>`, "wide"),
+    F("Data confidence", `<span class="chip${/low/i.test(c.conf) ? " low" : ""}">${esc(c.conf)}</span>`),
+    F("Main sources", esc(c.src), "wide"),
+  ].join("");
+  modal.hidden = false;
+  document.getElementById("dclose").focus();
+}
+const closeCo = () => { modal.hidden = true; };
+document.getElementById("dclose").onclick = closeCo;
+modal.addEventListener("click", e => { if (e.target === modal) closeCo(); });
+document.addEventListener("keydown", e => {
+  if (!modal.hidden) { if (e.key === "Escape") closeCo(); return; }
+  if (viewer.hidden) return;
+  if (e.key === "Escape") document.getElementById("vclose").click();
+  if (e.key === "ArrowRight") show(cur + 1);
+  if (e.key === "ArrowLeft") show(cur - 1);
+});
 </script>
