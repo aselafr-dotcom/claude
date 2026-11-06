@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@500&display=swap">
 <style>
-/* Layout: white brand bar with logo, a rounded blue gradient hero with stat tiles (MEBS deck style), sticky filter pills, then rounded white company cards that open into a dossier. */
+/* Light-only design. Layout: white brand bar with logo, a rounded blue gradient hero with stat tiles (MEBS deck style), sticky filter pills, then rounded white company cards that open into a dossier. */
 :root {
   /* MEBS brand: navy from the wordmark, bright deck blue, red from the globe */
   --navy: #17386b;
@@ -36,20 +36,6 @@
   --mono: "Roboto Mono", ui-monospace, Menlo, Consolas, monospace;
   --radius: 18px;
   color-scheme: light;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --navy: #cfe0fb; --blue: #4b93f4; --blue-deep: #1e5fc8; --blue-soft: #16305a; --red: #ff5a5e;
-    --bg: #0a1630; --surface: #10224a; --fg: #e5edf9; --muted: #9db0cc; --line: #23396a; --on-blue: #ffffff;
-    --fm: #5aa0f7; --sec: #a9c3ee; --cln: #3fc9c9; --ok: #4fd09a; --warn: #f0b54a;
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --navy: #cfe0fb; --blue: #4b93f4; --blue-deep: #1e5fc8; --blue-soft: #16305a; --red: #ff5a5e;
-  --bg: #0a1630; --surface: #10224a; --fg: #e5edf9; --muted: #9db0cc; --line: #23396a; --on-blue: #ffffff;
-  --fm: #5aa0f7; --sec: #a9c3ee; --cln: #3fc9c9; --ok: #4fd09a; --warn: #f0b54a;
-  color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
